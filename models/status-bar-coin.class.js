@@ -1,12 +1,12 @@
 class StatusBarCoin extends DrawableObject {
 
     IMAGES = [
-        'img/7.Marcadores/Barra/Marcador_moneda/azul/0_.png',
-        'img/7.Marcadores/Barra/Marcador_moneda/azul/20_.png',
-        'img/7.Marcadores/Barra/Marcador_moneda/azul/40_.png',
-        'img/7.Marcadores/Barra/Marcador_moneda/azul/60_.png',
-        'img/7.Marcadores/Barra/Marcador_moneda/azul/80_.png',
-        'img/7.Marcadores/Barra/Marcador_moneda/azul/100_.png'
+        'img/7.Marcadores/Barra/Marcador_moneda/Naranja/0.png',
+        'img/7.Marcadores/Barra/Marcador_moneda/Naranja/20.png',
+        'img/7.Marcadores/Barra/Marcador_moneda/Naranja/40.png',
+        'img/7.Marcadores/Barra/Marcador_moneda/Naranja/60.png',
+        'img/7.Marcadores/Barra/Marcador_moneda/Naranja/80.png',
+        'img/7.Marcadores/Barra/Marcador_moneda/Naranja/100.png'
     ];
 
     percentage = 100;

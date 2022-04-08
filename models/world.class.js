@@ -11,9 +11,10 @@ class World {
     throwableObject = [new ThrowableObject()];
 
 
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // mit diesem werkzeug kann man auf dem canvas auf demensprechenden koordinaten etwas hinzufügen (immer ctx!)
-        this.canvas = canvas; // mit this(.canvas) greifen wir auf oben auf die variablen zu (calss World) und erhält den wert von canvas
+        this.canvas = canvas; // mit this(.canvas) greifen wir auf oben auf die variablen zu (class World) und erhält den wert von canvas
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
@@ -48,39 +49,42 @@ class World {
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // das canvas wird immmer wieder gelöscht / gecleant
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // das canvas wird immmer wieder gelöscht / gecleant (immer ganz am anfang)
 
         this.ctx.translate(this.camera_x, 0);
 
-        // hintergründe objecte werden gezeichnet gezeichnet
+        // objecte werden gezeichnet gezeichnet
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.bottle);
+        this.addObjectsToMap(this.level.bottleR);
+        this.addObjectsToMap(this.level.coin);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObject);
 
+        this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBarLife);
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.statusBarCoin);
         this.ctx.translate(this.camera_x, 0);
-
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.enemies);
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.throwableObject);
-
         this.ctx.translate(-this.camera_x, 0);
 
-        // draw() wird immer wieder aufgerufen
+        // draw() wird immer wieder aufgerufen (soviel wie die grafikkarte hergibt)
         let self = this;
         requestAnimationFrame(function () { // requestAnimationFrame wird ausgeführt sobald alles oberhalb (in draw) gezeichnet wurde
-            self.draw(); // this wird nicht erkannt, deswegen über eine variable
+            self.draw(); // this wird nicht erkannt, deswegen über eine variable (self)
         });
     }
 
+    // für mehrere objekte
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         });
     }
 
+    //für einzelne objekte
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flippImage(mo);

@@ -81,7 +81,7 @@ class Character extends MovableObject {
 
 
     constructor() { // wird ausgeführt wenn das object neu erstellt wird
-        super().loadImage('img/2.Secuencias_Personaje-Pepe-correcciขn/2.Secuencia_caminata/W-21.png'); // super wird verwendet um methoden vom übergeordneten objekt aufzurufen
+        super().loadImage(this.IMAGES_WALKING[0]); // super wird verwendet um methoden vom übergeordneten objekt aufzurufen
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);

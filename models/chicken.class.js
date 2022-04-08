@@ -10,7 +10,7 @@ class Chicken extends MovableObject {
 
 
     constructor() { // wird ausgeführt wenn das object neu erstellt wird
-        super().loadImage('img/3.Secuencias_Enemy_basico/Versi¢n_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png'); // super wird verwendet um methoden vom übergeordneten objekt aufzurufen
+        super().loadImage(this.IMAGES_WALKING[0]); // super wird verwendet um methoden vom übergeordneten objekt aufzurufen
         this.loadImages(this.IMAGES_WALKING);
 
         this.x = 1600 + Math.random() * 2000; // math.random() gibt eine zufällige zahl zwischen 0 - 1 aus. die hünchen werden an verschiedenen pos. ausgegeben.

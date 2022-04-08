@@ -4,8 +4,8 @@ class DrawableObject {
     img;
     imageCache = {};
     currentImage = 0;
-    height;
-    width;
+    height = 100;
+    width = 100;
 
 
     loadImage(path) {
