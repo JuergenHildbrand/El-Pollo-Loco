@@ -77,14 +77,14 @@ class World {
         });
     }
 
-    // für mehrere objekte
+    // mehrere objekte werden von level1 geladen
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         });
     }
 
-    //für einzelne objekte
+    // mit dieser funktion werden standartwerte übergeben (img, x, y, width, height)
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flippImage(mo);

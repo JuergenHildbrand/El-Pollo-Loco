@@ -2,7 +2,7 @@ class DrawableObject {
     x = 100;
     y = 100;
     img;
-    imageCache = {};
+    imageCache = {}; // loadImages lädt alle bilder in dieses json
     currentImage = 0;
     height = 100;
     width = 100;
@@ -27,11 +27,16 @@ class DrawableObject {
         }
     }
 
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
+    /**
+     * lädt bilder in den cache
+     * 
+     * @param {array} array - [mit mehreren bildern] 
+     */
+    loadImages(array) { // ein array (pfade) wird zur funktion hunzugefügt
+        array.forEach((path) => {
+            let img = new Image(); // new image vergiebt den pfad des bildes an die variable img
+            img.src = path; // hier wird das bild in das image-object (zeile 36) hineningeladen. img ist inerhalb der funktion definiert, deshalb ohne this
+            this.imageCache[path] = img; // das bild wird zum imageCache gegeben
         });
     }
 

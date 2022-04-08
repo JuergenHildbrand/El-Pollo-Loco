@@ -52,7 +52,8 @@ class MovableObject extends DrawableObject {
 
     playAnimation(images) {
         // walk animation
-        let i = this.currentImage % images.length; // % = modulu / unendliche schleiffe
+        let i = this.currentImage % images.length; // beim ersten durchlauf ist currentImage = 0, das erste bild wird geladen. % = modulu / unendliche schleiffe 
+        // i = 0, 1, 2, ... 5, 0, 1, 
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
