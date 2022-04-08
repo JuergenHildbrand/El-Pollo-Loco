@@ -14,16 +14,13 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
 
         this.x = 1600 + Math.random() * 2000; // math.random() gibt eine zufällige zahl zwischen 0 - 1 aus. die hünchen werden an verschiedenen pos. ausgegeben.
-        this.speed = 0.15 + Math.random() * 0.5; // die hünchen erhalten eine unterschiedliche geschwindigkeit
+        this.speed = 0 + Math.random() * 0; // die hünchen erhalten eine unterschiedliche geschwindigkeit
 
         this.animate();
     }
 
     animate() {
         this.moveLeft();
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);

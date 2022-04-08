@@ -56,8 +56,7 @@ class World {
         // objecte werden gezeichnet gezeichnet
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.bottle);
-        this.addObjectsToMap(this.level.bottleR);
+        this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObject);
@@ -89,7 +88,7 @@ class World {
         if (mo.otherDirection) {
             this.flippImage(mo);
         }
-        mo.draw(this.ctx);
+        mo.draw(this.ctx); // draw() in drawableObject wir ausgeführt 
         mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {

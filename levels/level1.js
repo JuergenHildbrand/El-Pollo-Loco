@@ -1,12 +1,13 @@
+// alle obekte von level 1
 const level1 = new Level(
     [
         new Chicken(),
         new Chicken(),
         new Chicken(),
         new Endboss(),
-        new Chicken_small(),
-        new Chicken_small(),
-        new Chicken_small()
+        new ChickenSmall(),
+        new ChickenSmall(),
+        new ChickenSmall()
     ],
     [
         new Cloud1(),
@@ -17,19 +18,17 @@ const level1 = new Level(
         new Cloud2()
     ],
     [
-        new Bottle(),
-        new Bottle(),
-        new Bottle(),
-        new Bottle(),
-        new Bottle(),
+        new BottleL(),
+        new BottleL(),
+        new BottleL(),
+        new BottleL(),
+        new BottleL(),
+        new BottleR(),
+        new BottleR(),
+        new BottleR(),
+        new BottleR(),
+        new BottleR()
         
-    ],
-    [
-        new BottleR(),
-        new BottleR(),
-        new BottleR(),
-        new BottleR(),
-        new BottleR()  
     ],
     [
         new Coin(),

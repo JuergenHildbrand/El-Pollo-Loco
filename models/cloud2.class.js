@@ -14,9 +14,6 @@ class Cloud2 extends MovableObject {
 
     // wolke bewegt sich nach links
     animate() {
-        // this.moveLeft();
-        setInterval(() => {
-            this.x -= 0.25; // wird alle 1000/60 ms ausgegührt, 60x /s - fps wird anzahl pixel von x abgezogen
-        }, 1000 / 60);
+        this.moveLeft();
     }
 }

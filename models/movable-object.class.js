@@ -9,7 +9,7 @@ class MovableObject extends DrawableObject {
 
     applyGaravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            if (this.isAboveGround() || this.speedY > 0) { // sobald er auf dem boden ist, nichts mehr abziehen
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -27,7 +27,7 @@ class MovableObject extends DrawableObject {
     isColliding(mo) {
         return  this.x + this.width > mo.x &&
                 this.y + this.height > mo.y &&
-                this.x < mo.x &&
+                this.x < mo.x +mo.width &&
                 this.y < mo.y + mo.height
     }
 
@@ -50,9 +50,10 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    // hier durchlaufen die bilder der animation
     playAnimation(images) {
         // walk animation
-        let i = this.currentImage % images.length; // beim ersten durchlauf ist currentImage = 0, das erste bild wird geladen. % = modulu / unendliche schleiffe 
+        let i = this.currentImage % images.length; // beim ersten durchlauf ist currentImage = 0, das erste bild wird geladen. % = modulu / unendliche schleiffe, restwert des geteilten
         // i = 0, 1, 2, ... 5, 0, 1, 
         let path = images[i];
         this.img = this.imageCache[path];
@@ -60,11 +61,15 @@ class MovableObject extends DrawableObject {
     }
 
     moveRight() {
-        this.x += this.speed;
+        setInterval(() => {
+            this.x += this.speed;
+        }, 1000 / 60);
     }
 
     moveLeft() {
-        this.x -= this.speed;
+        setInterval(() => {
+            this.x -= this.speed;
+        }, 1000 / 60);
     }
 
     jump() {

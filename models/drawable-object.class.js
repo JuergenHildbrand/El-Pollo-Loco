@@ -1,11 +1,12 @@
 class DrawableObject {
-    x = 100;
-    y = 100;
+    x;
+    y;
+    height;
+    width;
     img;
     imageCache = {}; // loadImages lädt alle bilder in dieses json
     currentImage = 0;
-    height = 100;
-    width = 100;
+    
 
 
     loadImage(path) {
@@ -18,7 +19,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Chicken_small) { // instanceof, diesse befehle werden nur ausgeführt wenn...
+        if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall) { // instanceof, diesse befehle werden nur ausgeführt wenn...
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.stokeStyle = 'blue';

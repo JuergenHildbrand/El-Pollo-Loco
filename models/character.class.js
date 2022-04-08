@@ -96,12 +96,12 @@ class Character extends MovableObject {
 
         const sound = setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
+                this.x += this.speed;
                 this.otherDirection = false;
                 this.walkin_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > -1025) {
-                this.moveLeft();
+                this.x -= this.speed;
                 this.otherDirection = true;
                 this.walkin_sound.play();
             }
