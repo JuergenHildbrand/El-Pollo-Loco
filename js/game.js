@@ -8,6 +8,7 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas'); // greift auf das canvas zu
     world =  new World(canvas, keyboard); // ein neues object namens world wird erstellt und dem geben wir die variablen canvas und keyboard mit
+    this.coins = [];
 }
 
 

@@ -1,6 +1,10 @@
 class DrawableObject {
     x;
     y;
+    xOffset = 0;
+    yOffset = 0;
+    xLimitOffset = 0;
+    yLimitOffset = 0;
     height;
     width;
     img;
@@ -40,5 +44,4 @@ class DrawableObject {
             this.imageCache[path] = img; // das bild wird zum imageCache gegeben
         });
     }
-
 }

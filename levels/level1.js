@@ -31,16 +31,16 @@ const level1 = new Level(
         
     ],
     [
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
+        new Coin('1'),
+        new Coin('2'),
+        new Coin('3'),
+        new Coin('4'),
+        new Coin('5'),
+        new Coin('6'),
+        new Coin('7'),
+        new Coin('8'),
+        new Coin('9'),
+        new Coin('10')
     ],
     [
         new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', -2558),

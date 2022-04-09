@@ -9,6 +9,8 @@ class World {
     statusBarBottle = new statusBarBottle();
     statusBarCoin = new StatusBarCoin();
     throwableObject = [new ThrowableObject()];
+    coins = [];
+    
 
 
 
@@ -19,6 +21,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+
     }
 
     setWorld() {
@@ -34,23 +37,27 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x +100, this.character.y +100);
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObject.push(bottle);
         }
     }
 
-    checkCollisions() {
+    checkCollisions(id) {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
-        });    
+        });
         this.level.coin.forEach((coin) => {
-            if (this.character.isColliding(coin)) {
+            console.log(coin.collectable);
+            if (this.character.isColliding(coin) && coin.collectable) {
+                this.coin.collectable = false;
+                this.coins.push(coin[id]);
+                this.level.coin.splice(coin[id], 1);
                 console.log('is colliding', coin);
             }
-            
+
         });
     }
 
@@ -113,7 +120,6 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
-
 
 
 }
