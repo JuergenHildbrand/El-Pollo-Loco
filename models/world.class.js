@@ -8,9 +8,10 @@ class World {
     statusBarLife = new StatusBarLife();
     statusBarBottle = new statusBarBottle();
     statusBarCoin = new StatusBarCoin();
-    throwableObject = [new ThrowableObject()];
-    coins = [];
-    bottles = [];
+    throwableObject = [];
+
+    
+
 
 
 
@@ -37,9 +38,11 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.character.addedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.character.addedBottles -= 10;
             this.throwableObject.push(bottle);
+            this.statusBarBottle.setPercentage(this.character.addedBottles);
         }
     }
 
@@ -52,23 +55,21 @@ class World {
             }
         });
 
-        // character & coin
+        // character get coin
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                this.coins.push(index);
                 this.level.coin.splice(index, 1);
                 this.character.addedCoins += 10;
                 this.statusBarCoin.setPercentage(this.character.addedCoins);
             }
         });
 
+        // character get bottle
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
-                this.bottles.push(index);
+                this.character.addedBottles += 10;
                 this.level.bottles.splice(index, 1);
-                console.log(this.bottles);
-                // this.character.addedCoins += 10;
-                // this.statusBarCoin.setPercentage(this.character.addedCoins);
+                this.statusBarBottle.setPercentage(this.character.addedBottles);
             }
         });
     }
@@ -117,7 +118,7 @@ class World {
         mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
-            this.flippImageBack(mo)
+            this.flippImageBack(mo);
         }
     }
 

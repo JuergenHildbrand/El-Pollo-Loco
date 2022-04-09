@@ -11,7 +11,7 @@ class ThrowableObject extends MovableObject {
 
     constructor(x, y) {
         super().loadImage('img/7.Marcadores/Icono/Botella.png');
-        this.loadImages(this.IMAGES_THROW); // alle bilder werden sn loadImages (=> drawableObect) gegeben
+        this.loadImages(this.IMAGES_THROW); // alle bilder werden an loadImages (=> drawableObect) gegeben
         this.x = x;
         this.y = y;
         this.height = 100;
@@ -28,10 +28,11 @@ class ThrowableObject extends MovableObject {
         this.animate();
     }
 
+
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_THROW);
         }, 1000 / 10);
     }
-    
+
 }

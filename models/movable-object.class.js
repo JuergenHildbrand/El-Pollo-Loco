@@ -1,11 +1,13 @@
 class MovableObject extends DrawableObject {
     speed = 0.15;
-    otherDirection = false;
+    otherDirection;
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
     addedCoins = 0;
+    addedBottles = 0;
+    throwLR;
 
 
     applyGaravity() {

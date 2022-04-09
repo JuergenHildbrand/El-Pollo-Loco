@@ -7,6 +7,8 @@ class Character extends MovableObject {
     speed = 10;
     yLimitOffset = 155;
 
+    
+
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-correcciขn/2.Secuencia_caminata/W-21.png',
         'img/2.Secuencias_Personaje-Pepe-correcciขn/2.Secuencia_caminata/W-22.png',
@@ -99,17 +101,19 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
+                this.throwLR = false;
                 this.walkin_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > -1025) {
                 this.x -= this.speed;
                 this.otherDirection = true;
+                this.throwLR = true;
                 this.walkin_sound.play();
             }
             if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
                 this.walkin_sound.pause();
             }
-            if (this.isAboveGround() == true) {
+            if (this.isAboveGround()) {
                 this.walkin_sound.pause();
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
@@ -125,7 +129,7 @@ class Character extends MovableObject {
                     clearInterval(sound);
                 }, 1000);
             }
-            if (this.world.keyboard.D) {
+            if (this.world.keyboard.D && this.addedBottles > 0) {
                 this.throw_sound.play();
             }
             this.world.camera_x = -this.x + 400;
