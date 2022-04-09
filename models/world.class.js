@@ -10,7 +10,8 @@ class World {
     statusBarCoin = new StatusBarCoin();
     throwableObject = [new ThrowableObject()];
     coins = [];
-    
+    bottles = [];
+
 
 
 
@@ -42,22 +43,33 @@ class World {
         }
     }
 
-    checkCollisions(id) {
+    checkCollisions() {
+        // character & enemies
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
         });
-        this.level.coin.forEach((coin) => {
-            console.log(coin.collectable);
-            if (this.character.isColliding(coin) && coin.collectable) {
-                this.coin.collectable = false;
-                this.coins.push(coin[id]);
-                this.level.coin.splice(coin[id], 1);
-                console.log('is colliding', coin);
-            }
 
+        // character & coin
+        this.level.coin.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.coins.push(index);
+                this.level.coin.splice(index, 1);
+                this.character.addedCoins += 10;
+                this.statusBarCoin.setPercentage(this.character.addedCoins);
+            }
+        });
+
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.bottles.push(index);
+                this.level.bottles.splice(index, 1);
+                console.log(this.bottles);
+                // this.character.addedCoins += 10;
+                // this.statusBarCoin.setPercentage(this.character.addedCoins);
+            }
         });
     }
 

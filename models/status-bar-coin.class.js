@@ -9,7 +9,7 @@ class StatusBarCoin extends DrawableObject {
         'img/7.Marcadores/Barra/Marcador_moneda/Naranja/100.png'
     ];
 
-    percentage = 100;
+    percentage = 0;
 
     constructor() {
         super();
@@ -18,7 +18,7 @@ class StatusBarCoin extends DrawableObject {
         this.y = 80;
         this.width = 200;
         this.height = 50;
-        this.setPercentage(100);
+        this.setPercentage(0);
     }
 
     // set percentage(50);
