@@ -19,10 +19,10 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall) { // instanceof, diesse befehle werden nur ausgeführt wenn...
+        if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Coin || this instanceof BottleL || this instanceof BottleR) { // instanceof, diesse befehle werden nur ausgeführt wenn...
             ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.stokeStyle = 'blue';
+            ctx.lineWidth = '3';
+            ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }

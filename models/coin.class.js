@@ -1,8 +1,8 @@
 class Coin extends MovableObject {
 
 
-    height = 300;
-    width = 300;
+    height = 200;
+    width = 200;
 
 
     constructor() {

@@ -45,6 +45,12 @@ class World {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
+        });    
+        this.level.coin.forEach((coin) => {
+            if (this.character.isColliding(coin)) {
+                console.log('is colliding', coin);
+            }
+            
         });
     }
 
