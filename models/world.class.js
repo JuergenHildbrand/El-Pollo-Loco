@@ -1,6 +1,6 @@
 class World {
     character = new Character(); // innerhalb einer klasse kein let, const... (gross / kleinschreibung beachten!)
-    endboss = new Endboss();
+    // endboss = new Endboss();
     level = level1;
     canvas;
     ctx;
@@ -38,15 +38,16 @@ class World {
     }
 
     checkDirection() {
-  
-            let pos = this.endboss.x
-            // console.log(this.character.x)
+        this.level.endboss.forEach((endboss) => {
+            let pos = endboss.x;
+            console.log(pos)
           
             if (pos >= this.character.x) {
-                this.endboss.directionEndboss = true;
+                this.directionEndboss = true;
             } else {
-                this.endboss.directionEndboss = false;
+                this.directionEndboss = false;
             }
+        });
     }
 
     checkThrowObjects() {
@@ -97,7 +98,7 @@ class World {
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap([this.endboss]);
+        this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.throwableObject);
 
         this.addToMap(this.character);
