@@ -7,7 +7,11 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     addedCoins = 0;
     addedBottles = 0;
-    throwLR;
+    positionCharacter = 0;
+    positionEnemy = 0;
+    directionEnemy = true;
+    direction = true;
+    directionEndboss = true;
 
 
     applyGaravity() {
@@ -23,21 +27,25 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) {
             return true;
         } else {
-        return this.y < 260;
+            return this.y < 260;
         }
     }
 
     isColliding(mo) {
-        return  this.x + this.width > mo.x + mo.xOffset &&
-                this.y + this.height > mo.y + mo.yOffset &&
-                this.x < mo.x + mo.width - mo.xLimitOffset &&
-                this.y + this.yLimitOffset < mo.y + mo.height - mo.yLimitOffset
+        return this.x + this.width > mo.x + mo.xOffset &&
+            this.y + this.height > mo.y + mo.yOffset &&
+            this.x < mo.x + mo.width - mo.xLimitOffset &&
+            this.y + this.yLimitOffset < mo.y + mo.height - mo.yLimitOffset
+    }
+
+    positionEndboss(mo) {
+        return mo.x;
     }
 
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {
-            this.energy = 0;      
+            this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
@@ -51,6 +59,10 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
+    }
+
+    throwLeft() {
+        return true;
     }
 
     // hier durchlaufen die bilder der animation
@@ -79,5 +91,5 @@ class MovableObject extends DrawableObject {
         this.speedY = 40;
     }
 
-    
+
 }

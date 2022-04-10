@@ -1,5 +1,6 @@
 class World {
     character = new Character(); // innerhalb einer klasse kein let, const... (gross / kleinschreibung beachten!)
+    endboss = new Endboss();
     level = level1;
     canvas;
     ctx;
@@ -9,9 +10,6 @@ class World {
     statusBarBottle = new statusBarBottle();
     statusBarCoin = new StatusBarCoin();
     throwableObject = [];
-
-    
-
 
 
 
@@ -28,18 +26,34 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.endboss.world = this;
     }
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkDirection();
             this.checkThrowObjects();
+            this.checkCollisions();
         }, 200);
+    }
+
+    checkDirection() {
+        this.level.endboss.forEach((endb) => {
+            let pos = this.endboss.positionEndboss(endb);
+            
+            if (pos > this.character.positionCharacter) {
+                this.endboss.moveLeft();
+            }
+                // this.endboss.directionEndboss = true;
+            // } else {
+            //     this.endboss.directionEndboss = false;
+            // }
+        });
     }
 
     checkThrowObjects() {
         if (this.keyboard.D && this.character.addedBottles > 0) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.direction);
             this.character.addedBottles -= 10;
             this.throwableObject.push(bottle);
             this.statusBarBottle.setPercentage(this.character.addedBottles);
@@ -85,6 +99,7 @@ class World {
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.throwableObject);
 
         this.addToMap(this.character);

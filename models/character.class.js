@@ -7,8 +7,6 @@ class Character extends MovableObject {
     speed = 10;
     yLimitOffset = 155;
 
-    
-
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-correcciขn/2.Secuencia_caminata/W-21.png',
         'img/2.Secuencias_Personaje-Pepe-correcciขn/2.Secuencia_caminata/W-22.png',
@@ -98,16 +96,19 @@ class Character extends MovableObject {
     animate() {
 
         const sound = setInterval(() => {
+            
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
+                this.positionCharacter = this.x;
                 this.otherDirection = false;
-                this.throwLR = false;
+                this.direction = true;
                 this.walkin_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > -1025) {
                 this.x -= this.speed;
+                this.positionCharacter = this.x;
                 this.otherDirection = true;
-                this.throwLR = true;
+                this.direction = false;
                 this.walkin_sound.play();
             }
             if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
@@ -133,8 +134,9 @@ class Character extends MovableObject {
                 this.throw_sound.play();
             }
             this.world.camera_x = -this.x + 400;
-        }, 1000 / 60);
 
+        }, 1000 / 60);
+       
         
 
         setInterval(() => {
@@ -155,7 +157,6 @@ class Character extends MovableObject {
             } else {
                 this.sleepAnimation();  
             } 
-
         }, 1000 / 10);
     }
 
