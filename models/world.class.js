@@ -26,7 +26,7 @@ class World {
 
     setWorld() {
         this.character.world = this;
-        this.endboss.world = this;
+        // this.endboss.world = this;
     }
 
     run() {
@@ -40,14 +40,13 @@ class World {
     checkDirection() {
         this.level.endboss.forEach((endb) => {
             let pos = this.endboss.positionEndboss(endb);
-            
-            if (pos > this.character.positionCharacter) {
-                this.endboss.moveLeft();
+            console.log(this.character.positionCharacter)
+          
+            if (pos >= this.character.positionCharacter) {
+                this.endboss.directionEndboss = true;
+            } else {
+                this.endboss.directionEndboss = false;
             }
-                // this.endboss.directionEndboss = true;
-            // } else {
-            //     this.endboss.directionEndboss = false;
-            // }
         });
     }
 
