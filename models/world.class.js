@@ -38,16 +38,15 @@ class World {
     }
 
     checkDirection() {
-        this.level.endboss.forEach((endb) => {
-            let pos = this.endboss.positionEndboss(endb);
-            console.log(this.character.positionCharacter)
+  
+            let pos = this.endboss.x
+            // console.log(this.character.x)
           
-            if (pos >= this.character.positionCharacter) {
+            if (pos >= this.character.x) {
                 this.endboss.directionEndboss = true;
             } else {
                 this.endboss.directionEndboss = false;
             }
-        });
     }
 
     checkThrowObjects() {
@@ -98,7 +97,7 @@ class World {
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.endboss);
+        this.addObjectsToMap([this.endboss]);
         this.addObjectsToMap(this.throwableObject);
 
         this.addToMap(this.character);
