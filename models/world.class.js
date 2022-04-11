@@ -11,9 +11,6 @@ class World {
     StatusBarEndboss = new StatusBarEndboss();
     throwableObject = [];
 
-
-
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // mit diesem werkzeug kann man auf dem canvas auf demensprechenden koordinaten etwas hinzufügen (immer ctx!)
         this.canvas = canvas; // mit this(.canvas) greifen wir auf oben auf die variablen zu (class World) und erhält den wert von canvas
@@ -106,25 +103,25 @@ class World {
                 this.statusBarBottle.setPercentage(this.character.addedBottles);
             }
         });
+
         // bottle meets endboss
         this.level.endboss.forEach((endboss) => {
             this.throwableObject.forEach((bottle) => {
                 if (endboss.isColliding(bottle)) {
                     endboss.hitEndboss();
+                    this.level.endboss.forEach((energy) => {
+                    this.StatusBarEndboss.setPercentage(energy.energyEndboss);
                     // bottle.splash = true;
+                    });
                 }
             });
         });
 
         // character & endboss
         this.level.endboss.forEach((endboss) => {
-
             if (this.character.isColliding(endboss)) {
                 this.character.hit();
-                this.level.endboss.forEach((dir) => {
-                    this.StatusBarEndboss.setPercentage(dir.energyEndboss);
-                });
-                
+                this.statusBarLife.setPercentage(this.character.energy);
             }
         });
     }
@@ -194,6 +191,4 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
-
-
 }

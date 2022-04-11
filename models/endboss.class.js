@@ -4,7 +4,6 @@ class Endboss extends MovableObject {
     height = 600;
     width = 350;
 
-
     IMAGES_WALKING = [
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/1.Caminata/G1.png',
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/1.Caminata/G2.png',
@@ -57,10 +56,9 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 5900; // math.random() gibt eine zufällige zahl zwischen 0 - 1 aus. die hünchen werden an verschiedenen pos. ausgegeben.
+        this.x = 4900; // math.random() gibt eine zufällige zahl zwischen 0 - 1 aus. die hünchen werden an verschiedenen pos. ausgegeben.
         this.animate();
     }
-
 
     animate() {
 
@@ -93,8 +91,6 @@ class Endboss extends MovableObject {
             }
         }, 1000 / 60);
 
-
-
         setInterval(() => {
 
             if (this.isDeadEndboss()) {
@@ -109,9 +105,8 @@ class Endboss extends MovableObject {
                 // walk animation
                 this.playAnimation(this.IMAGES_WALKING);
             }
-            // console.log(this.splash)
+            console.log(this.energyEndboss)
         }, 1000 / 8);
-
     }
 
     goLeftRight() {

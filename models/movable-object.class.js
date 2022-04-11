@@ -13,8 +13,6 @@ class MovableObject extends DrawableObject {
     attack = false;
     endbossStart = false;
     
-
-
     applyGaravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) { // sobald er auf dem boden ist, nichts mehr abziehen
@@ -57,7 +55,6 @@ class MovableObject extends DrawableObject {
         }
     }
     
-
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit; // difference in ms
         timePassed = timePassed / 1000; // difference in s
@@ -107,5 +104,4 @@ class MovableObject extends DrawableObject {
             this.x == this.speed;
         }, 1000 / 60);
     }
-
 }

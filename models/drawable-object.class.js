@@ -11,7 +11,6 @@ class DrawableObject {
     imageCache = {}; // loadImages lädt alle bilder in dieses json
     currentImage = 0;
     
-    
     loadImage(path) {
         this.img = new Image(); // this.img = document.getElementById('image') <img id="image">
         this.img.src = path;
@@ -33,7 +32,6 @@ class DrawableObject {
             this.imageCache[path] = img; // das bild wird zum imageCache gegeben
         });
     }
-
 
  // drawFrame(ctx) {
     //     if (this instanceof Endboss || this instanceof ThrowableObject || this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Coin || this instanceof BottleL || this instanceof BottleR) { // instanceof, diesse befehle werden nur ausgeführt wenn...

@@ -72,14 +72,12 @@ class Character extends MovableObject {
 
     ];
 
-
     world;
     walkin_sound = new Audio('audio/walking.mp3');
     jump_sound = new Audio('audio/jump.mp3');
     hurt_sound = new Audio('audio/hurt.mp3');
     die_sound = new Audio('audio/die.mp3');
     throw_sound = new Audio('audio/throw.mp3');
-
 
     constructor() { // wird ausgeführt wenn das object neu erstellt wird
         super().loadImage(this.IMAGES_WALKING[0]); // super wird verwendet um methoden vom übergeordneten objekt aufzurufen
@@ -96,7 +94,6 @@ class Character extends MovableObject {
     animate() {
 
         const sound = setInterval(() => {
-            
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.positionCharacter = this.x;
@@ -134,11 +131,8 @@ class Character extends MovableObject {
                 this.throw_sound.play();
             }
             this.world.camera_x = -this.x + 400;
-
         }, 1000 / 60);
        
-        
-
         setInterval(() => {
 
             if (this.isDead()) {
@@ -168,9 +162,5 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_WAIT);
         }
     }
-
-
-
-
 }
 

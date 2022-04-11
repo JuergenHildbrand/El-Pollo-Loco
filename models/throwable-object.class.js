@@ -18,7 +18,6 @@ class ThrowableObject extends MovableObject {
         'img/6.botella/Rotaciขn/Splash de salsa/Mesa de trabajo 1 copia 12.png'
     ];
 
-
     constructor(x, y, direction) {
         super().loadImage('img/7.Marcadores/Icono/Botella.png');
         this.loadImages(this.IMAGES_THROW); // alle bilder werden an loadImages (=> drawableObect) gegeben
