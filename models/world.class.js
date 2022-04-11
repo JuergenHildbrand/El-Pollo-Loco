@@ -18,7 +18,6 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-
     }
 
     setWorld() {
@@ -86,6 +85,14 @@ class World {
             }
         });
 
+        // character & endboss
+        this.level.endboss.forEach((endboss) => {
+            if (this.character.isColliding(endboss)) {
+                this.character.hit();
+                this.statusBarLife.setPercentage(this.character.energy);
+            }
+        });
+
         // character get coin
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -111,18 +118,10 @@ class World {
                     endboss.hitEndboss();
                     this.level.endboss.forEach((energy) => {
                     this.StatusBarEndboss.setPercentage(energy.energyEndboss);
-                    // bottle.splash = true;
+                    bottle.splash = true;
                     });
                 }
             });
-        });
-
-        // character & endboss
-        this.level.endboss.forEach((endboss) => {
-            if (this.character.isColliding(endboss)) {
-                this.character.hit();
-                this.statusBarLife.setPercentage(this.character.energy);
-            }
         });
     }
 
