@@ -1,17 +1,18 @@
 class MovableObject extends DrawableObject {
-    speed = 0.15;
+    speed = 0.2;
     otherDirection;
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
+    energyEndboss = 100;
     lastHit = 0;
     addedCoins = 0;
     addedBottles = 0;
-    positionCharacter = 0;
-    positionEnemy = 0;
-    directionEnemy = true;
     direction = true;
     directionEndboss = true;
+    attack = false;
+    endbossStart = false;
+    
 
 
     applyGaravity() {
@@ -38,18 +39,24 @@ class MovableObject extends DrawableObject {
             this.y + this.yLimitOffset < mo.y + mo.height - mo.yLimitOffset
     }
 
-    positionEndboss(mo) {
-        return mo.x;
-    }
-
     hit() {
-        this.energy -= 5;
+        this.energy -= 5; // sterben einschalten
         if (this.energy < 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
     }
+
+    hitEndboss() {
+        this.energyEndboss -= 3;
+        if (this.energyEndboss < 0) {
+            this.energyEndboss = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+    
 
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit; // difference in ms
@@ -59,6 +66,10 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
+    }
+
+    isDeadEndboss() {
+        return this.energyEndboss == 0;
     }
 
     throwLeft() {
@@ -91,11 +102,10 @@ class MovableObject extends DrawableObject {
         this.speedY = 40;
     }
 
-    // moveL() {
-    //     this.x -= this.speed;
-    // } 
-    // moveL() {
-    //     this.x += this.speed;
-    // } 
+    stop() {
+        setInterval(() => {
+            this.x == this.speed;
+        }, 1000 / 60);
+    }
 
 }

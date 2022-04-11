@@ -2,6 +2,9 @@ class ChickenSmall extends MovableObject {
     y = 564;
     height = 70;
     width = 70;
+    xOffset = 40;
+    xLimitOffset = 40;
+
     IMAGES_WALKING = [
         'img/3.Secuencias_Enemy_basico/Versi¢n_pollito/1.Paso_derecho.png',
         'img/3.Secuencias_Enemy_basico/Versi¢n_pollito/2.Centro.png',

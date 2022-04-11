@@ -102,14 +102,14 @@ class Character extends MovableObject {
                 this.positionCharacter = this.x;
                 this.otherDirection = false;
                 this.direction = true;
-                this.walkin_sound.play();
+                // this.walkin_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > -1025) {
                 this.x -= this.speed;
                 this.positionCharacter = this.x;
                 this.otherDirection = true;
                 this.direction = false;
-                this.walkin_sound.play();
+                // this.walkin_sound.play();
             }
             if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
                 this.walkin_sound.pause();
@@ -122,7 +122,7 @@ class Character extends MovableObject {
                 this.jump_sound.play();
             }
             if (this.isHurt()) {
-                this.hurt_sound.play();
+                // this.hurt_sound.play();
             }
             if (this.isDead()) {
                 this.die_sound.play();

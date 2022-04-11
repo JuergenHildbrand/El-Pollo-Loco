@@ -5,6 +5,7 @@ class Level {
     clouds;
     bottles;
     coin;
+    // splash;
     backgroundObjects;
     level_end_x = 5500;
 
@@ -14,6 +15,7 @@ class Level {
         this.clouds = clouds;
         this.bottles = bottles;
         this.coin = coin;
+        // this.splash = splash
         this.backgroundObjects = backgroundObjects;
         
     }

@@ -1,6 +1,5 @@
 class World {
     character = new Character(); // innerhalb einer klasse kein let, const... (gross / kleinschreibung beachten!)
-    // endboss = new Endboss();
     level = level1;
     canvas;
     ctx;
@@ -9,6 +8,7 @@ class World {
     statusBarLife = new StatusBarLife();
     statusBarBottle = new statusBarBottle();
     statusBarCoin = new StatusBarCoin();
+    StatusBarEndboss = new StatusBarEndboss();
     throwableObject = [];
 
 
@@ -26,7 +26,6 @@ class World {
 
     setWorld() {
         this.character.world = this;
-        // this.endboss.world = this;
     }
 
     run() {
@@ -37,17 +36,39 @@ class World {
         }, 200);
     }
 
+    // direction of endboss
     checkDirection() {
         this.level.endboss.forEach((endboss) => {
-            let pos = endboss.x;
-            console.log(pos)
-          
+            let pos = endboss.x + 125;
             if (pos >= this.character.x) {
-                this.directionEndboss = true;
+                this.level.endboss.forEach((dir) => {
+                    dir.directionEndboss = true;
+                });
             } else {
-                this.directionEndboss = false;
+                this.level.endboss.forEach((dir) => {
+                    dir.directionEndboss = false;
+                });
             }
+            this.checkDistance(pos);
         });
+    }
+
+    checkDistance(pos) {
+        let distance = pos - this.character.x;
+        if (distance < 1000) {
+            this.level.endboss.forEach((dir) => {
+                dir.endbossStart = true;
+            });
+        }
+        if (distance < 300 && distance > -300) {
+            this.level.endboss.forEach((dir) => {
+                dir.attack = true;
+            });
+        } else {
+            this.level.endboss.forEach((dir) => {
+                dir.attack = false;
+            });
+        }
     }
 
     checkThrowObjects() {
@@ -85,6 +106,27 @@ class World {
                 this.statusBarBottle.setPercentage(this.character.addedBottles);
             }
         });
+        // bottle meets endboss
+        this.level.endboss.forEach((endboss) => {
+            this.throwableObject.forEach((bottle) => {
+                if (endboss.isColliding(bottle)) {
+                    endboss.hitEndboss();
+                    // bottle.splash = true;
+                }
+            });
+        });
+
+        // character & endboss
+        this.level.endboss.forEach((endboss) => {
+
+            if (this.character.isColliding(endboss)) {
+                this.character.hit();
+                this.level.endboss.forEach((dir) => {
+                    this.StatusBarEndboss.setPercentage(dir.energyEndboss);
+                });
+                
+            }
+        });
     }
 
     draw() {
@@ -106,6 +148,11 @@ class World {
         this.addToMap(this.statusBarLife);
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.statusBarCoin);
+        this.level.endboss.forEach((endboss) => {
+            if (endboss.endbossStart) {
+                this.addToMap(this.StatusBarEndboss);
+            }
+        });
         this.ctx.translate(this.camera_x, 0);
         this.ctx.translate(-this.camera_x, 0);
 
@@ -129,7 +176,7 @@ class World {
             this.flippImage(mo);
         }
         mo.draw(this.ctx); // draw() in drawableObject wir ausgeführt 
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
             this.flippImageBack(mo);

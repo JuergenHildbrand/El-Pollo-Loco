@@ -1,5 +1,6 @@
 class ThrowableObject extends MovableObject {
-    
+
+    splash = false;
 
     IMAGES_THROW = [
         'img/6.botella/Rotaciขn/Mesa de trabajo 1 copia 3.png',
@@ -8,6 +9,14 @@ class ThrowableObject extends MovableObject {
         'img/6.botella/Rotaciขn/Mesa de trabajo 1 copia 6.png',
     ];
 
+    IMAGES_SPLASH = [
+        'img/6.botella/Rotaciขn/Splash de salsa/Mesa de trabajo 1 copia 7.png',
+        'img/6.botella/Rotaciขn/Splash de salsa/Mesa de trabajo 1 copia 8.png',
+        'img/6.botella/Rotaciขn/Splash de salsa/Mesa de trabajo 1 copia 9.png',
+        'img/6.botella/Rotaciขn/Splash de salsa/Mesa de trabajo 1 copia 10.png',
+        'img/6.botella/Rotaciขn/Splash de salsa/Mesa de trabajo 1 copia 11.png',
+        'img/6.botella/Rotaciขn/Splash de salsa/Mesa de trabajo 1 copia 12.png'
+    ];
 
 
     constructor(x, y, direction) {
@@ -31,18 +40,19 @@ class ThrowableObject extends MovableObject {
             } else {
                 this.x -= 7;
             }
-            
+
         }, 1000 / 60);
-        this.animate();
 
-
-
+        this.animate()
     }
-
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES_THROW);
+            if (this.splash) {
+                this.playAnimation(this.IMAGES_SPLASH);
+            } else {
+                this.playAnimation(this.IMAGES_THROW);
+            }
         }, 1000 / 10);
     }
 
