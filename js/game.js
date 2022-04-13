@@ -2,8 +2,13 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+
 /* lädt canvas mit den entsprechenden grafiken */
 function init() {
+    startGame();
+}
+
+function startGame() {
     canvas = document.getElementById('canvas'); // greift auf das canvas zu
     world =  new World(canvas, keyboard); // ein neues object namens world wird erstellt und dem geben wir die variablen canvas und keyboard mit
     this.coins = [];

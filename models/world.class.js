@@ -79,9 +79,12 @@ class World {
     checkCollisions() {
         // character & enemies
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !enemy.dead && !this.character.isAboveGround()) {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
+            }
+            if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                enemy.dead = true;
             }
         });
 

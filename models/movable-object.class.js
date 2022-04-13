@@ -31,10 +31,10 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(mo) {
-        return this.x + this.width > mo.x + mo.xOffset &&
-            this.y + this.height > mo.y + mo.yOffset &&
-            this.x < mo.x + mo.width - mo.xLimitOffset &&
-            this.y + this.yLimitOffset < mo.y + mo.height - mo.yLimitOffset
+        return  this.x + this.width > mo.x + mo.xOffset &&
+                this.y + this.height > mo.y + mo.yOffset &&
+                this.x < mo.x + mo.width - mo.xLimitOffset &&
+                this.y + this.yLimitOffset < mo.y + mo.height - mo.yLimitOffset
     }
 
     hit() {

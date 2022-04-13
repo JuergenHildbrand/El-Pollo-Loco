@@ -9,6 +9,10 @@ class StatusBarEndboss extends DrawableObject {
         'img/7.Marcadores/Barra/Marcador vida/verde/100_.png'
     ];
 
+    IMAGE = [
+        'img/7.Marcadores/Marcadorvida_enemy/Vede.png'
+    ];
+
     percentage = 100;
 
     constructor() {
