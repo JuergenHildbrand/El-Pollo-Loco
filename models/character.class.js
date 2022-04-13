@@ -138,6 +138,9 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.isDie = new Date().getTime();
+                setTimeout(() => {
+                    // this.gameOver();
+                }, 1000);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.lastMove = new Date().getTime();

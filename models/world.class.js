@@ -137,6 +137,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.bottlesEnd);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.endboss);
