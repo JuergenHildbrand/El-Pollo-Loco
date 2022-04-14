@@ -10,16 +10,17 @@ function init() {
 
 function startGame() {
     document.getElementById('start').classList.add('d-none');
+    document.getElementById('gameOver').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     canvas = document.getElementById('canvas'); // greift auf das canvas zu
     world =  new World(canvas, keyboard); // ein neues object namens world wird erstellt und dem geben wir die variablen canvas und keyboard mit
-    this.coins = [];
 }
 
-function gameOver() {
-    document.getElementById('canvas').classList.add('d-none');
-    document.getElementById('gameOver').classList.add('d-none');
-    document.getElementById('gameOverScreen').src = 'img/9.Intro _ Outro Image/Start Screen/Opciขn 1.png';
+function gameOver(chickenSmallCount, chickenBigCount) {
+    document.getElementById('chickenSmallCount').innerHTML = chickenSmallCount;
+    document.getElementById('chickenBigCount').innerHTML = chickenBigCount;
+    document.getElementById('coinCount').innerHTML = ``;
+    document.getElementById('gameOver').classList.remove('d-none');
 }
 
 window.addEventListener("keydown", (e) => {

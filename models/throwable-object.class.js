@@ -36,9 +36,9 @@ class ThrowableObject extends MovableObject {
         this.applyGaravity();
         setInterval(() => {
             if (this.direction) {
-                this.x += 7;
+                this.x += 10;
             } else {
-                this.x -= 7;
+                this.x -= 10;
             }
 
         }, 1000 / 60);

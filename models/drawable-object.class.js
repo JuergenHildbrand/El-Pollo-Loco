@@ -1,12 +1,12 @@
 class DrawableObject {
-    x;
-    y;
+    x = 0;
+    y = 0;
     xOffset = 0;
     yOffset = 0;
     xLimitOffset = 0;
     yLimitOffset = 0;
-    height;
-    width;
+    height = 0;
+    width = 0;
     img;
     imageCache = {}; // loadImages lädt alle bilder in dieses json
     currentImage = 0;

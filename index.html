@@ -27,14 +27,15 @@
     <script src="models/status-bar-bottle.class.js"></script>
     <script src="models/status-bar-coin.class.js"></script>
     <script src="models/status-bar-endboss.class.js"></script>
+    <script src="models/img-endboss-bar.class.js"></script>
     <script src="models/world.class.js"></script>
     <script src="models/backgroun-object.class.js"></script>
     <script src="models/keyboard.class.js"></script>
     <script src="models/level.class.js"></script>
     <script src="models/throwable-object.class.js"></script>
     <script src="models/endboss.class.js"></script>
-    <script src="models/youLose.class.js"></script>
     <script src="models/gameOver.class.js"></script>
+    <script src="models/youLose.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
 
@@ -45,14 +46,14 @@
     <div id="start">
         <img id="startScreen">
         <div class="d-flex">
-            <button class="startGameBtn" id="startGame" onclick="startGame()">Start Game</button>
+            
             <div class="d-flex distance">
                 <div class="d-flex">
-                    <div class="infoButtons"><img src="img/keyboard/arrowLeft.ico"></div>
+                    <div class="infoButtonsStart"><img src="img/keyboard/arrowLeft.ico"></div>
                     <div class="txt">Left</div>
                 </div>
                 <div class="d-flex">
-                    <div class="infoButtons"><img src="img/keyboard/arrowRight.ico"></div>
+                    <div class="infoButtonsStart"><img src="img/keyboard/arrowRight.ico"></div>
                     <div class="txt">Right</div>
                 </div>
                 <div class="d-flex">
@@ -64,12 +65,31 @@
                     <div class="txt">Throw Bottle</div>
                 </div>
             </div>
+            <button class="startGameBtn" id="startGame" onclick="startGame()">Start Game</button>
         </div>
     </div>
     <canvas class="d-none" id="canvas" width="1280" height="720"></canvas>
-    <div id="gameOver">
-        <img id="gameOverScreen">
-
+    <div class="d-none" id="gameOver">
+        <div class="d-flex">
+            <button class="startGameBtn" id="reStartGame" onclick="startGame()">Restart Game</button>
+            <div class="d-flex distance">
+                <div class="d-flex">
+                    <div class="infoButtonsEnd"><img src="img/3.Secuencias_Enemy_basico/Versi¢n_pollito/2.Centro.png">
+                    </div>
+                    <div class="txt">Small<br>Chicken(s)<br><div id="chickenSmallCount"></div></div>
+                </div>
+                <div class="d-flex">
+                    <div class="infoButtonsEnd"><img
+                            src="img/3.Secuencias_Enemy_basico/Versi¢n_Gallinita (estas salen por orden de la gallina gigantona)/2-Ga_centro.png">
+                    </div>
+                    <div class="txt">Big<br>Chicken(s)<br><div id="chickenBigCount"></div></div>
+                </div>
+                <div class="d-flex">
+                    <div class="infoButtonsEnd"><img src="img/7.Marcadores/Icono/Monedas.png"></div>
+                    <div class="txt">Coin(s)<br><div id="coinCount"></div></div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>

@@ -71,6 +71,7 @@ class Endboss extends MovableObject {
             if (this.energyEndboss == 0) {
                 clearInterval(animations);
             } else if (this.endbossStart) {
+
                 if (timer == 0) {
                     setTime = 2 + Math.random() * 10;
                 }
@@ -96,10 +97,7 @@ class Endboss extends MovableObject {
 
             if (this.isDeadEndboss()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                this.endboss = true;
-                setTimeout(() => {
-                    this.gameOver = true;
-                }, 3000);
+                this.isKilled();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (stopped && !this.attack) {

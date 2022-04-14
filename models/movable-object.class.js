@@ -3,19 +3,26 @@ class MovableObject extends DrawableObject {
     otherDirection;
     speedY = 0;
     acceleration = 2.5;
-    energy = 1000;
+    energy = 1000000;
     energyEndboss = 10;
     lastHit = 0;
     addedCoins = 0;
     addedBottles = 0;
+    chickenSmallCount = 0;
+    chickenBigCount = 0
     direction = true;
     directionEndboss = true;
     attack = false;
     endbossStart = false;
-    youLose = false;
     gameOver = false;
-    endbossDead = false;
-    
+    stoppAnimations = false;
+
+
+    testx() {
+        console.log(this.chickenBigCount, this.chickenSmallCount, this.addedBottles, this.gameOver);
+    }
+
+
     applyGaravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) { // sobald er auf dem boden ist, nichts mehr abziehen
@@ -34,10 +41,10 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(mo) {
-        return  this.x + this.width > mo.x + mo.xOffset &&
-                this.y + this.height > mo.y + mo.yOffset &&
-                this.x < mo.x + mo.width - mo.xLimitOffset &&
-                this.y + this.yLimitOffset < mo.y + mo.height - mo.yLimitOffset
+        return this.x + this.width > mo.x + mo.xOffset &&
+            this.y + this.height > mo.y + mo.yOffset &&
+            this.x < mo.x + mo.width - mo.xLimitOffset &&
+            this.y + this.yLimitOffset < mo.y + mo.height - mo.yLimitOffset
     }
 
     hit() {
@@ -57,7 +64,7 @@ class MovableObject extends DrawableObject {
             this.lastHit = new Date().getTime();
         }
     }
-    
+
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit; // difference in ms
         timePassed = timePassed / 1000; // difference in s
@@ -106,5 +113,12 @@ class MovableObject extends DrawableObject {
         setInterval(() => {
             this.x == this.speed;
         }, 1000 / 60);
+    }
+
+
+    isKilled() {
+        setTimeout(() => {
+            this.gameOver = true;
+        }, 1000);
     }
 }

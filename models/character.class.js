@@ -5,8 +5,10 @@ class Character extends MovableObject {
     height = 400;
     width = 200;
     speed = 10;
+    xOffset = 60;
+    xLimitOffset = 60;
     yLimitOffset = 155;
-    endbossDead = false;
+
 
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-correcciขn/2.Secuencia_caminata/W-21.png',
@@ -95,7 +97,7 @@ class Character extends MovableObject {
     animate() {
 
 
-        const sound = setInterval(() => {
+        setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.positionCharacter = this.x;
@@ -123,35 +125,30 @@ class Character extends MovableObject {
             if (this.isHurt()) {
                 // this.hurt_sound.play();
             }
-            if (this.isDead()) {
-                this.die_sound.play();
-                setTimeout(() => {
-                    clearInterval(sound);
-                }, 1000);
-                setTimeout(() => {
-                    this.youLose = true;
-                }, 3000);
-            }
             if (this.world.keyboard.D && this.addedBottles > 0) {
                 this.throw_sound.play();
             }
             this.world.camera_x = -this.x + 400;
         }, 1000 / 60);
 
+        const sound = setInterval(() => {
+
+            if (this.isDead()) {
+                this.die_sound.play();
+                this.isKilled();
+                setTimeout(() => {
+                    clearInterval(sound);
+                }, 1000);
+            }
+        }, 1000 / 60);
+
 
         const animations = setInterval(() => {
 
             
-            if (this.endbossDead) {
-                clearInterval(animations);
-            }
-
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.isDie = new Date().getTime();
-                setTimeout(() => {
-                    // this.gameOver();
-                }, 1000);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.lastMove = new Date().getTime();

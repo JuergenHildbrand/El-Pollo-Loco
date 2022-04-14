@@ -8,18 +8,21 @@ class World {
     statusBarLife = new StatusBarLife();
     statusBarBottle = new statusBarBottle();
     statusBarCoin = new StatusBarCoin();
-    StatusBarEndboss = new StatusBarEndboss();
-    YouLose = new YouLose();
-    GameOver = new GameOver();
+    statusBarEndboss = new StatusBarEndboss();
+    imgEndboss = new ImgEndboss();
+    gameOver = new GameOver();
+    youLose = new YouLose();
     throwableObject = [];
 
+
     constructor(canvas, keyboard) {
+        // this.reset();
         this.ctx = canvas.getContext('2d'); // mit diesem werkzeug kann man auf dem canvas auf demensprechenden koordinaten etwas hinzufügen (immer ctx!)
         this.canvas = canvas; // mit this(.canvas) greifen wir auf oben auf die variablen zu (class World) und erhält den wert von canvas
         this.keyboard = keyboard;
+        this.run();
         this.draw();
         this.setWorld();
-        this.run();
     }
 
     setWorld() {
@@ -31,6 +34,7 @@ class World {
             this.checkDirection();
             this.checkThrowObjects();
             this.checkCollisions();
+            this.checkEndgame();
         }, 200);
     }
 
@@ -80,16 +84,21 @@ class World {
 
     checkCollisions() {
         // character & enemies
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.dead && !this.character.isAboveGround()) {
+        this.level.enemies.forEach((enemies, index) => {
+            if (this.character.isColliding(enemies) && !enemies.chickenDead && !this.character.isAboveGround()) {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
-            if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-                enemy.dead = true;
+            if (this.character.isColliding(enemies) && this.character.isAboveGround()) {
+                enemies.chickenDead = true;
+                if (index < 6) {
+                    this.character.chickenBigCount += 1;
+                }
+                if (index > 5) {
+                    this.character.chickenSmallCount += 1;
+                }
             }
         });
-
         // character & endboss
         this.level.endboss.forEach((endboss) => {
             if (this.character.isColliding(endboss)) {
@@ -129,11 +138,8 @@ class World {
                 if (endboss.isColliding(bottle)) {
                     endboss.hitEndboss();
                     this.level.endboss.forEach((energy) => {
-                        this.StatusBarEndboss.setPercentage(energy.energyEndboss);
+                        this.statusBarEndboss.setPercentage(energy.energyEndboss);
                         bottle.splash = true;
-                        if (energy.energyEndboss == 0) {
-                            this.character.endbossDead = true;
-                        }
                     });
                 }
             });
@@ -141,49 +147,50 @@ class World {
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // das canvas wird immmer wieder gelöscht / gecleant (immer ganz am anfang)
+        if (this.character.stoppAnimations == false) {
 
-        this.ctx.translate(this.camera_x, 0);
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // das canvas wird immmer wieder gelöscht / gecleant (immer ganz am anfang)
 
-        // objecte werden gezeichnet gezeichnet
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.level.bottlesEnd);
-        this.addObjectsToMap(this.level.coin);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.endboss);
-        this.addObjectsToMap(this.throwableObject);
+            this.ctx.translate(this.camera_x, 0);
 
-        this.addToMap(this.character);
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBarLife);
-        this.addToMap(this.statusBarBottle);
-        this.addToMap(this.statusBarCoin);
-        this.level.endboss.forEach((endboss) => {
-            if (endboss.endbossStart) {
-                this.addToMap(this.StatusBarEndboss);
+            this.addObjectsToMap(this.level.backgroundObjects);
+            this.addObjectsToMap(this.level.clouds);
+            this.addObjectsToMap(this.level.bottles);
+            this.addObjectsToMap(this.level.bottlesEnd);
+            this.addObjectsToMap(this.level.coin);
+            this.addObjectsToMap(this.level.enemies);
+            this.addObjectsToMap(this.level.endboss);
+            this.addObjectsToMap(this.throwableObject);
+            this.addToMap(this.character);
+
+            this.ctx.translate(-this.camera_x, 0);
+
+            this.addToMap(this.statusBarLife);
+            this.addToMap(this.statusBarBottle);
+            this.addToMap(this.statusBarCoin);
+            this.level.endboss.forEach((endboss) => {
+                if (endboss.endbossStart) {
+                    this.addToMap(this.statusBarEndboss);
+                    this.addToMap(this.imgEndboss);
+                }
+                if (endboss.gameOver) {
+                    this.addToMap(this.gameOver);
+                }
+            });
+
+            this.ctx.translate(this.camera_x, 0);
+            this.ctx.translate(-this.camera_x, 0);
+
+            if (this.character.gameOver) {
+                this.addToMap(this.youLose);
             }
-        });
-        this.ctx.translate(this.camera_x, 0);
-        this.ctx.translate(-this.camera_x, 0);
 
-
-        if (this.character.youLose) {
-            this.addToMap(this.YouLose);
+            // draw() wird immer wieder aufgerufen (soviel wie die grafikkarte hergibt)
+            let self = this;
+            requestAnimationFrame(function () { // requestAnimationFrame wird ausgeführt sobald alles oberhalb (in draw) gezeichnet wurde
+                self.draw(); // this wird nicht erkannt, deswegen über eine variable (self)
+            });
         }
-
-        this.level.endboss.forEach((endboss) => {
-            if (endboss.gameOver) {
-                this.addToMap(this.GameOver);
-            }
-        });
-
-        // draw() wird immer wieder aufgerufen (soviel wie die grafikkarte hergibt)
-        let self = this;
-        requestAnimationFrame(function () { // requestAnimationFrame wird ausgeführt sobald alles oberhalb (in draw) gezeichnet wurde
-            self.draw(); // this wird nicht erkannt, deswegen über eine variable (self)
-        });
     }
 
     // mehrere objekte werden von level1 geladen
@@ -218,5 +225,18 @@ class World {
         this.ctx.restore();
     }
 
+    checkEndgame() {
+        console.log(this.character.chickenBigCount)
 
+        this.level.endboss.forEach((endboss) => {
+            if (this.character.gameOver || endboss.gameOver) {
+                setTimeout(() => {
+                    gameOver(this.character.chickenSmallCount, this.character.chickenBigCount);
+                }, 2000);
+                setTimeout(() => {
+                    this.character.stoppAnimations = true;
+                }, 4000);
+            }
+        });
+    }
 }
