@@ -3,8 +3,8 @@ class MovableObject extends DrawableObject {
     otherDirection;
     speedY = 0;
     acceleration = 2.5;
-    energy = 10;
-    energyEndboss = 100;
+    energy = 1000;
+    energyEndboss = 10;
     lastHit = 0;
     addedCoins = 0;
     addedBottles = 0;
@@ -12,6 +12,9 @@ class MovableObject extends DrawableObject {
     directionEndboss = true;
     attack = false;
     endbossStart = false;
+    youLose = false;
+    gameOver = false;
+    endbossDead = false;
     
     applyGaravity() {
         setInterval(() => {

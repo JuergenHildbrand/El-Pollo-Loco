@@ -9,6 +9,8 @@ class World {
     statusBarBottle = new statusBarBottle();
     statusBarCoin = new StatusBarCoin();
     StatusBarEndboss = new StatusBarEndboss();
+    YouLose = new YouLose();
+    GameOver = new GameOver();
     throwableObject = [];
 
     constructor(canvas, keyboard) {
@@ -113,6 +115,13 @@ class World {
                 this.statusBarBottle.setPercentage(this.character.addedBottles);
             }
         });
+        this.level.bottlesEnd.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.character.addedBottles += 10;
+                this.level.bottlesEnd.splice(index, 1);
+                this.statusBarBottle.setPercentage(this.character.addedBottles);
+            }
+        });
 
         // bottle meets endboss
         this.level.endboss.forEach((endboss) => {
@@ -120,8 +129,11 @@ class World {
                 if (endboss.isColliding(bottle)) {
                     endboss.hitEndboss();
                     this.level.endboss.forEach((energy) => {
-                    this.StatusBarEndboss.setPercentage(energy.energyEndboss);
-                    bottle.splash = true;
+                        this.StatusBarEndboss.setPercentage(energy.energyEndboss);
+                        bottle.splash = true;
+                        if (energy.energyEndboss == 0) {
+                            this.character.endbossDead = true;
+                        }
                     });
                 }
             });
@@ -155,6 +167,17 @@ class World {
         });
         this.ctx.translate(this.camera_x, 0);
         this.ctx.translate(-this.camera_x, 0);
+
+
+        if (this.character.youLose) {
+            this.addToMap(this.YouLose);
+        }
+
+        this.level.endboss.forEach((endboss) => {
+            if (endboss.gameOver) {
+                this.addToMap(this.GameOver);
+            }
+        });
 
         // draw() wird immer wieder aufgerufen (soviel wie die grafikkarte hergibt)
         let self = this;
@@ -194,4 +217,6 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
+
+
 }

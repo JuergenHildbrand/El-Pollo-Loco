@@ -6,6 +6,7 @@ class Character extends MovableObject {
     width = 200;
     speed = 10;
     yLimitOffset = 155;
+    endbossDead = false;
 
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-correcciขn/2.Secuencia_caminata/W-21.png',
@@ -93,6 +94,7 @@ class Character extends MovableObject {
 
     animate() {
 
+
         const sound = setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
@@ -126,14 +128,23 @@ class Character extends MovableObject {
                 setTimeout(() => {
                     clearInterval(sound);
                 }, 1000);
+                setTimeout(() => {
+                    this.youLose = true;
+                }, 3000);
             }
             if (this.world.keyboard.D && this.addedBottles > 0) {
                 this.throw_sound.play();
             }
             this.world.camera_x = -this.x + 400;
         }, 1000 / 60);
-       
-        setInterval(() => {
+
+
+        const animations = setInterval(() => {
+
+            
+            if (this.endbossDead) {
+                clearInterval(animations);
+            }
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
@@ -152,9 +163,10 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.lastMove = new Date().getTime();
             } else {
-                this.sleepAnimation();  
-            } 
+                this.sleepAnimation();
+            }
         }, 1000 / 10);
+
     }
 
     sleepAnimation() {
