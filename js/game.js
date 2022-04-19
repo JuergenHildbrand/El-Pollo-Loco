@@ -12,15 +12,19 @@ function startGame() {
     document.getElementById('start').classList.add('d-none');
     document.getElementById('gameOver').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
-    canvas = document.getElementById('canvas'); // greift auf das canvas zu
-    world =  new World(canvas, keyboard); // ein neues object namens world wird erstellt und dem geben wir die variablen canvas und keyboard mit
+    canvas = document.getElementById('canvas'); // The variable canvas is assigned the canvas from the html
+    world =  new World(canvas, keyboard); // A new object named world is created and the parameters canvas and keyboard are given to it
 }
 
-function gameOver(chickenSmallCount, chickenBigCount) {
+function gameOver(chickenSmallCount, chickenBigCount, addedCoins) {
     document.getElementById('chickenSmallCount').innerHTML = chickenSmallCount;
     document.getElementById('chickenBigCount').innerHTML = chickenBigCount;
-    document.getElementById('coinCount').innerHTML = ``;
+    document.getElementById('coinCount').innerHTML = addedCoins / 10;
     document.getElementById('gameOver').classList.remove('d-none');
+}
+
+function reStartGame() {
+    window.location.href = window.location.href;
 }
 
 window.addEventListener("keydown", (e) => {

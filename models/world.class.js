@@ -1,5 +1,5 @@
 class World {
-    character = new Character(); // innerhalb einer klasse kein let, const... (gross / kleinschreibung beachten!)
+    character = new Character();
     level = level1;
     canvas;
     ctx;
@@ -16,9 +16,8 @@ class World {
 
 
     constructor(canvas, keyboard) {
-        // this.reset();
-        this.ctx = canvas.getContext('2d'); // mit diesem werkzeug kann man auf dem canvas auf demensprechenden koordinaten etwas hinzufügen (immer ctx!)
-        this.canvas = canvas; // mit this(.canvas) greifen wir auf oben auf die variablen zu (class World) und erhält den wert von canvas
+        this.ctx = canvas.getContext('2d'); // This tool is needed to add something on the canvas (always ctx!)
+        this.canvas = canvas; // The canvas from game.js is passed to the variable "canvas" in world.class.js
         this.keyboard = keyboard;
         this.run();
         this.draw();
@@ -29,6 +28,10 @@ class World {
         this.character.world = this;
     }
 
+    /**
+     * Calls various functions via an interval
+     * 
+     */
     run() {
         setInterval(() => {
             this.checkDirection();
@@ -38,7 +41,10 @@ class World {
         }, 200);
     }
 
-    // direction of endboss
+    /**
+     * Check the direction of the endboss
+     * 
+     */
     checkDirection() {
         this.level.endboss.forEach((endboss) => {
             let pos = endboss.x + 125;
@@ -55,6 +61,11 @@ class World {
         });
     }
 
+    /**
+     * Check the distance between the character and endboss
+     * 
+     * @param {number} pos - Position from the endboss
+     */
     checkDistance(pos) {
         let distance = pos - this.character.x;
         if (distance < 1000) {
@@ -82,7 +93,12 @@ class World {
         }
     }
 
+    /**
+     * Check all collisions
+     * 
+     */
     checkCollisions() {
+
         // character & enemies
         this.level.enemies.forEach((enemies, index) => {
             if (this.character.isColliding(enemies) && !enemies.chickenDead && !this.character.isAboveGround()) {
@@ -99,6 +115,7 @@ class World {
                 }
             }
         });
+
         // character & endboss
         this.level.endboss.forEach((endboss) => {
             if (this.character.isColliding(endboss)) {
@@ -146,10 +163,14 @@ class World {
         });
     }
 
+    /**
+     * All objects are drawn (all 200ms)
+     * 
+     */
     draw() {
         if (this.character.stoppAnimations == false) {
 
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // das canvas wird immmer wieder gelöscht / gecleant (immer ganz am anfang)
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // The canvas is always deleted / cleared again (always at the very beginning)
 
             this.ctx.translate(this.camera_x, 0);
 
@@ -185,15 +206,18 @@ class World {
                 this.addToMap(this.youLose);
             }
 
-            // draw() wird immer wieder aufgerufen (soviel wie die grafikkarte hergibt)
             let self = this;
-            requestAnimationFrame(function () { // requestAnimationFrame wird ausgeführt sobald alles oberhalb (in draw) gezeichnet wurde
-                self.draw(); // this wird nicht erkannt, deswegen über eine variable (self)
+            requestAnimationFrame(function() { // requestAnimationFrame() is executed as soon as everything above (in draw) is drawn. draw() is called again and again (as much as the graphics card can handle)
+                self.draw(); // "this" is not recognized in requestAnimatoinFrame(), therefore via a variable (self)
             });
         }
     }
 
-    // mehrere objekte werden von level1 geladen
+    /**
+     * forEach-loop for all arrays
+     * 
+     * @param {Array} objects - Contain all objects from the array
+     */
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
@@ -231,7 +255,7 @@ class World {
         this.level.endboss.forEach((endboss) => {
             if (this.character.gameOver || endboss.gameOver) {
                 setTimeout(() => {
-                    gameOver(this.character.chickenSmallCount, this.character.chickenBigCount);
+                    gameOver(this.character.chickenSmallCount, this.character.chickenBigCount, this.character.addedCoins)
                 }, 2000);
                 setTimeout(() => {
                     this.character.stoppAnimations = true;

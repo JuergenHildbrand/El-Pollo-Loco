@@ -82,8 +82,12 @@ class Character extends MovableObject {
     die_sound = new Audio('audio/die.mp3');
     throw_sound = new Audio('audio/throw.mp3');
 
-    constructor() { // wird ausgeführt wenn das object neu erstellt wird
-        super().loadImage(this.IMAGES_WALKING[0]); // super wird verwendet um methoden vom übergeordneten objekt aufzurufen
+    /**
+     * 
+     * 
+     */
+    constructor() { // All classes have a constructor and is executed when the object is newly created. (When "new character" is executed, the constructor is called)
+        super().loadImage(this.IMAGES_WALKING[0]); // loadImage() is called in the class DrawableObject - super() is used to call methods from the parent object (MovableObject / DrawableObject)
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
@@ -95,7 +99,6 @@ class Character extends MovableObject {
     }
 
     animate() {
-
 
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -131,8 +134,8 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 400;
         }, 1000 / 60);
 
-        const sound = setInterval(() => {
 
+        const sound = setInterval(() => {
             if (this.isDead()) {
                 this.die_sound.play();
                 this.isKilled();

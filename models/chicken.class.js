@@ -14,19 +14,17 @@ class Chicken extends MovableObject {
         'img/3.Secuencias_Enemy_basico/Versi¢n_Gallinita (estas salen por orden de la gallina gigantona)/4.G_muerte.png'
     ];
 
-    constructor() { // wird ausgeführt wenn das object neu erstellt wird
-        super().loadImage(this.IMAGES_WALKING[0]); // super wird verwendet um methoden vom übergeordneten objekt aufzurufen
+    constructor() { 
+        super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImage(this.IMAGES_DEAD);
-        this.x = 1600 + Math.random() * 6000; // math.random() gibt eine zufällige zahl zwischen 0 - 1 aus. die hünchen werden an verschiedenen pos. ausgegeben.
+        this.x = 1600 + Math.random() * 6000; // this.x = at least 1600 + a random number between 0 and 1, times 6000 (number between 1600 and 7600)
         this.speed = 0.15 + Math.random() * 2; // die hünchen erhalten eine unterschiedliche geschwindigkeit
         this.animate();
     }
 
     animate() {
-
         this.moveLeft();
-
         setInterval(() => {
             if (this.chickenDead) {
                 this.loadImage(this.IMAGES_DEAD);

@@ -1,35 +1,46 @@
 class DrawableObject {
+
     x = 0;
     y = 0;
+    height = 0;
+    width = 0;
+    img; // For single images
+    imageCache = {}; // imageCache gets assigned an array with images
     xOffset = 0;
     yOffset = 0;
     xLimitOffset = 0;
     yLimitOffset = 0;
-    height = 0;
-    width = 0;
-    img;
-    imageCache = {}; // loadImages lädt alle bilder in dieses json
     currentImage = 0;
     
+    /**
+     * Load a picture
+     * 
+     * @param {String} path - Path to the picture
+     */
     loadImage(path) {
-        this.img = new Image(); // this.img = document.getElementById('image') <img id="image">
+        this.img = new Image(); // JavaScript-illustration: this.img = document.getElementById('image') <img id="image"> - A new image is assigned to the variable img
         this.img.src = path;
     }
 
+    /**
+     * Adds an image to the canvas (60x / s)
+     * 
+     * @param {*} ctx 
+     */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
     /**
-     * lädt bilder in den cache
+     * Load images to the cache
      * 
-     * @param {array} array - [mit mehreren bildern] 
+     * @param {String} array - Path from images as a String
      */
-    loadImages(array) { // ein array (pfade) wird zur funktion hunzugefügt
+    loadImages(array) { 
         array.forEach((path) => {
-            let img = new Image(); // new image vergiebt den pfad des bildes an die variable img
-            img.src = path; // hier wird das bild in das image-object (zeile 36) hineningeladen. img ist inerhalb der funktion definiert, deshalb ohne this
-            this.imageCache[path] = img; // das bild wird zum imageCache gegeben
+            let img = new Image(); // Variable with a new image
+            img.src = path; // The image is loaded into the Image-object
+            this.imageCache[path] = img; // imageCache is updated and gets the read out images 
         });
     }
 

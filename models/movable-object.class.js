@@ -18,11 +18,6 @@ class MovableObject extends DrawableObject {
     stoppAnimations = false;
 
 
-    testx() {
-        console.log(this.chickenBigCount, this.chickenSmallCount, this.addedBottles, this.gameOver);
-    }
-
-
     applyGaravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) { // sobald er auf dem boden ist, nichts mehr abziehen
@@ -71,10 +66,20 @@ class MovableObject extends DrawableObject {
         return timePassed < 0.5;
     }
 
+    /**
+     * If the character is dead, the function returned true
+     * 
+     * @returns {number}
+     */
     isDead() {
         return this.energy == 0;
     }
 
+    /**
+     * If the endboss is dead, the function returned true
+     * 
+     * @returns {number}
+     */
     isDeadEndboss() {
         return this.energyEndboss == 0;
     }
@@ -83,7 +88,11 @@ class MovableObject extends DrawableObject {
         return true;
     }
 
-    // hier durchlaufen die bilder der animation
+    /**
+     * hier durchlaufen die bilder der animation
+     * 
+     * @param {Array} images - An array with images
+     */
     playAnimation(images) {
         // walk animation
         let i = this.currentImage % images.length; // beim ersten durchlauf ist currentImage = 0, das erste bild wird geladen. % = modulu / unendliche schleiffe, restwert des geteilten
@@ -93,29 +102,38 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    moveRight() {
-        setInterval(() => {
-            this.x += this.speed;
-        }, 1000 / 60);
-    }
-
+    /**
+     * Animation move left (chickens big and small)
+     * 
+     */
     moveLeft() {
         setInterval(() => {
             this.x -= this.speed;
         }, 1000 / 60);
     }
 
+    /**
+     * Animation jump (character)
+     * 
+     */
     jump() {
         this.speedY = 40;
     }
 
+    /**
+     * Animation stop (endboss alerta)
+     * 
+     */
     stop() {
         setInterval(() => {
             this.x == this.speed;
         }, 1000 / 60);
     }
 
-
+    /**
+     * Animation die (character and endboss)
+     * 
+     */
     isKilled() {
         setTimeout(() => {
             this.gameOver = true;
