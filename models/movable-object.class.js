@@ -1,7 +1,6 @@
 class MovableObject extends DrawableObject {
-    speed = 0.2;
-    otherDirection;
-    speedY = 0;
+    speed = 0.2; 
+    speedY = 0; // Fall speed
     acceleration = 2.5;
     energy = 1000000;
     energyEndboss = 10;
@@ -10,14 +9,17 @@ class MovableObject extends DrawableObject {
     addedBottles = 0;
     chickenSmallCount = 0;
     chickenBigCount = 0
-    direction = true;
+    otherDirection;
     directionEndboss = true;
     attack = false;
     endbossStart = false;
     gameOver = false;
     stoppAnimations = false;
 
-
+    /**
+     * Gravity is calculated
+     * 
+     */
     applyGaravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) { // sobald er auf dem boden ist, nichts mehr abziehen
@@ -27,6 +29,11 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    /**
+     * Check if the object is above the ground
+     * 
+     * @returns - A value or a number
+     */
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
@@ -89,14 +96,12 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * hier durchlaufen die bilder der animation
+     * playAnimation() iterates through an array
      * 
      * @param {Array} images - An array with images
      */
     playAnimation(images) {
-        // walk animation
-        let i = this.currentImage % images.length; // beim ersten durchlauf ist currentImage = 0, das erste bild wird geladen. % = modulu / unendliche schleiffe, restwert des geteilten
-        // i = 0, 1, 2, ... 5, 0, 1, 
+        let i = this.currentImage % images.length; // On the first pass currentImage = 0, the first image is loaded. % = modulu, mathematical rest / infinite loop (i = 0, 1, 2, 3, 4, 5, 0, 1, 2,....), residual value of divided. 
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;

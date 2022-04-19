@@ -13,7 +13,7 @@ function startGame() {
     document.getElementById('gameOver').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     canvas = document.getElementById('canvas'); // The variable canvas is assigned the canvas from the html
-    world =  new World(canvas, keyboard); // A new object named world is created and the parameters canvas and keyboard are given to it
+    world = new World(canvas, keyboard); // A new object named world is created and the parameters canvas and keyboard are given to it
 }
 
 function gameOver(chickenSmallCount, chickenBigCount, addedCoins) {
@@ -27,8 +27,11 @@ function reStartGame() {
     window.location.href = window.location.href;
 }
 
+/**
+ * The EventListener "keydown" monitors whether an event (is pressed a button) takes place and outputs a JSON
+ * 
+ */
 window.addEventListener("keydown", (e) => {
-
     if(e.keyCode == 39) {
         keyboard.RIGHT = true;
     }
@@ -49,8 +52,11 @@ window.addEventListener("keydown", (e) => {
     }
 });
 
+/**
+ * "keyup" check if a button is released
+ * 
+ */
 window.addEventListener("keyup", (e) => {
-
     if(e.keyCode == 39) {
         keyboard.RIGHT = false;
     }

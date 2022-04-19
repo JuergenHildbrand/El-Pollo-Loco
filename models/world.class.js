@@ -14,16 +14,19 @@ class World {
     youLose = new YouLose();
     throwableObject = [];
 
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // This tool is needed to add something on the canvas (always ctx!)
         this.canvas = canvas; // The canvas from game.js is passed to the variable "canvas" in world.class.js
         this.keyboard = keyboard;
+        this.setWorld();
         this.run();
         this.draw();
-        this.setWorld();
     }
 
+    /**
+     * This function allows the character to access the variables in the world
+     * 
+     */
     setWorld() {
         this.character.world = this;
     }
@@ -86,7 +89,7 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D && this.character.addedBottles > 0) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.direction);
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
             this.character.addedBottles -= 10;
             this.throwableObject.push(bottle);
             this.statusBarBottle.setPercentage(this.character.addedBottles);
@@ -224,19 +227,27 @@ class World {
         });
     }
 
-    // mit dieser funktion werden standartwerte übergeben (img, x, y, width, height)
+    /**
+     * Passes an object to draw() in drawableObject and calls it. Checks the direction of the object
+     * 
+     * @param {object} mo 
+     */
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flippImage(mo);
         }
-        mo.draw(this.ctx); // draw() in drawableObject wir ausgeführt 
+        mo.draw(this.ctx);
         // mo.drawFrame(this.ctx);
-
         if (mo.otherDirection) {
             this.flippImageBack(mo);
         }
     }
 
+    /**
+     * Mirrors a image
+     * 
+     * @param {object} mo 
+     */
     flippImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -244,14 +255,21 @@ class World {
         mo.x = mo.x * -1
     }
 
+    /**
+     * Mirrors back a image
+     * 
+     * @param {object} mo 
+     */
     flippImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
 
+     /**
+     * Checks if the game is finished
+     * 
+     */
     checkEndgame() {
-        console.log(this.character.chickenBigCount)
-
         this.level.endboss.forEach((endboss) => {
             if (this.character.gameOver || endboss.gameOver) {
                 setTimeout(() => {

@@ -10,7 +10,7 @@ class DrawableObject {
     yOffset = 0;
     xLimitOffset = 0;
     yLimitOffset = 0;
-    currentImage = 0;
+    currentImage = 0; // Is needed to iterate through an array
     
     /**
      * Load a picture
@@ -19,7 +19,7 @@ class DrawableObject {
      */
     loadImage(path) {
         this.img = new Image(); // JavaScript-illustration: this.img = document.getElementById('image') <img id="image"> - A new image is assigned to the variable img
-        this.img.src = path;
+        this.img.src = path; // The image is loaded into the Image-object
     }
 
     /**
@@ -38,8 +38,8 @@ class DrawableObject {
      */
     loadImages(array) { 
         array.forEach((path) => {
-            let img = new Image(); // Variable with a new image
-            img.src = path; // The image is loaded into the Image-object
+            let img = new Image(); 
+            img.src = path; 
             this.imageCache[path] = img; // imageCache is updated and gets the read out images 
         });
     }

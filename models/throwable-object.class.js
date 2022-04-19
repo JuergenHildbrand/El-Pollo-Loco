@@ -18,7 +18,7 @@ class ThrowableObject extends MovableObject {
         'img/6.botella/Rotaciขn/Splash_de_salsa/Mesa de trabajo 1 copia 12.png'
     ];
 
-    constructor(x, y, direction) {
+    constructor(x, y, otherDirection) {
         super().loadImage('img/7.Marcadores/Icono/Botella.png');
         this.loadImages(this.IMAGES_THROW); // alle bilder werden an loadImages (=> drawableObect) gegeben
         this.loadImages(this.IMAGES_SPLASH);
@@ -26,7 +26,7 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.height = 100;
         this.width = 100;
-        this.direction = direction;
+        this.otherDirection = otherDirection;
         this.throw();
     }
 
@@ -35,10 +35,10 @@ class ThrowableObject extends MovableObject {
         this.speedY = 30;
         this.applyGaravity();
         setInterval(() => {
-            if (this.direction) {
-                this.x += 10;
-            } else {
+            if (this.otherDirection) {
                 this.x -= 10;
+            } else {
+                this.x += 10;
             }
 
         }, 1000 / 60);

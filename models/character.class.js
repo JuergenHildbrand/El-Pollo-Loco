@@ -1,5 +1,6 @@
 class Character extends MovableObject {
 
+    world; // Via this variable the character can access the variables in the world. (this.world.keyboard.xyz)
     x = 400;
     y = 240;
     height = 400;
@@ -8,6 +9,11 @@ class Character extends MovableObject {
     xOffset = 60;
     xLimitOffset = 60;
     yLimitOffset = 155;
+    walkin_sound = new Audio('audio/walking.mp3');
+    jump_sound = new Audio('audio/jump.mp3');
+    hurt_sound = new Audio('audio/hurt.mp3');
+    die_sound = new Audio('audio/die.mp3');
+    throw_sound = new Audio('audio/throw.mp3');
 
 
     IMAGES_WALKING = [
@@ -75,18 +81,11 @@ class Character extends MovableObject {
 
     ];
 
-    world;
-    walkin_sound = new Audio('audio/walking.mp3');
-    jump_sound = new Audio('audio/jump.mp3');
-    hurt_sound = new Audio('audio/hurt.mp3');
-    die_sound = new Audio('audio/die.mp3');
-    throw_sound = new Audio('audio/throw.mp3');
-
     /**
-     * 
+     * Load images and triggers functions
      * 
      */
-    constructor() { // All classes have a constructor and is executed when the object is newly created. (When "new character" is executed, the constructor is called)
+    constructor() { // All classes have a constructor and is executed when the object is newly created. (When "new character" (in world) is executed, the constructor is called)
         super().loadImage(this.IMAGES_WALKING[0]); // loadImage() is called in the class DrawableObject - super() is used to call methods from the parent object (MovableObject / DrawableObject)
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
@@ -98,21 +97,22 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Loads various animations
+     * 
+     */
     animate() {
-
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.positionCharacter = this.x;
                 this.otherDirection = false;
-                this.direction = true;
                 // this.walkin_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > -1025) {
                 this.x -= this.speed;
                 this.positionCharacter = this.x;
                 this.otherDirection = true;
-                this.direction = false;
                 // this.walkin_sound.play();
             }
             if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
@@ -134,21 +134,17 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 400;
         }, 1000 / 60);
 
-
-        const sound = setInterval(() => {
+        const die = setInterval(() => {
             if (this.isDead()) {
                 this.die_sound.play();
                 this.isKilled();
                 setTimeout(() => {
-                    clearInterval(sound);
+                    clearInterval(die);
                 }, 1000);
             }
         }, 1000 / 60);
 
-
         const animations = setInterval(() => {
-
-            
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.isDie = new Date().getTime();
@@ -159,14 +155,12 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_JUMPING);
                 this.lastMove = new Date().getTime();
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                // walk animation
                 this.playAnimation(this.IMAGES_WALKING);
                 this.lastMove = new Date().getTime();
             } else {
                 this.sleepAnimation();
             }
         }, 1000 / 10);
-
     }
 
     sleepAnimation() {
