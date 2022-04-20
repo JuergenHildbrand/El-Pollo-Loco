@@ -12,6 +12,10 @@ class StatusBarCoin extends DrawableObject {
     ];
 
 
+    /**
+     * Load image and defines values for variables
+     * 
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);

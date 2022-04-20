@@ -8,6 +8,10 @@ class Coin extends MovableObject {
     xLimitOffset = 90;
     yLimitOffset = 90; 
 
+    /**
+     * Load images and defines values for variables
+     * 
+     */
     constructor() {
         super().loadImage('img/8.Coin/Moneda2.png');
         let xyz = 1 + Math.random() * 5800;

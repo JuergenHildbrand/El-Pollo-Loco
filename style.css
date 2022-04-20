@@ -9,6 +9,7 @@ body {
 
 canvas {
     background-color: black;
+    display: block;
 }
 
 .d-none {
@@ -104,4 +105,19 @@ canvas {
     margin-left: 8px;
     font-size: 22px;
     font-weight: bold;
+}
+
+
+/* Smartphones */
+@media only screen and (max-width: 1280px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+/* Smartphones */
+@media only screen and (max-height: 720px) {
+    canvas {
+        height: 100vh;
+    }
 }

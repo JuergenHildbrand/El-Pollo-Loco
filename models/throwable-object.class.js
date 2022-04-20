@@ -1,5 +1,7 @@
 class ThrowableObject extends MovableObject {
 
+    height = 100;
+    width = 100;
     splash = false;
 
     IMAGES_THROW = [
@@ -18,15 +20,17 @@ class ThrowableObject extends MovableObject {
         'img/6.botella/Rotaciขn/Splash_de_salsa/Mesa de trabajo 1 copia 12.png'
     ];
 
+    /**
+     * Load images, defines values for variables and trigger function
+     * 
+     */
     constructor(x, y, otherDirection) {
         super().loadImage('img/7.Marcadores/Icono/Botella.png');
-        this.loadImages(this.IMAGES_THROW); // alle bilder werden an loadImages (=> drawableObect) gegeben
+        this.loadImages(this.IMAGES_THROW);
         this.loadImages(this.IMAGES_SPLASH);
+        this.otherDirection = otherDirection;
         this.x = x;
         this.y = y;
-        this.height = 100;
-        this.width = 100;
-        this.otherDirection = otherDirection;
         this.throw();
     }
 

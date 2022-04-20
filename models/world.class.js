@@ -1,11 +1,10 @@
 class World {
 
-    character = new Character();
-    level = level1;
     canvas;
-    ctx;
     keyboard;
-    camera_x = 0;
+    ctx;
+    level = level1;
+    character = new Character();
     statusBarLife = new StatusBarLife();
     statusBarBottle = new statusBarBottle();
     statusBarCoin = new StatusBarCoin();
@@ -14,7 +13,14 @@ class World {
     gameOver = new GameOver();
     youLose = new YouLose();
     throwableObject = [];
+    camera_x = 0;
 
+    /**
+     * Load canvas, defines values for variables and triggers functions
+     * 
+     * @param {HTMLCanvasElement} canvas 
+     * @param {Object} keyboard 
+     */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // This tool is needed to add something on the canvas (always ctx!)
         this.canvas = canvas; // The canvas from game.js is passed to the variable "canvas" in world.class.js
@@ -39,7 +45,7 @@ class World {
     run() {
         setInterval(() => {
             this.checkDirection();
-            this.checkThrowObjects();
+            this.throwableObjects();
             this.checkCollisions();
             this.checkEndgame();
         }, 200);
@@ -88,7 +94,11 @@ class World {
         }
     }
 
-    checkThrowObjects() {
+    /**
+     * Throw bottle
+     * 
+     */
+    throwableObjects() {
         if (this.keyboard.D && this.character.addedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
             this.character.addedBottles -= 10;

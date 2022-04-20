@@ -25,7 +25,7 @@ class DrawableObject {
     /**
      * Adds an image to the canvas (60x / s)
      * 
-     * @param {*} ctx 
+     * @param {HTMLCanvasElement} ctx 
      */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);

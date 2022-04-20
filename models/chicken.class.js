@@ -14,6 +14,10 @@ class Chicken extends MovableObject {
         'img/3.Secuencias_Enemy_basico/Versi¢n_Gallinita (estas salen por orden de la gallina gigantona)/4.G_muerte.png'
     ];
 
+    /**
+     * Load images, defines values for variables and trigger function
+     * 
+     */
     constructor() { 
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -23,6 +27,10 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Chicken animations
+     * 
+     */
     animate() {
         setInterval(() => {
             this.moveLeft();

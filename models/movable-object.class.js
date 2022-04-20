@@ -23,7 +23,7 @@ class MovableObject extends DrawableObject {
      */
     applyGaravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) { // sobald er auf dem boden ist, nichts mehr abziehen
+            if (this.isAboveGround() || this.speedY > 0) { // If the object is on the ground, do not pull off anything more
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -36,7 +36,7 @@ class MovableObject extends DrawableObject {
      * @returns - A value or a number
      */
     isAboveGround() {
-        if (this instanceof ThrowableObject) {
+        if (this instanceof ThrowableObject) { // Throwable objects should always fall
             return true;
         } else {
             return this.y < 260;

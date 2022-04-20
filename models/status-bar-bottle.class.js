@@ -11,6 +11,10 @@ class statusBarBottle extends DrawableObject {
         'img/7.Marcadores/Barra/Marcador_botella/Azul/100_.png'
     ];
 
+    /**
+     * Load image and defines values for variables
+     * 
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);
