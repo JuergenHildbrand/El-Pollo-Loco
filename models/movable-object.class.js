@@ -1,4 +1,5 @@
 class MovableObject extends DrawableObject {
+
     speed = 0.2; 
     speedY = 0; // Fall speed
     acceleration = 2.5;
@@ -42,6 +43,12 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Check all collisions
+     * 
+     * @param {Object} mo 
+     * @returns - x / y / height / width - coordinates
+     */
     isColliding(mo) {
         return this.x + this.width > mo.x + mo.xOffset &&
             this.y + this.height > mo.y + mo.yOffset &&
@@ -49,8 +56,12 @@ class MovableObject extends DrawableObject {
             this.y + this.yLimitOffset < mo.y + mo.height - mo.yLimitOffset
     }
 
+    /**
+     * Hit character
+     * 
+     */
     hit() {
-        this.energy -= 5; // sterben einschalten
+        this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -58,6 +69,10 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Hit endboss
+     * 
+     */
     hitEndboss() {
         this.energyEndboss -= 2;
         if (this.energyEndboss < 0) {
@@ -67,6 +82,11 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * For hurt-animation
+     * 
+     * @returns - true
+     */
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit; // difference in ms
         timePassed = timePassed / 1000; // difference in s
@@ -74,25 +94,21 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * If the character is dead, the function returned true
+     * If the character is dead
      * 
-     * @returns {number}
+     * @returns - true
      */
     isDead() {
         return this.energy == 0;
     }
 
     /**
-     * If the endboss is dead, the function returned true
+     * If the endboss is dead
      * 
-     * @returns {number}
+     * @returns - true
      */
     isDeadEndboss() {
         return this.energyEndboss == 0;
-    }
-
-    throwLeft() {
-        return true;
     }
 
     /**
@@ -121,7 +137,7 @@ class MovableObject extends DrawableObject {
      */
     moveRight() {
         this.x += this.speed;
-}
+    }
 
     /**
      * Animation jump (character)
@@ -142,7 +158,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Animation die (character and endboss)
+     * set true (if character or endboss is dead)
      * 
      */
     isKilled() {

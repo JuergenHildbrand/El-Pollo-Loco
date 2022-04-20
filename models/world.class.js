@@ -1,4 +1,5 @@
 class World {
+
     character = new Character();
     level = level1;
     canvas;
@@ -67,7 +68,7 @@ class World {
     /**
      * Check the distance between the character and endboss
      * 
-     * @param {number} pos - Position from the endboss
+     * @param {Number} pos - Position from the endboss
      */
     checkDistance(pos) {
         let distance = pos - this.character.x;
@@ -101,13 +102,18 @@ class World {
      * 
      */
     checkCollisions() {
-        this.character_enemies();
-        this.character_endboss();
-        this.characetr_coin();
-        this.character_bottle();
-        this.bottle_endboss();
+        this.characterEnemies();
+        this.characterEndboss();
+        this.characetrCoin();
+        this.characterBottle();
+        this.bottleEndboss();
     }
-    character_enemies() {
+
+    /**
+     * Checks the collision between character and enemies 
+     * 
+     */
+    characterEnemies() {
         this.level.enemies.forEach((enemies, index) => {
             if (this.character.isColliding(enemies) && !enemies.chickenDead && !this.character.isAboveGround()) {
                 this.character.hit();
@@ -124,8 +130,12 @@ class World {
             }
         });
     }
-    character_endboss() {
-        // character & endboss
+
+    /**
+     * Checks the collision between character and endboss 
+     * 
+     */
+    characterEndboss() {
         this.level.endboss.forEach((endboss) => {
             if (this.character.isColliding(endboss)) {
                 this.character.hit();
@@ -133,8 +143,12 @@ class World {
             }
         });
     }
-    characetr_coin() {
-        // character get coin
+
+    /**
+     * Checks the collision between character and coins 
+     * 
+     */
+    characetrCoin() {
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.level.coin.splice(index, 1);
@@ -143,8 +157,12 @@ class World {
             }
         });
     }
-    character_bottle() {
-        // character get bottle
+
+    /**
+     * Checks the collision between character and bottles 
+     * 
+     */
+    characterBottle() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.character.addedBottles += 10;
@@ -160,8 +178,12 @@ class World {
             }
         });
     }
-    bottle_endboss() {
-        // bottle meets endboss
+
+    /**
+     * Checks the collision between bottles and endboss 
+     * 
+     */
+    bottleEndboss() {
         this.level.endboss.forEach((endboss) => {
             this.throwableObject.forEach((bottle) => {
                 if (endboss.isColliding(bottle)) {
@@ -173,106 +195,6 @@ class World {
                 }
             });
         });
-    }
-
-
-    /**
-     * All objects are drawn (all 200ms)
-     * 
-     */
-    draw() {
-        if (this.character.stoppAnimations == false) {
-
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // The canvas is always deleted / cleared again (always at the very beginning)
-
-            this.ctx.translate(this.camera_x, 0);
-
-            this.addObjectsToMap(this.level.backgroundObjects);
-            this.addObjectsToMap(this.level.clouds);
-            this.addObjectsToMap(this.level.bottles);
-            this.addObjectsToMap(this.level.bottlesEnd);
-            this.addObjectsToMap(this.level.coin);
-            this.addObjectsToMap(this.level.enemies);
-            this.addObjectsToMap(this.level.endboss);
-            this.addObjectsToMap(this.throwableObject);
-            this.addToMap(this.character);
-
-            this.ctx.translate(-this.camera_x, 0);
-
-            this.addToMap(this.statusBarLife);
-            this.addToMap(this.statusBarBottle);
-            this.addToMap(this.statusBarCoin);
-            this.level.endboss.forEach((endboss) => {
-                if (endboss.endbossStart) {
-                    this.addToMap(this.statusBarEndboss);
-                    this.addToMap(this.imgEndboss);
-                }
-                if (endboss.gameOver) {
-                    this.addToMap(this.gameOver);
-                }
-            });
-
-            this.ctx.translate(this.camera_x, 0);
-            this.ctx.translate(-this.camera_x, 0);
-
-            if (this.character.gameOver) {
-                this.addToMap(this.youLose);
-            }
-
-            let self = this;
-            requestAnimationFrame(function () { // requestAnimationFrame() is executed as soon as everything above (in draw) is drawn. draw() is called again and again (as much as the graphics card can handle)
-                self.draw(); // "this" is not recognized in requestAnimatoinFrame(), therefore via a variable (self)
-            });
-        }
-    }
-
-    /**
-     * forEach-loop for all arrays
-     * 
-     * @param {Array} objects - Contain all objects from the array
-     */
-    addObjectsToMap(objects) {
-        objects.forEach(o => {
-            this.addToMap(o);
-        });
-    }
-
-    /**
-     * Passes an object to draw() in drawableObject and calls it. Checks the direction of the object
-     * 
-     * @param {object} mo 
-     */
-    addToMap(mo) {
-        if (mo.otherDirection) {
-            this.flippImage(mo);
-        }
-        mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx);
-        if (mo.otherDirection) {
-            this.flippImageBack(mo);
-        }
-    }
-
-    /**
-     * Mirrors a image
-     * 
-     * @param {object} mo 
-     */
-    flippImage(mo) {
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0);
-        this.ctx.scale(-1, 1);
-        mo.x = mo.x * -1
-    }
-
-    /**
-     * Mirrors back a image
-     * 
-     * @param {object} mo 
-     */
-    flippImageBack(mo) {
-        mo.x = mo.x * -1;
-        this.ctx.restore();
     }
 
     /**
@@ -289,6 +211,147 @@ class World {
                     this.character.stoppAnimations = true;
                 }, 4000);
             }
+        });
+    }
+
+    /**
+     * All objects are drawn (all 200ms)
+     * 
+     */
+    draw() {
+        if (this.character.stoppAnimations == false) {
+            this.deleteCanvas();
+            this.drawObjects();
+            this.rAF();
+        }
+    }
+
+    /**
+     * The canvas is always deleted / cleared again (always at the very beginning)
+     * 
+     */
+    deleteCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    /**
+     * Draw all objects
+     * 
+     */
+    drawObjects() {
+        this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.bottlesEnd);
+        this.addObjectsToMap(this.level.coin);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.endboss);
+        this.addObjectsToMap(this.throwableObject);
+        this.addToMap(this.character);
+        this.ifEndbossStart();
+        this.ifEndGame();
+        this.drawStatusBars();
+        this.ctx.translate(-this.camera_x, 0);
+    }
+
+    /**
+     * Is drawn if the endboss started
+     * 
+     */
+    ifEndbossStart() {
+        this.level.endboss.forEach((endboss) => {
+            if (endboss.endbossStart) {
+                this.addToMap(this.statusBarEndboss);
+                this.addToMap(this.imgEndboss);
+            }
+        });
+    }
+
+    /**
+     * Is drawn if the game is finish
+     * 
+     */
+    ifEndGame() {
+        this.level.endboss.forEach((endboss) => {
+            if (endboss.gameOver) {
+                this.addToMap(this.gameOver);
+            }
+            if (this.character.gameOver) {
+                this.addToMap(this.youLose);
+            }
+        });
+    }
+
+    /**
+     * Draw status-bars
+     * 
+     */
+    drawStatusBars() {
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBarLife);
+        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarCoin);
+        this.ctx.translate(this.camera_x, 0);
+    }
+
+    /**
+     * forEach-loop for all arrays
+     * 
+     * @param {Array} objects - Contain all objects from the array
+     */
+    addObjectsToMap(objects) {
+        objects.forEach(o => {
+            this.addToMap(o);
+        });
+    }
+
+    /**
+     * Passes an object to draw() in drawableObject and calls it. Checks the direction of the object
+     * 
+     * @param {Object} mo 
+     */
+    addToMap(mo) {
+        if (mo.otherDirection) {
+            this.flippImage(mo);
+        }
+        mo.draw(this.ctx);
+        // mo.drawFrame(this.ctx);
+        if (mo.otherDirection) {
+            this.flippImageBack(mo);
+        }
+    }
+
+    /**
+     * Mirrors an image
+     * 
+     * @param {Object} mo 
+     */
+    flippImage(mo) {
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1
+    }
+
+    /**
+     * Mirrors back an image
+     * 
+     * @param {Object} mo 
+     */
+    flippImageBack(mo) {
+        mo.x = mo.x * -1;
+        this.ctx.restore();
+    }
+
+    /**
+     * requestAnimationFrame() is executed as soon as everything above (in draw) is drawn. draw() is called again and again (as much as the graphics card can handle)
+     * 
+     */
+    rAF() {
+        let self = this;
+        requestAnimationFrame(function () {
+            self.draw(); // "this" is not recognized in requestAnimatoinFrame(), therefore via a variable (self)
         });
     }
 }

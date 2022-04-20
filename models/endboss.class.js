@@ -60,7 +60,16 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Load various animations
+     * 
+     */
     animate() {
+        this.moves();
+        this.animations();
+    }
+
+    moves() {
         let timer = 0;
         let interval = 500;
         let setTime = 2;
@@ -90,23 +99,6 @@ class Endboss extends MovableObject {
                 }
             }
         }, 1000 / 60);
-
-        setInterval(() => {
-            if (this.isDeadEndboss()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.isKilled();
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (stopped && !this.attack) {
-                this.playAnimation(this.IMAGES_ALERTA);
-            } else if (this.attack) {
-                this.playAnimation(this.IMAGES_ATTACK);
-            } else {
-                // walk animation
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-            // console.log(this.energyEndboss)
-        }, 1000 / 8);
     }
 
     goLeftRight() {
@@ -117,5 +109,22 @@ class Endboss extends MovableObject {
             this.x += 5;
             this.otherDirection = true;
         }
+    }
+
+    animations() {
+        setInterval(() => {
+            if (this.isDeadEndboss()) {
+                this.playAnimation(this.IMAGES_DEAD);
+                this.isKilled();
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.stopped && !this.attack) {
+                this.playAnimation(this.IMAGES_ALERTA);
+            } else if (this.attack) {
+                this.playAnimation(this.IMAGES_ATTACK);
+            } else {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+        }, 1000 / 8);
     }
 }    

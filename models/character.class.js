@@ -97,10 +97,16 @@ class Character extends MovableObject {
     }
 
     /**
-     * Loads various animations
+     * Loads various animations an sounds
      * 
      */
     animate() {
+        this.movesAndSounds();
+        this.movesAndSoundsDie();
+        this.animations(); 
+    }
+
+    movesAndSounds() {
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
@@ -132,7 +138,9 @@ class Character extends MovableObject {
             }
             this.world.camera_x = -this.x + 400;
         }, 1000 / 60);
+    }
 
+    movesAndSoundsDie() {
         const die = setInterval(() => {
             if (this.isDead()) {
                 this.die_sound.play();
@@ -142,7 +150,9 @@ class Character extends MovableObject {
                 }, 1000);
             }
         }, 1000 / 60);
+    }
 
+    animations() {
         const animations = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
@@ -156,6 +166,8 @@ class Character extends MovableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.lastMove = new Date().getTime();
+            } else if (this.world.keyboard.D) {
+                this.playAnimation(this.IMAGES_WAIT);
             } else {
                 this.sleepAnimation();
             }
@@ -164,7 +176,7 @@ class Character extends MovableObject {
 
     sleepAnimation() {
         this.idleTime = new Date().getTime() - this.lastMove;
-        if (this.idleTime > 2000) {
+        if (this.idleTime > 3000) {
             this.playAnimation(this.IMAGES_SLEEP);
         } else {
             this.playAnimation(this.IMAGES_WAIT);

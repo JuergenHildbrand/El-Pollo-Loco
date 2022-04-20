@@ -6,10 +6,10 @@ class DrawableObject {
     width = 0;
     img; // For single images
     imageCache = {}; // imageCache gets assigned an array with images
-    xOffset = 0;
-    yOffset = 0;
-    xLimitOffset = 0;
-    yLimitOffset = 0;
+    xOffset = 0; // Optimize collisions
+    yOffset = 0; // Optimize collisions
+    xLimitOffset = 0; // Optimize collisions
+    yLimitOffset = 0; // Optimize collisions
     currentImage = 0; // Is needed to iterate through an array
     
     /**
