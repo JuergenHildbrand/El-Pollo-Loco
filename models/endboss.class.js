@@ -3,6 +3,10 @@ class Endboss extends MovableObject {
     y = 90;
     height = 600;
     width = 350;
+    stoped = false;
+    xOffset = 30;
+    xLimitOffset = 30;
+    yLimitOffset = 260;
 
     IMAGES_WALKING = [
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/1.Caminata/G1.png',
@@ -73,7 +77,7 @@ class Endboss extends MovableObject {
         let timer = 0;
         let interval = 500;
         let setTime = 2;
-        let stopped = false;
+        
 
         const animations = setInterval(() => {
             if (this.energyEndboss == 0) {
@@ -85,13 +89,13 @@ class Endboss extends MovableObject {
                 if (timer < 500) {
                     this.goLeftRight();
                     timer += setTime;
-                    stopped = false;
+                    this.stoped = false;
                     if (timer >= 500) {
                         interval = 0;
                     }
                 } else if (interval < 500) {
                     this.stop();
-                    stopped = true;
+                    this.stoped = true;
                     interval += setTime;
                     if (interval >= 500) {
                         timer = 0;
@@ -103,10 +107,10 @@ class Endboss extends MovableObject {
 
     goLeftRight() {
         if (this.directionEndboss) {
-            this.x -= 5;
+            this.x -= 11;
             this.otherDirection = false;
         } else {
-            this.x += 5;
+            this.x += 11;
             this.otherDirection = true;
         }
     }
@@ -118,7 +122,7 @@ class Endboss extends MovableObject {
                 this.isKilled();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-            } else if (this.stopped && !this.attack) {
+            } else if (this.stoped && !this.attack) {
                 this.playAnimation(this.IMAGES_ALERTA);
             } else if (this.attack) {
                 this.playAnimation(this.IMAGES_ATTACK);

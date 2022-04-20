@@ -3,6 +3,10 @@ class ThrowableObject extends MovableObject {
     height = 100;
     width = 100;
     splash = false;
+    // xOffset = 50; 
+    // yOffset = 50; 
+    // xLimitOffset = 50; 
+    // yLimitOffset = 50; 
 
     IMAGES_THROW = [
         'img/6.botella/Rotaciขn/Mesa de trabajo 1 copia 3.png',
@@ -39,9 +43,9 @@ class ThrowableObject extends MovableObject {
         this.applyGaravity();
         setInterval(() => {
             if (this.otherDirection) {
-                this.x -= 10;
+                this.x -= 8;
             } else {
-                this.x += 10;
+                this.x += 8;
             }
         }, 1000 / 60);
         this.animate()
@@ -49,7 +53,7 @@ class ThrowableObject extends MovableObject {
 
     animate() {
         setInterval(() => {
-            if (this.splash || this.y > 400) {
+            if (this.splash || this.y > 460) {
                 this.playAnimation(this.IMAGES_SPLASH);
             } else {
                 this.playAnimation(this.IMAGES_THROW);

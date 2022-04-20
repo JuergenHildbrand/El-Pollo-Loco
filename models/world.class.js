@@ -15,6 +15,8 @@ class World {
     throwableObject = [];
     camera_x = 0;
     bottleThrown = true;
+    endbossHit = true;
+    stopCount = true;
 
     /**
      * Load canvas, defines values for variables and triggers functions
@@ -45,11 +47,17 @@ class World {
      */
     run() {
         setInterval(() => {
-            this.checkDirection();
             this.throwableObjects();
             this.checkCollisions();
-            this.checkEndgame();
         }, 20);
+        this.run2();
+    }
+
+    run2() {
+        setInterval(() => {
+            this.checkDirection();
+            this.checkEndgame();
+        }, 200);
     }
 
     /**
@@ -108,7 +116,7 @@ class World {
             this.statusBarBottle.setPercentage(this.character.addedBottles);
             setTimeout(() => {
                 this.bottleThrown = true;
-            }, 1000);
+            }, 400);
         }
     }
 
@@ -134,13 +142,15 @@ class World {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
-            if (this.character.isColliding(enemies) && this.character.isAboveGround()) {
-                enemies.chickenDead = true;
-                if (index < 6) {
+            if (this.character.isColliding(enemies) && this.character.isAboveGround()) {    
+                if (index < 6 && !enemies.chickenDead) {
                     this.character.chickenBigCount += 1;
+                    enemies.chickenDead = true;
+                    console.log(this.character.chickenBigCount)
                 }
-                if (index > 5) {
+                if (index > 5 && !enemies.chickenDead) {
                     this.character.chickenSmallCount += 1;
+                    enemies.chickenDead = true;
                 }
             }
         });
@@ -167,7 +177,7 @@ class World {
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.level.coin.splice(index, 1);
-                this.character.addedCoins += 10;
+                this.character.addedCoins += 5;
                 this.statusBarCoin.setPercentage(this.character.addedCoins);
             }
         });
@@ -202,7 +212,13 @@ class World {
         this.level.endboss.forEach((endboss) => {
             this.throwableObject.forEach((bottle) => {
                 if (endboss.isColliding(bottle)) {
-                    endboss.hitEndboss();
+                    if (this.endbossHit) {
+                        endboss.hitEndboss();
+                        this.endbossHit = false;
+                        setTimeout(() => {
+                            this.endbossHit = true;
+                        }, 900);
+                    }
                     this.level.endboss.forEach((energy) => {
                         this.statusBarEndboss.setPercentage(energy.energyEndboss);
                         bottle.splash = true;
@@ -230,7 +246,7 @@ class World {
     }
 
     /**
-     * All objects are drawn (all 200ms)
+     * All objects are drawn
      * 
      */
     draw() {

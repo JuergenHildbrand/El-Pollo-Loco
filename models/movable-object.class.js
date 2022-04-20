@@ -3,8 +3,8 @@ class MovableObject extends DrawableObject {
     speed = 0; 
     speedY = 0; // Fall speed
     acceleration = 2.5;
-    energy = 100000;
-    energyEndboss = 10;
+    energy = 100;
+    energyEndboss = 100;
     lastHit = 0;
     addedCoins = 0;
     addedBottles = 0;
@@ -61,7 +61,7 @@ class MovableObject extends DrawableObject {
      * 
      */
     hit() {
-        this.energy -= 5;
+        this.energy -= 0.5;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -74,7 +74,7 @@ class MovableObject extends DrawableObject {
      * 
      */
     hitEndboss() {
-        this.energyEndboss -= 2;
+        this.energyEndboss -= 10;
         if (this.energyEndboss < 0) {
             this.energyEndboss = 0;
         } else {
