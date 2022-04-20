@@ -132,7 +132,7 @@ class Character extends MovableObject {
             if (this.isHurt()) {
                 // this.hurt_sound.play();
             }
-            if (this.world.keyboard.D && this.addedBottles > 0) {
+            if (this.world.keyboard.D && this.addedBottles > 0 && this.world.bottleThrown) {
                 this.throw_sound.play();
             }
             this.world.camera_x = -this.x + 400;
@@ -155,7 +155,7 @@ class Character extends MovableObject {
         const animations = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                this.isDie = new Date().getTime();
+                // this.isDie = new Date().getTime();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.lastMove = new Date().getTime();
@@ -166,7 +166,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.lastMove = new Date().getTime();
             } else if (this.world.keyboard.D) {
-                this.playAnimation(this.IMAGES_WAIT);
+                this.sleepAnimation();
             } else {
                 this.sleepAnimation();
             }

@@ -14,6 +14,7 @@ class World {
     youLose = new YouLose();
     throwableObject = [];
     camera_x = 0;
+    bottleThrown = true;
 
     /**
      * Load canvas, defines values for variables and triggers functions
@@ -27,7 +28,6 @@ class World {
         this.keyboard = keyboard;
         this.setWorld();
         this.run();
-        this.runThrowableObject();
         this.draw();
     }
 
@@ -46,15 +46,10 @@ class World {
     run() {
         setInterval(() => {
             this.checkDirection();
+            this.throwableObjects();
             this.checkCollisions();
             this.checkEndgame();
         }, 20);
-    }
-
-    runThrowableObject() {
-        setInterval(() => {
-            this.throwableObjects();
-        }, 100);
     }
 
     /**
@@ -105,11 +100,15 @@ class World {
      * 
      */
     throwableObjects() {
-        if (this.keyboard.D && this.character.addedBottles > 0) {
+        if (this.keyboard.D && this.character.addedBottles > 0 && this.bottleThrown) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
             this.character.addedBottles -= 10;
             this.throwableObject.push(bottle);
+            this.bottleThrown = false;
             this.statusBarBottle.setPercentage(this.character.addedBottles);
+            setTimeout(() => {
+                this.bottleThrown = true;
+            }, 1000);
         }
     }
 
@@ -269,8 +268,8 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.ifEndbossStart();
         this.ifEndGame();
-        
-        
+
+
     }
 
     /**
