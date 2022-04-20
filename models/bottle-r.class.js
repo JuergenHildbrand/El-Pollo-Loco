@@ -3,8 +3,9 @@ class BottleR extends MovableObject {
     y = 550;
     height = 100;
     width = 100;
-    xOffset = 60;
-    xLimitOffset = 60;
+    xOffset = 28;
+    yOffset = 28;
+    xLimitOffset = 28;
 
     /**
      * Load bottles-right image and defines value for variable

@@ -27,6 +27,7 @@ class World {
         this.keyboard = keyboard;
         this.setWorld();
         this.run();
+        this.runThrowableObject();
         this.draw();
     }
 
@@ -45,10 +46,15 @@ class World {
     run() {
         setInterval(() => {
             this.checkDirection();
-            this.throwableObjects();
             this.checkCollisions();
             this.checkEndgame();
-        }, 200);
+        }, 20);
+    }
+
+    runThrowableObject() {
+        setInterval(() => {
+            this.throwableObjects();
+        }, 100);
     }
 
     /**
@@ -259,10 +265,12 @@ class World {
         this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.throwableObject);
         this.addToMap(this.character);
-        this.ifEndbossStart();
-        this.ifEndGame();
         this.drawStatusBars();
         this.ctx.translate(-this.camera_x, 0);
+        this.ifEndbossStart();
+        this.ifEndGame();
+        
+        
     }
 
     /**

@@ -1,9 +1,9 @@
 class MovableObject extends DrawableObject {
 
-    speed = 0.2; 
+    speed = 0; 
     speedY = 0; // Fall speed
     acceleration = 2.5;
-    energy = 1000000;
+    energy = 100000;
     energyEndboss = 10;
     lastHit = 0;
     addedCoins = 0;
@@ -50,9 +50,9 @@ class MovableObject extends DrawableObject {
      * @returns - x / y / height / width - coordinates
      */
     isColliding(mo) {
-        return this.x + this.width > mo.x + mo.xOffset &&
-            this.y + this.height > mo.y + mo.yOffset &&
-            this.x < mo.x + mo.width - mo.xLimitOffset &&
+        return this.x + this.width - this.xOffset > mo.x + mo.xOffset &&
+            this.y + this.height - this.yOffset > mo.y + mo.yOffset &&
+            this.x + this.xLimitOffset < mo.x + mo.width - mo.xLimitOffset &&
             this.y + this.yLimitOffset < mo.y + mo.height - mo.yLimitOffset
     }
 

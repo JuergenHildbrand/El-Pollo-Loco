@@ -25,9 +25,9 @@ function startGame() {
 /**
  * Finish game, end-screen
  * 
- * @param {number} chickenSmallCount - killed small-chicken(s)
- * @param {number} chickenBigCount - killed big-chicken(s)
- * @param {number} addedCoins - collected coin(s)
+ * @param {Number} chickenSmallCount - killed small-chicken(s)
+ * @param {Number} chickenBigCount - killed big-chicken(s)
+ * @param {Number} addedCoins - collected coin(s)
  */
 function gameOver(chickenSmallCount, chickenBigCount, addedCoins) {
     document.getElementById('chickenSmallCount').innerHTML = chickenSmallCount;

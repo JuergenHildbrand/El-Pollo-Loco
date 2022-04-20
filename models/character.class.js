@@ -1,14 +1,13 @@
 class Character extends MovableObject {
 
     world; // Via this variable the character can access the variables in the world. (this.world.keyboard.xyz)
-    x = 400;
-    y = 240;
     height = 400;
     width = 200;
     speed = 10;
     xOffset = 60;
-    xLimitOffset = 60;
-    yLimitOffset = 155;
+    yOffset = 33;
+    xLimitOffset = 65;
+    yLimitOffset = 163;
     walkin_sound = new Audio('audio/walking.mp3');
     jump_sound = new Audio('audio/jump.mp3');
     hurt_sound = new Audio('audio/hurt.mp3');
