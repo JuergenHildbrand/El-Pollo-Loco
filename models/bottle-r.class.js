@@ -1,4 +1,5 @@
 class BottleR extends MovableObject {
+    
     y = 550;
     height = 100;
     width = 100;

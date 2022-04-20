@@ -31,7 +31,6 @@ class ThrowableObject extends MovableObject {
     }
 
     throw() {
-
         this.speedY = 30;
         this.applyGaravity();
         setInterval(() => {
@@ -40,9 +39,7 @@ class ThrowableObject extends MovableObject {
             } else {
                 this.x += 10;
             }
-
         }, 1000 / 60);
-
         this.animate()
     }
 

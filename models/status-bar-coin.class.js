@@ -1,5 +1,7 @@
 class StatusBarCoin extends DrawableObject {
 
+    percentage = 0;
+
     IMAGES = [
         'img/7.Marcadores/Barra/Marcador_moneda/Naranja/0.png',
         'img/7.Marcadores/Barra/Marcador_moneda/Naranja/20.png',
@@ -9,7 +11,6 @@ class StatusBarCoin extends DrawableObject {
         'img/7.Marcadores/Barra/Marcador_moneda/Naranja/100.png'
     ];
 
-    percentage = 0;
 
     constructor() {
         super();
@@ -21,9 +22,8 @@ class StatusBarCoin extends DrawableObject {
         this.setPercentage(0);
     }
 
-
     setPercentage(percentage) {
-        this.percentage = percentage; // => 0 ... 5
+        this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }

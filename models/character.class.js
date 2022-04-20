@@ -15,7 +15,6 @@ class Character extends MovableObject {
     die_sound = new Audio('audio/die.mp3');
     throw_sound = new Audio('audio/throw.mp3');
 
-
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-correcciขn/2.Secuencia_caminata/W-21.png',
         'img/2.Secuencias_Personaje-Pepe-correcciขn/2.Secuencia_caminata/W-22.png',
@@ -104,13 +103,13 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
+                this.moveRight();
                 this.positionCharacter = this.x;
                 this.otherDirection = false;
                 // this.walkin_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > -1025) {
-                this.x -= this.speed;
+                this.moveLeft();
                 this.positionCharacter = this.x;
                 this.otherDirection = true;
                 // this.walkin_sound.play();

@@ -1,9 +1,9 @@
 class ChickenSmall extends MovableObject {
+
     y = 564;
     height = 70;
     width = 70;
     
-
     IMAGES_WALKING = [
         'img/3.Secuencias_Enemy_basico/Versi¢n_pollito/1.Paso_derecho.png',
         'img/3.Secuencias_Enemy_basico/Versi¢n_pollito/2.Centro.png',
@@ -24,9 +24,9 @@ class ChickenSmall extends MovableObject {
     }
 
     animate() {
-
-        this.moveLeft();
-
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
         setInterval(() => {
             if (this.chickenDead) {
                 this.loadImage(this.IMAGES_DEAD);

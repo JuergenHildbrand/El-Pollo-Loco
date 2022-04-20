@@ -2,12 +2,18 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
-
-/* lädt canvas mit den entsprechenden grafiken */
+/**
+ * Start-screen
+ * 
+ */
 function init() {
     document.getElementById('startScreen').src = 'img/9.Intro _ Outro Image/Start Screen/Opciขn 1.png';
 }
 
+/**
+ * Start game
+ * 
+ */
 function startGame() {
     document.getElementById('start').classList.add('d-none');
     document.getElementById('gameOver').classList.add('d-none');
@@ -16,6 +22,13 @@ function startGame() {
     world = new World(canvas, keyboard); // A new object named world is created and the parameters canvas and keyboard are given to it
 }
 
+/**
+ * Finish game, end-screen
+ * 
+ * @param {number} chickenSmallCount - killed small-chicken(s)
+ * @param {number} chickenBigCount - killed big-chicken(s)
+ * @param {number} addedCoins - collected coin(s)
+ */
 function gameOver(chickenSmallCount, chickenBigCount, addedCoins) {
     document.getElementById('chickenSmallCount').innerHTML = chickenSmallCount;
     document.getElementById('chickenBigCount').innerHTML = chickenBigCount;
@@ -23,6 +36,10 @@ function gameOver(chickenSmallCount, chickenBigCount, addedCoins) {
     document.getElementById('gameOver').classList.remove('d-none');
 }
 
+/**
+ * Restart game
+ * 
+ */
 function reStartGame() {
     window.location.href = window.location.href;
 }

@@ -108,14 +108,20 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Animation move left (chickens big and small)
+     * Animation move left
      * 
      */
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;
     }
+
+    /**
+     * Animation move right
+     * 
+     */
+    moveRight() {
+        this.x += this.speed;
+}
 
     /**
      * Animation jump (character)

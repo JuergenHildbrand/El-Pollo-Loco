@@ -101,8 +101,13 @@ class World {
      * 
      */
     checkCollisions() {
-
-        // character & enemies
+        this.character_enemies();
+        this.character_endboss();
+        this.characetr_coin();
+        this.character_bottle();
+        this.bottle_endboss();
+    }
+    character_enemies() {
         this.level.enemies.forEach((enemies, index) => {
             if (this.character.isColliding(enemies) && !enemies.chickenDead && !this.character.isAboveGround()) {
                 this.character.hit();
@@ -118,7 +123,8 @@ class World {
                 }
             }
         });
-
+    }
+    character_endboss() {
         // character & endboss
         this.level.endboss.forEach((endboss) => {
             if (this.character.isColliding(endboss)) {
@@ -126,7 +132,8 @@ class World {
                 this.statusBarLife.setPercentage(this.character.energy);
             }
         });
-
+    }
+    characetr_coin() {
         // character get coin
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -135,7 +142,8 @@ class World {
                 this.statusBarCoin.setPercentage(this.character.addedCoins);
             }
         });
-
+    }
+    character_bottle() {
         // character get bottle
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -151,7 +159,8 @@ class World {
                 this.statusBarBottle.setPercentage(this.character.addedBottles);
             }
         });
-
+    }
+    bottle_endboss() {
         // bottle meets endboss
         this.level.endboss.forEach((endboss) => {
             this.throwableObject.forEach((bottle) => {
@@ -165,6 +174,7 @@ class World {
             });
         });
     }
+
 
     /**
      * All objects are drawn (all 200ms)
@@ -210,7 +220,7 @@ class World {
             }
 
             let self = this;
-            requestAnimationFrame(function() { // requestAnimationFrame() is executed as soon as everything above (in draw) is drawn. draw() is called again and again (as much as the graphics card can handle)
+            requestAnimationFrame(function () { // requestAnimationFrame() is executed as soon as everything above (in draw) is drawn. draw() is called again and again (as much as the graphics card can handle)
                 self.draw(); // "this" is not recognized in requestAnimatoinFrame(), therefore via a variable (self)
             });
         }
@@ -265,10 +275,10 @@ class World {
         this.ctx.restore();
     }
 
-     /**
-     * Checks if the game is finished
-     * 
-     */
+    /**
+    * Checks if the game is finished
+    * 
+    */
     checkEndgame() {
         this.level.endboss.forEach((endboss) => {
             if (this.character.gameOver || endboss.gameOver) {

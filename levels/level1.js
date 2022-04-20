@@ -1,4 +1,3 @@
-// alle obekte von level 1
 const level1 = new Level(
     [
         new Chicken(),

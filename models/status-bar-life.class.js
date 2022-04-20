@@ -1,5 +1,7 @@
 class StatusBarLife extends DrawableObject {
 
+    percentage = 100;
+
     IMAGES = [
         'img/7.Marcadores/Barra/Marcador vida/verde/0_.png',
         'img/7.Marcadores/Barra/Marcador vida/verde/20_.png',
@@ -8,8 +10,6 @@ class StatusBarLife extends DrawableObject {
         'img/7.Marcadores/Barra/Marcador vida/verde/80_.png',
         'img/7.Marcadores/Barra/Marcador vida/verde/100_.png'
     ];
-
-    percentage = 100;
 
     constructor() {
         super();
@@ -21,9 +21,8 @@ class StatusBarLife extends DrawableObject {
         this.setPercentage(100);
     }
 
-    // set percentage(50);
     setPercentage(percentage) {
-        this.percentage = percentage; // => 0 ... 5
+        this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }

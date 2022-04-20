@@ -1,4 +1,5 @@
 class Endboss extends MovableObject {
+    
     y = 90;
     height = 600;
     width = 350;
@@ -48,30 +49,27 @@ class Endboss extends MovableObject {
 
     world;
 
-    constructor() { // wird ausgeführt wenn das object neu erstellt wird
-        super().loadImage('img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/2.Ateciขn-ataque/1.Alerta/G5.png'); // super wird verwendetum methoden vom übergeordneten objekt aufzurufen         
+    constructor() { 
+        super().loadImage('img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/2.Ateciขn-ataque/1.Alerta/G5.png'); 
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERTA);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 4900; // math.random() gibt eine zufällige zahl zwischen 0 - 1 aus. die hünchen werden an verschiedenen pos. ausgegeben.
+        this.x = 4900;
         this.animate();
     }
 
     animate() {
-
         let timer = 0;
         let interval = 500;
         let setTime = 2;
         let stopped = false;
 
         const animations = setInterval(() => {
-
             if (this.energyEndboss == 0) {
                 clearInterval(animations);
             } else if (this.endbossStart) {
-
                 if (timer == 0) {
                     setTime = 2 + Math.random() * 10;
                 }
@@ -94,7 +92,6 @@ class Endboss extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-
             if (this.isDeadEndboss()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.isKilled();
