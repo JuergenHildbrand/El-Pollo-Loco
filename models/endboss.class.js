@@ -75,7 +75,7 @@ class Endboss extends MovableObject {
 
     moves() {
         let timer = 0;
-        let interval = 500;
+        let interval = 250;
         let setTime = 2;
         
 
@@ -83,21 +83,24 @@ class Endboss extends MovableObject {
             if (this.energyEndboss == 0) { // If endboss is dead
                 clearInterval(animations);
             } else if (this.endbossStart) { // If distance between character und endboss < 1000px
+                
                 if (timer == 0) {
                     setTime = 2 + Math.random() * 10;
                 }
+
                 if (timer < 300) { // As long as the value of the timer is below 300
                     this.stoped = false;
                     this.move(); // The end boss moves left or right (always in the direction of the character)
                     timer += setTime; // The timer gets a random number added at each interval
                     if (timer >= 300) { // If the timer reaches the value 300 or higher 
                         interval = 0; // interval is set to zero
+                        setTime = 2 + Math.random() * 10;
                     }
-                } else if (interval < 200) { // If the value of interval is lower than 200
+                } else if (interval < 250) { // If the value of interval is lower than 250
                     this.stoped = true; // The alerta animations and the stop() function starts
                     this.stop(); 
                     interval += setTime; // The interval gets a random number added at each interval
-                    if (interval >= 200) { // If intervall reaches the value of 200 or higher
+                    if (interval >= 250) { // If intervall reaches the value of 250 or higher
                         timer = 0; // The timer is set to zero and the endboss starts walking again
                     }
                 }
@@ -107,10 +110,10 @@ class Endboss extends MovableObject {
 
     move() {
         if (this.directionEndboss) {
-            this.x -= 11.1;
+            this.x -= 11.2;
             this.otherDirection = false;
         } else {
-            this.x += 11.1;
+            this.x += 11.2;
             this.otherDirection = true;
         }
     }

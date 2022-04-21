@@ -102,7 +102,7 @@ class Character extends MovableObject {
     animate() {
         this.movesAndSounds();
         this.movesAndSoundsDie();
-        this.animations(); 
+        this.animations();
     }
 
     movesAndSounds() {
@@ -127,6 +127,7 @@ class Character extends MovableObject {
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
+                this.world.lastJump = new Date().getTime();
                 this.jump_sound.play();
             }
             if (this.isHurt()) {

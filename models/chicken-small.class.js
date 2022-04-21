@@ -1,9 +1,11 @@
 class ChickenSmall extends MovableObject {
 
-    y = 564;
     height = 70;
     width = 70;
-    
+    chickenSpeedY = 0;
+    chickenSAcceleration = 2.5;
+    setTime = 2;
+
     IMAGES_WALKING = [
         'img/3.Secuencias_Enemy_basico/Versi¢n_pollito/1.Paso_derecho.png',
         'img/3.Secuencias_Enemy_basico/Versi¢n_pollito/2.Centro.png',
@@ -18,12 +20,14 @@ class ChickenSmall extends MovableObject {
      * Load images, defines values for variables and trigger function
      * 
      */
-    constructor() { 
-        super().loadImage(this.IMAGES_WALKING[0]); 
+    constructor() {
+        super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImage(this.IMAGES_DEAD);
-        this.x = 1000 + Math.random() * 3000; 
-        this.speed = 0.2 + Math.random() * 2;
+        this.x = 1000 + Math.random() * 5000;
+        this.speed = 0.3 + Math.random() * 2;
+        this.setTime = 6 + Math.random() * 10;
+        this.applyGaravity();
         this.animate();
     }
 
@@ -32,16 +36,43 @@ class ChickenSmall extends MovableObject {
      * 
      */
     animate() {
-        setInterval(() => {
-            this.moveLeft();
+
+        let timer = 0;
+        
+
+        const animations = setInterval(() => {
+            if (this.chickenDead) {
+                clearInterval(animations)
+            } else {
+                this.moveLeft();
+            }
+            
+            if (timer < 4001) {
+                timer += this.setTime;
+            } 
+            
+            if (timer > 4000 && !this.isAboveGround()) {
+                this.chickenJump();
+                this.speed += 5;
+                setTimeout(() => {
+                    this.speed -= 5;
+                }, 1100);
+                timer = 0;
+            }
+
+
         }, 1000 / 60);
+
         setInterval(() => {
             if (this.chickenDead) {
                 this.loadImage(this.IMAGES_DEAD);
-                this.speed = 0;
             } else {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 200);
+    }
+
+    chickenJump() {
+        this.speedY = 30;   
     }
 }

@@ -17,6 +17,7 @@ class World {
     bottleThrown = false; // Is set to true after a throw, 500ms later it is set to false again (the value must be false to throw a bottle) 
     endbossHit = false; // If the endboss is hit, true is set (one deduction / hit)
     stopCount = true;
+    lastJump = 0;
 
     /**
      * Load canvas, defines values for variables and triggers functions
@@ -137,12 +138,13 @@ class World {
      * 
      */
     characterEnemies() {
+        let timeX = new Date().getTime() - this.lastJump;
         this.level.enemies.forEach((enemies, index) => {
-            if (this.character.isColliding(enemies) && !enemies.chickenDead && !this.character.isAboveGround()) { // Hit character
+            if (this.character.isColliding(enemies) && !enemies.chickenDead && !this.character.isAboveGround() && timeX > 200) { // Hit character
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
-            if (this.character.isColliding(enemies) && this.character.isAboveGround() && !enemies.chickenDead) { // Kill chicken from above
+            if (this.character.isColliding(enemies) && this.character.isAboveGround() && !enemies.chickenDead && timeX > 500) { // Kill chicken from above
                 if (index < 6) { // Killed big chicken(s) 
                     this.character.chickenBigCount += 1;
                 }

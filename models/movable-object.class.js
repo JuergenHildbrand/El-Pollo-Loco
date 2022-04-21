@@ -4,7 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0; // Fall speed
     acceleration = 2.5;
     energy = 100;
-    energyEndboss = 95;
+    energyEndboss = 100;
     lastHit = 0;
     addedCoins = 0;
     addedBottles = 0;
@@ -38,6 +38,8 @@ class MovableObject extends DrawableObject {
     isAboveGround() {
         if (this instanceof ThrowableObject) { // Throwable objects should always fall
             return true;
+        } else if (this instanceof ChickenSmall) {
+            return this.y < 564;
         } else {
             return this.y < 280;
         }
