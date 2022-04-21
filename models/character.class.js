@@ -1,8 +1,8 @@
 class Character extends MovableObject {
 
     world; // Via this variable the character can access the variables in the world. (this.world.keyboard.xyz)
-    height = 400;
-    width = 200;
+    height = 360;
+    width = 180;
     speed = 10;
     xOffset = 60;
     yOffset = 33;

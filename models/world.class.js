@@ -110,13 +110,13 @@ class World {
     throwableObjects() {
         if (this.keyboard.D && this.character.addedBottles > 0 && this.bottleThrown) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
-            this.character.addedBottles -= 10;
+            this.character.addedBottles -= 5;
             this.throwableObject.push(bottle);
             this.bottleThrown = false;
             this.statusBarBottle.setPercentage(this.character.addedBottles);
             setTimeout(() => {
                 this.bottleThrown = true;
-            }, 400);
+            }, 300);
         }
     }
 
@@ -138,20 +138,18 @@ class World {
      */
     characterEnemies() {
         this.level.enemies.forEach((enemies, index) => {
-            if (this.character.isColliding(enemies) && !enemies.chickenDead && !this.character.isAboveGround()) {
+            if (this.character.isColliding(enemies) && !enemies.chickenDead && !this.character.isAboveGround()) { // Hit character
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
-            if (this.character.isColliding(enemies) && this.character.isAboveGround()) {    
-                if (index < 6 && !enemies.chickenDead) {
+            if (this.character.isColliding(enemies) && this.character.isAboveGround() && !enemies.chickenDead) { // Kill chicken from above
+                if (index < 6) { // Killed big chicken(s) 
                     this.character.chickenBigCount += 1;
-                    enemies.chickenDead = true;
-                    console.log(this.character.chickenBigCount)
                 }
-                if (index > 5 && !enemies.chickenDead) {
+                if (index > 5) { // Killed small chicken(s)
                     this.character.chickenSmallCount += 1;
-                    enemies.chickenDead = true;
                 }
+                enemies.chickenDead = true;
             }
         });
     }
@@ -176,10 +174,13 @@ class World {
     characetrCoin() {
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
+                this.character.addedCoins += 1;
+                if (this.character.addedCoins == 20 && this.character.addedCoins < 21) {
+                    this.character.addLife();
+                }
                 this.level.coin.splice(index, 1);
-                this.character.addedCoins += 5;
-                this.statusBarCoin.setPercentage(this.character.addedCoins);
-            }
+                this.statusBarCoin.setPercentage(this.character.addedCoins * 5);
+            }            
         });
     }
 
@@ -190,16 +191,16 @@ class World {
     characterBottle() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
-                this.character.addedBottles += 10;
-                this.level.bottles.splice(index, 1);
+                this.character.addedBottles += 5;
                 this.statusBarBottle.setPercentage(this.character.addedBottles);
+                this.level.bottles.splice(index, 1);
             }
         });
         this.level.bottlesEnd.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
-                this.character.addedBottles += 10;
-                this.level.bottlesEnd.splice(index, 1);
+                this.character.addedBottles += 5;
                 this.statusBarBottle.setPercentage(this.character.addedBottles);
+                this.level.bottlesEnd.splice(index, 1);
             }
         });
     }

@@ -85,6 +85,16 @@ canvas {
     font-size: 20px;
 }
 
+.gameInfo {
+    margin-top: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.gameInfo > div {
+    margin-top: 6px;
+}
+
 .infoButtonsEnd {
     border: 2px solid black;
     border-radius: 8px;

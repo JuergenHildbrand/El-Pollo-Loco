@@ -1,12 +1,12 @@
 class Endboss extends MovableObject {
     
-    y = 90;
-    height = 600;
-    width = 350;
+    y = 190;
+    height = 500;
+    width = 260;
     stoped = false;
     xOffset = 30;
     xLimitOffset = 30;
-    yLimitOffset = 260;
+    yLimitOffset = 30;
 
     IMAGES_WALKING = [
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/1.Caminata/G1.png',
@@ -80,39 +80,49 @@ class Endboss extends MovableObject {
         
 
         const animations = setInterval(() => {
-            if (this.energyEndboss == 0) {
+            if (this.energyEndboss == 0) { // If endboss is dead
                 clearInterval(animations);
-            } else if (this.endbossStart) {
+            } else if (this.endbossStart) { // If distance between character und endboss < 1000px
                 if (timer == 0) {
                     setTime = 2 + Math.random() * 10;
                 }
-                if (timer < 500) {
-                    this.goLeftRight();
-                    timer += setTime;
+                if (timer < 300) { // As long as the value of the timer is below 300
                     this.stoped = false;
-                    if (timer >= 500) {
-                        interval = 0;
+                    this.move(); // The end boss moves left or right (always in the direction of the character)
+                    timer += setTime; // The timer gets a random number added at each interval
+                    if (timer >= 300) { // If the timer reaches the value 300 or higher 
+                        interval = 0; // interval is set to zero
                     }
-                } else if (interval < 500) {
-                    this.stop();
-                    this.stoped = true;
-                    interval += setTime;
-                    if (interval >= 500) {
-                        timer = 0;
+                } else if (interval < 150) { // If the value of interval is lower than 150
+                    this.stoped = true; // The alerta animations and the stop() function starts
+                    this.stop(); 
+                    interval += setTime; // The interval gets a random number added at each interval
+                    if (interval >= 150) { // If intervall reaches the value of 150 or higher
+                        timer = 0; // The timer is set to zero and the endboss starts walking again
                     }
                 }
             }
         }, 1000 / 60);
     }
 
-    goLeftRight() {
+    move() {
         if (this.directionEndboss) {
-            this.x -= 11;
+            this.x -= 11.2;
             this.otherDirection = false;
         } else {
-            this.x += 11;
+            this.x += 11.2;
             this.otherDirection = true;
         }
+    }
+
+    /**
+     * Animation stop (endboss alerta)
+     * 
+     */
+    stop() {
+        setInterval(() => {
+            this.x == this.speed;
+        }, 1000 / 60);
     }
 
     animations() {
@@ -124,7 +134,7 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.stoped && !this.attack) {
                 this.playAnimation(this.IMAGES_ALERTA);
-            } else if (this.attack) {
+            } else if (this.attack) { // If the distance between character und endboss is < 300px
                 this.playAnimation(this.IMAGES_ATTACK);
             } else {
                 this.playAnimation(this.IMAGES_WALKING);

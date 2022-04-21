@@ -30,6 +30,12 @@ const level1 = new Level(
         new BottleL(),
         new BottleL(),
         new BottleL(),
+        new BottleL(),
+        new BottleL(),
+        new BottleL(),
+        new BottleR(),
+        new BottleR(),
+        new BottleR(),
         new BottleR(),
         new BottleR(),
         new BottleR(),
@@ -38,10 +44,10 @@ const level1 = new Level(
         
     ],
     [
-        new BottlesEnd('img/6.botella/2.Botella_enterrada1.png', 6000),
-        new BottlesEnd('img/6.botella/2.Botella_enterrada1.png', 6100),
-        new BottlesEnd('img/6.botella/2.Botella_enterrada2.png', 6530),
-        new BottlesEnd('img/6.botella/2.Botella_enterrada2.png', 5950)
+        new BottlesEnd('img/6.botella/2.Botella_enterrada1.png', 6500),
+        new BottlesEnd('img/6.botella/2.Botella_enterrada1.png', 6600),
+        new BottlesEnd('img/6.botella/2.Botella_enterrada2.png', 7030),
+        new BottlesEnd('img/6.botella/2.Botella_enterrada2.png', 6555)
     ],
     [
         new Coin(),

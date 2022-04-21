@@ -32,7 +32,7 @@ function startGame() {
 function gameOver(chickenSmallCount, chickenBigCount, addedCoins) {
     document.getElementById('chickenSmallCount').innerHTML = chickenSmallCount;
     document.getElementById('chickenBigCount').innerHTML = chickenBigCount;
-    document.getElementById('coinCount').innerHTML = addedCoins / 10;
+    document.getElementById('coinCount').innerHTML = addedCoins;
     document.getElementById('gameOver').classList.remove('d-none');
 }
 

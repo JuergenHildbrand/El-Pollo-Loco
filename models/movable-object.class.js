@@ -4,7 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0; // Fall speed
     acceleration = 2.5;
     energy = 100;
-    energyEndboss = 100;
+    energyEndboss = 95;
     lastHit = 0;
     addedCoins = 0;
     addedBottles = 0;
@@ -13,7 +13,7 @@ class MovableObject extends DrawableObject {
     otherDirection;
     directionEndboss = true;
     attack = false;
-    endbossStart = false;
+    endbossStart = false; // Endboss start when the distance between character and endboss is < 1000px
     gameOver = false;
     stoppAnimations = false;
 
@@ -39,7 +39,7 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) { // Throwable objects should always fall
             return true;
         } else {
-            return this.y < 260;
+            return this.y < 280;
         }
     }
 
@@ -69,12 +69,16 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    addLife() {
+        this.energy += 50;
+    }
+
     /**
      * Hit endboss
      * 
      */
     hitEndboss() {
-        this.energyEndboss -= 10;
+        this.energyEndboss -= 5;
         if (this.energyEndboss < 0) {
             this.energyEndboss = 0;
         } else {
@@ -145,16 +149,6 @@ class MovableObject extends DrawableObject {
      */
     jump() {
         this.speedY = 40;
-    }
-
-    /**
-     * Animation stop (endboss alerta)
-     * 
-     */
-    stop() {
-        setInterval(() => {
-            this.x == this.speed;
-        }, 1000 / 60);
     }
 
     /**
