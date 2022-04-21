@@ -3,10 +3,6 @@ class ThrowableObject extends MovableObject {
     height = 100;
     width = 100;
     splash = false;
-    // xOffset = 50; 
-    // yOffset = 50; 
-    // xLimitOffset = 50; 
-    // yLimitOffset = 50; 
 
     IMAGES_THROW = [
         'img/6.botella/Rotaciขn/Mesa de trabajo 1 copia 3.png',

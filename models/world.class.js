@@ -14,8 +14,8 @@ class World {
     youLose = new YouLose();
     throwableObject = [];
     camera_x = 0;
-    bottleThrown = true;
-    endbossHit = true;
+    bottleThrown = false; // Is set to true after a throw, 500ms later it is set to false again (the value must be false to throw a bottle) 
+    endbossHit = false; // If the endboss is hit, true is set (one deduction / hit)
     stopCount = true;
 
     /**
@@ -66,7 +66,7 @@ class World {
      */
     checkDirection() {
         this.level.endboss.forEach((endboss) => {
-            let pos = endboss.x + 125;
+            let pos = endboss.x + 130;
             if (pos >= this.character.x) {
                 this.level.endboss.forEach((dir) => {
                     dir.directionEndboss = true;
@@ -92,7 +92,7 @@ class World {
                 dir.endbossStart = true;
             });
         }
-        if (distance < 300 && distance > -300) {
+        if (distance < 250 && distance > -250) {
             this.level.endboss.forEach((dir) => {
                 dir.attack = true;
             });
@@ -108,15 +108,15 @@ class World {
      * 
      */
     throwableObjects() {
-        if (this.keyboard.D && this.character.addedBottles > 0 && this.bottleThrown) {
+        if (this.keyboard.D && this.character.addedBottles > 0 && !this.bottleThrown) { // if the key "d" is pressed, the character has bottle(s) and if the last throw was more than 500ms ago
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
             this.character.addedBottles -= 5;
             this.throwableObject.push(bottle);
-            this.bottleThrown = false;
+            this.bottleThrown = true;
             this.statusBarBottle.setPercentage(this.character.addedBottles);
             setTimeout(() => {
-                this.bottleThrown = true;
-            }, 300);
+                this.bottleThrown = false; // 500 ms after the last throw, set true
+            }, 500);
         }
     }
 
@@ -211,14 +211,14 @@ class World {
      */
     bottleEndboss() {
         this.level.endboss.forEach((endboss) => {
-            this.throwableObject.forEach((bottle) => {
-                if (endboss.isColliding(bottle)) {
-                    if (this.endbossHit) {
+            this.throwableObject.forEach((bottle) => { 
+                if (endboss.isColliding(bottle)) { // If the end boss was hit with a bottle
+                    if (!this.endbossHit) {
                         endboss.hitEndboss();
-                        this.endbossHit = false;
+                        this.endbossHit = true;
                         setTimeout(() => {
-                            this.endbossHit = true;
-                        }, 900);
+                            this.endbossHit = false;
+                        }, 490);
                     }
                     this.level.endboss.forEach((energy) => {
                         this.statusBarEndboss.setPercentage(energy.energyEndboss);

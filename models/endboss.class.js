@@ -60,7 +60,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 4900;
+        this.x = 6800;
         this.animate();
     }
 
@@ -93,11 +93,11 @@ class Endboss extends MovableObject {
                     if (timer >= 300) { // If the timer reaches the value 300 or higher 
                         interval = 0; // interval is set to zero
                     }
-                } else if (interval < 150) { // If the value of interval is lower than 150
+                } else if (interval < 200) { // If the value of interval is lower than 200
                     this.stoped = true; // The alerta animations and the stop() function starts
                     this.stop(); 
                     interval += setTime; // The interval gets a random number added at each interval
-                    if (interval >= 150) { // If intervall reaches the value of 150 or higher
+                    if (interval >= 200) { // If intervall reaches the value of 200 or higher
                         timer = 0; // The timer is set to zero and the endboss starts walking again
                     }
                 }
@@ -107,10 +107,10 @@ class Endboss extends MovableObject {
 
     move() {
         if (this.directionEndboss) {
-            this.x -= 11.2;
+            this.x -= 11.1;
             this.otherDirection = false;
         } else {
-            this.x += 11.2;
+            this.x += 11.1;
             this.otherDirection = true;
         }
     }
@@ -134,11 +134,11 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.stoped && !this.attack) {
                 this.playAnimation(this.IMAGES_ALERTA);
-            } else if (this.attack) { // If the distance between character und endboss is < 300px
+            } else if (this.attack) { // If the distance between character und endboss is < 250px
                 this.playAnimation(this.IMAGES_ATTACK);
             } else {
                 this.playAnimation(this.IMAGES_WALKING);
             }
-        }, 1000 / 8);
+        }, 1000 / 10);
     }
 }    

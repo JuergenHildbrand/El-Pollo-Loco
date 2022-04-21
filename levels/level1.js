@@ -6,6 +6,14 @@ const level1 = new Level(
         new Chicken(),
         new Chicken(),
         new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new ChickenSmall(),
+        new ChickenSmall(),
+        new ChickenSmall(),
+        new ChickenSmall(),
         new ChickenSmall(),
         new ChickenSmall(),
         new ChickenSmall(),
@@ -44,10 +52,10 @@ const level1 = new Level(
         
     ],
     [
-        new BottlesEnd('img/6.botella/2.Botella_enterrada1.png', 6500),
-        new BottlesEnd('img/6.botella/2.Botella_enterrada1.png', 6600),
-        new BottlesEnd('img/6.botella/2.Botella_enterrada2.png', 7030),
-        new BottlesEnd('img/6.botella/2.Botella_enterrada2.png', 6555)
+        new BottlesEnd('img/6.botella/2.Botella_enterrada1.png', 7000),
+        new BottlesEnd('img/6.botella/2.Botella_enterrada1.png', 7100),
+        new BottlesEnd('img/6.botella/2.Botella_enterrada2.png', 7530),
+        new BottlesEnd('img/6.botella/2.Botella_enterrada2.png', 7055)
     ],
     [
         new Coin(),
