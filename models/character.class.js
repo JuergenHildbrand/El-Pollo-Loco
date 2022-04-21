@@ -1,6 +1,6 @@
 class Character extends MovableObject {
 
-    world; // Via this variable the character can access the variables in the world. (this.world.keyboard.xyz)
+    world; // The character can access the variables in the world
     height = 360;
     width = 180;
     speed = 10;
@@ -11,7 +11,7 @@ class Character extends MovableObject {
     walkin_sound = new Audio('audio/walking.mp3');
     jump_sound = new Audio('audio/jump.mp3');
     hurt_sound = new Audio('audio/hurt.mp3');
-    die_sound = new Audio('audio/die.mp3');
+    dead_sound = new Audio('audio/die.mp3');
     throw_sound = new Audio('audio/throw.mp3');
 
     IMAGES_WALKING = [
@@ -79,12 +79,8 @@ class Character extends MovableObject {
 
     ];
 
-    /**
-     * Load images and triggers functions
-     * 
-     */
-    constructor() { // All classes have a constructor and is executed when the object is newly created. (When "new character" (in world) is executed, the constructor is called)
-        super().loadImage(this.IMAGES_WALKING[0]); // loadImage() is called in the class DrawableObject - super() is used to call methods from the parent object (MovableObject / DrawableObject)
+    constructor() { 
+        super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
@@ -95,68 +91,57 @@ class Character extends MovableObject {
         this.animate();
     }
 
-    /**
-     * Loads various animations an sounds
-     * 
-     */
     animate() {
-        this.movesAndSounds();
-        this.movesAndSoundsDie();
-        this.animations();
-    }
+        const actions = setInterval(() => { // Character actions
 
-    movesAndSounds() {
-        setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) { // Walking right
                 this.moveRight();
                 this.positionCharacter = this.x;
                 this.otherDirection = false;
                 // this.walkin_sound.play();
             }
-            if (this.world.keyboard.LEFT && this.x > -1025) {
+
+            if (this.world.keyboard.LEFT && this.x > -1025) { // Walking left
                 this.moveLeft();
                 this.positionCharacter = this.x;
                 this.otherDirection = true;
                 // this.walkin_sound.play();
             }
-            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+
+            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && this.isAboveGround()) { // Walking-sound stopped
                 this.walkin_sound.pause();
             }
-            if (this.isAboveGround()) {
-                this.walkin_sound.pause();
-            }
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) { // Jump
                 this.jump();
                 this.world.lastJump = new Date().getTime();
                 this.jump_sound.play();
             }
-            if (this.isHurt()) {
+
+            if (this.isHurt()) { 
                 // this.hurt_sound.play();
             }
-            if (this.world.keyboard.D && this.addedBottles > 0 && this.world.bottleThrown) {
+
+            if (this.world.keyboard.D && this.addedBottles > 0 && this.world.bottleThrown) { // Throw
                 this.throw_sound.play();
             }
-            this.world.camera_x = -this.x + 400;
-        }, 1000 / 60);
-    }
 
-    movesAndSoundsDie() {
-        const die = setInterval(() => {
             if (this.isDead()) {
-                this.die_sound.play();
+                this.dead_sound.play();
                 this.isKilled();
+                this.speed = 0;
                 setTimeout(() => {
-                    clearInterval(die);
+                    clearInterval(actions);
                 }, 1000);
             }
-        }, 1000 / 60);
-    }
 
-    animations() {
-        const animations = setInterval(() => {
+            this.world.camera_x = -this.x + 400;
+        }, 1000 / 60);
+    
+
+        setInterval(() => { // Images animations
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                // this.isDie = new Date().getTime();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.lastMove = new Date().getTime();
@@ -171,7 +156,7 @@ class Character extends MovableObject {
             } else {
                 this.sleepAnimation();
             }
-        }, 1000 / 10);
+        }, 100);
     }
 
     sleepAnimation() {

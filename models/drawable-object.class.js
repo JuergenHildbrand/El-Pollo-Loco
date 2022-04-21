@@ -13,9 +13,8 @@ class DrawableObject {
     currentImage = 0; // Is needed to iterate through an array
     
     /**
-     * Load a picture
      * 
-     * @param {String} path - Path to the picture
+     * @param {String} path - Path from images as a String
      */
     loadImage(path) {
         this.img = new Image(); // JavaScript-illustration: this.img = document.getElementById('image') <img id="image"> - A new image is assigned to the variable img
@@ -23,7 +22,6 @@ class DrawableObject {
     }
 
     /**
-     * Adds an image to the canvas (60x / s)
      * 
      * @param {HTMLCanvasElement} ctx 
      */
@@ -32,7 +30,7 @@ class DrawableObject {
     }
 
     /**
-     * Load images to the cache
+     * Load images in the cache
      * 
      * @param {String} array - Path from images as a String
      */

@@ -7,12 +7,9 @@ class BottleL extends MovableObject {
     yOffset = 28;
     xLimitOffs25 = 28;
 
-    /**
-     * Load bottles-left image and defines value for variable
-     * 
-     */
     constructor() {
-        super().loadImage('img/6.botella/2.Botella_enterrada1.png');
-        this.x = -1000 + Math.random() * 6800;
+        super().loadImage('img/6.botella/2.Botella_enterrada1.png'); // Load left-bottles
+        let xyz = 1 + Math.random() * 7000; // Random positions (x)
+        this.x = xyz - 1000;
     }
 }

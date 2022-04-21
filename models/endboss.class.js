@@ -1,5 +1,5 @@
 class Endboss extends MovableObject {
-    
+
     y = 190;
     height = 500;
     width = 260;
@@ -13,8 +13,6 @@ class Endboss extends MovableObject {
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/1.Caminata/G2.png',
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/1.Caminata/G3.png',
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/1.Caminata/G4.png'
-
-
     ];
 
     IMAGES_ALERTA = [
@@ -53,8 +51,8 @@ class Endboss extends MovableObject {
 
     world;
 
-    constructor() { 
-        super().loadImage('img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/2.Ateciขn-ataque/1.Alerta/G5.png'); 
+    constructor() {
+        super().loadImage('img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/2.Ateciขn-ataque/1.Alerta/G5.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERTA);
         this.loadImages(this.IMAGES_ATTACK);
@@ -64,31 +62,21 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
-    /**
-     * Load various animations
-     * 
-     */
     animate() {
-        this.moves();
-        this.animations();
-    }
 
-    moves() {
         let timer = 0; // If the value is < 300, endboss walk
-        let interval = 250; // If the value is < 250, enboss stopp
+        let interval = 250; // If the value is < 250, enboss stops
         let setTime = 2; // To calculate diffrent times
-        
 
-        const animations = setInterval(() => {
-            if (this.energyEndboss == 0) { // If endboss is dead
-                clearInterval(animations);
-            } else if (this.endbossStart) { // If distance between character und endboss < 1000px
+        const actions = setInterval(() => { // Endboss actions
 
-                if (timer == 0) {
+            if (this.endbossStart) { // If distance between character und endboss < 1000px
+
+                if (timer == 0) { // setTime gets a ramdom number
                     setTime = 2 + Math.random() * 10;
                 }
 
-                if (timer < 300) { // As long as the value of the timer is below 300
+                if (timer < 300) { // Endboss walk
                     this.stoped = false;
                     this.move(); // The end boss moves left or right (always in the direction of the character)
                     timer += setTime; // The timer gets a random number added at each interval
@@ -96,44 +84,23 @@ class Endboss extends MovableObject {
                         interval = 0; // interval is set to zero
                         setTime = 2 + Math.random() * 10;
                     }
-                } else if (interval < 250) { // If the value of interval is lower than 250
-                    this.stoped = true; // The alerta animations and the stop() function starts
-                    this.stop(); 
+                } else if (interval < 250) { // Endboss stops
+                    this.stoped = true; // The alerta or attack animations starts
+                    this.stop();
                     interval += setTime; // The interval gets a random number added at each interval
-                    if (interval >= 250) { // If intervall reaches the value of 250 or higher
-                        timer = 0; // The timer is set to zero and the endboss starts walking again
+                    if (interval >= 250) { // The timer is set to zero and the endboss starts walking again
+                        timer = 0; 
                     }
                 }
+
+                if (this.energyEndboss == 0) { // If endboss is dead
+                    clearInterval(actions);
+                }
+
             }
         }, 1000 / 60);
-    }
 
-    /**
-     * Endboss walk left or right
-     * 
-     */
-    move() {
-        if (this.directionEndboss) {
-            this.x -= 11.2;
-            this.otherDirection = false;
-        } else {
-            this.x += 11.2;
-            this.otherDirection = true;
-        }
-    }
-
-    /**
-     * Animation stop (endboss alerta or attack)
-     * 
-     */
-    stop() {
-        setInterval(() => {
-            this.x == this.speed;
-        }, 1000 / 60);
-    }
-
-    animations() {
-        setInterval(() => {
+        setInterval(() => { // Images animations
             if (this.isDeadEndboss()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.isKilled();
@@ -147,5 +114,23 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 1000 / 10);
+
     }
+
+    move() {
+        if (this.directionEndboss) {
+            this.x -= 11.2;
+            this.otherDirection = false;
+        } else {
+            this.x += 11.2;
+            this.otherDirection = true;
+        }
+    }
+
+    stop() {
+        setInterval(() => {
+            this.x == this.speed;
+        }, 1000 / 60);
+    }
+
 }    

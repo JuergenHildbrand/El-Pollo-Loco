@@ -7,13 +7,12 @@ class BottlesEnd extends MovableObject {
     xLimitOffset = 60;
 
     /**
-     * Load bottles-end images and defines value for variable
      * 
      * @param {String} imagePath - Path from image
-     * @param {Number} x - Position of bottle
+     * @param {Number} x - Position (value from level1)
      */
-    constructor(imagePath, x) { // from level1
-        super().loadImage(imagePath);
-        this.x = x;
+    constructor(imagePath, x) { 
+        super().loadImage(imagePath); // Places bottles in fixed places
+        this.x = x; 
     }
 }

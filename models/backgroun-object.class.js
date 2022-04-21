@@ -5,7 +5,6 @@ class BackgroundObject extends MovableObject {
     y = 720 - this.height
     
     /**
-     * Load the background images and defines value for variable
      * 
      * @param {String} imagePath - The path of picture
      * @param {number} x - The position of picture
