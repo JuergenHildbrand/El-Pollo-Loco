@@ -12,12 +12,11 @@ class World {
     imgEndboss = new ImgEndboss();
     gameOver = new GameOver();
     youLose = new YouLose();
-    throwableObject = [];
-    camera_x = 0;
+    camera_x = 0; // Is neded to fix the camera to the character
+    throwableObject = []; // Added bottles is pushing in this array
     bottleThrown = false; // Is set to true after a throw, 500ms later it is set to false again (the value must be false to throw a bottle) 
     endbossHit = false; // If the endboss is hit, true is set (one deduction / hit)
-    stopCount = true;
-    lastJump = 0;
+    lastJump = 0; // Is needed that you can kill chicken only from above
 
     /**
      * Load canvas, defines values for variables and triggers functions
@@ -43,7 +42,7 @@ class World {
     }
 
     /**
-     * Calls various functions via an interval
+     * Check various actions like collisions or end game...
      * 
      */
     run() {
@@ -88,12 +87,12 @@ class World {
      */
     checkDistance(pos) {
         let distance = pos - this.character.x;
-        if (distance < 1000) {
+        if (distance < 1000) { // If < 1000px endboss starts
             this.level.endboss.forEach((dir) => {
                 dir.endbossStart = true;
             });
         }
-        if (distance < 250 && distance > -250) {
+        if (distance < 250 && distance > -250) { // If < 250px endboss attaks
             this.level.endboss.forEach((dir) => {
                 dir.attack = true;
             });
@@ -121,10 +120,6 @@ class World {
         }
     }
 
-    /**
-     * Check all collisions
-     * 
-     */
     checkCollisions() {
         this.characterEnemies();
         this.characterEndboss();
@@ -145,10 +140,10 @@ class World {
                 this.statusBarLife.setPercentage(this.character.energy);
             }
             if (this.character.isColliding(enemies) && this.character.isAboveGround() && !enemies.chickenDead && timeX > 500) { // Kill chicken from above
-                if (index < 6) { // Killed big chicken(s) 
+                if (index < 10) { // Killed big chicken(s) 
                     this.character.chickenBigCount += 1;
                 }
-                if (index > 5) { // Killed small chicken(s)
+                if (index > 9) { // Killed small chicken(s)
                     this.character.chickenSmallCount += 1;
                 }
                 enemies.chickenDead = true;
@@ -287,8 +282,6 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.ifEndbossStart();
         this.ifEndGame();
-
-
     }
 
     /**
@@ -304,25 +297,17 @@ class World {
         });
     }
 
-    /**
-     * Is drawn if the game is finish
-     * 
-     */
     ifEndGame() {
         this.level.endboss.forEach((endboss) => {
-            if (endboss.gameOver) {
+            if (endboss.gameOver) { // If you win
                 this.addToMap(this.gameOver);
             }
-            if (this.character.gameOver) {
+            if (this.character.gameOver) { // If you lose
                 this.addToMap(this.youLose);
             }
         });
     }
 
-    /**
-     * Draw status-bars
-     * 
-     */
     drawStatusBars() {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBarLife);

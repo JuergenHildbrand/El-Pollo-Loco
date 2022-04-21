@@ -46,7 +46,7 @@ class DrawableObject {
 
 
 
- // drawFrame(ctx) {
+    // drawFrame(ctx) {
     //     if (this instanceof Endboss || this instanceof ThrowableObject || this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Coin || this instanceof BottleL || this instanceof BottleR) { // instanceof, diesse befehle werden nur ausgeführt wenn...
     //         ctx.beginPath();
     //         ctx.lineWidth = '3';

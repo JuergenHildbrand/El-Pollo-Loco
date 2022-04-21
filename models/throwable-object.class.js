@@ -20,10 +20,7 @@ class ThrowableObject extends MovableObject {
         'img/6.botella/Rotaciขn/Splash_de_salsa/Mesa de trabajo 1 copia 12.png'
     ];
 
-    /**
-     * Load images, defines values for variables and trigger function
-     * 
-     */
+    
     constructor(x, y, otherDirection) {
         super().loadImage('img/7.Marcadores/Icono/Botella.png');
         this.loadImages(this.IMAGES_THROW);

@@ -74,16 +74,16 @@ class Endboss extends MovableObject {
     }
 
     moves() {
-        let timer = 0;
-        let interval = 250;
-        let setTime = 2;
+        let timer = 0; // If the value is < 300, endboss walk
+        let interval = 250; // If the value is < 250, enboss stopp
+        let setTime = 2; // To calculate diffrent times
         
 
         const animations = setInterval(() => {
             if (this.energyEndboss == 0) { // If endboss is dead
                 clearInterval(animations);
             } else if (this.endbossStart) { // If distance between character und endboss < 1000px
-                
+
                 if (timer == 0) {
                     setTime = 2 + Math.random() * 10;
                 }
@@ -108,6 +108,10 @@ class Endboss extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * Endboss walk left or right
+     * 
+     */
     move() {
         if (this.directionEndboss) {
             this.x -= 11.2;
@@ -119,7 +123,7 @@ class Endboss extends MovableObject {
     }
 
     /**
-     * Animation stop (endboss alerta)
+     * Animation stop (endboss alerta or attack)
      * 
      */
     stop() {

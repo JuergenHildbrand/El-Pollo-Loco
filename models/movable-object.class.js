@@ -5,16 +5,16 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     energyEndboss = 100;
-    lastHit = 0;
+    lastHit = 0; // Is needed to calculate the time since the last hit on the character
     addedCoins = 0;
     addedBottles = 0;
-    chickenSmallCount = 0;
-    chickenBigCount = 0
-    otherDirection;
-    directionEndboss = true;
-    attack = false;
+    chickenSmallCount = 0; // Killed chicken(s)
+    chickenBigCount = 0; // Killed chicken(s)
+    otherDirection; // Is needet to flipp images from character and endboss, throw bottles to the right site
+    directionEndboss = true; // Endboss walk left or right
+    attack = false; // Enboss attacks when the distance between character and enboss is < 250px
     endbossStart = false; // Endboss start when the distance between character and endboss is < 1000px
-    gameOver = false;
+    gameOver = false; // If enboss or character is dead, is set true
     stoppAnimations = false;
 
     /**
@@ -31,7 +31,6 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Check if the object is above the ground
      * 
      * @returns - A value or a number
      */
@@ -49,7 +48,7 @@ class MovableObject extends DrawableObject {
      * Check all collisions
      * 
      * @param {Object} mo 
-     * @returns - x / y / height / width - coordinates
+     * @returns - x / y / height / width - coordinates from character and enemies
      */
     isColliding(mo) {
         return this.x + this.width - this.xOffset > mo.x + mo.xOffset &&
@@ -71,14 +70,14 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * If you added all coins
+     * 
+     */
     addLife() {
         this.energy += 50;
     }
 
-    /**
-     * Hit endboss
-     * 
-     */
     hitEndboss() {
         this.energyEndboss -= 5;
         if (this.energyEndboss < 0) {
@@ -89,7 +88,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * For hurt-animation
+     * For hurt-animation character and endboss
      * 
      * @returns - true
      */
@@ -109,7 +108,6 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * If the endboss is dead
      * 
      * @returns - true
      */
@@ -129,26 +127,14 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    /**
-     * Animation move left
-     * 
-     */
     moveLeft() {
         this.x -= this.speed;
     }
 
-    /**
-     * Animation move right
-     * 
-     */
     moveRight() {
         this.x += this.speed;
     }
 
-    /**
-     * Animation jump (character)
-     * 
-     */
     jump() {
         this.speedY = 40;
     }
