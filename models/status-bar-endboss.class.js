@@ -15,10 +15,6 @@ class StatusBarEndboss extends DrawableObject {
         'img/7.Marcadores/Marcadorvida_enemy/Vede.png'
     ];
 
-    /**
-     * Load image and defines values for variables
-     * 
-     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);

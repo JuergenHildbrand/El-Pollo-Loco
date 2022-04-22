@@ -20,7 +20,12 @@ class ThrowableObject extends MovableObject {
         'img/6.botella/Rotaciขn/Splash_de_salsa/Mesa de trabajo 1 copia 12.png'
     ];
 
-    
+    /**
+     * 
+     * @param {Number} x - Position
+     * @param {Number} y - Position
+     * @param {Boolean} otherDirection - True or false
+     */
     constructor(x, y, otherDirection) {
         super().loadImage('img/7.Marcadores/Icono/Botella.png');
         this.loadImages(this.IMAGES_THROW);

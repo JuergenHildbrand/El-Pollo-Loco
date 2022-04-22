@@ -9,7 +9,7 @@ class World {
     statusBarBottle = new statusBarBottle();
     statusBarCoin = new StatusBarCoin();
     statusBarEndboss = new StatusBarEndboss();
-    imgEndboss = new ImgEndboss();
+    imgEndboss = new ImgEndboss(); // Draw the image for status-bar from endboss
     gameOver = new GameOver();
     youLose = new YouLose();
     camera_x = 0; // Is neded to fix the camera to the character
@@ -19,7 +19,6 @@ class World {
     lastJump = 0; // Is needed that you can kill chicken only from above
 
     /**
-     * Load canvas, defines values for variables and triggers functions
      * 
      * @param {HTMLCanvasElement} canvas 
      * @param {Object} keyboard 
@@ -52,7 +51,6 @@ class World {
         }, 20);
         this.run2();
     }
-
     run2() {
         setInterval(() => {
             this.checkDirection();
@@ -116,7 +114,7 @@ class World {
             this.statusBarBottle.setPercentage(this.character.addedBottles);
             setTimeout(() => {
                 this.bottleThrown = false; // 500 ms after the last throw, set true
-            }, 500);
+            }, 600); // Time between the throws
         }
     }
 
@@ -215,7 +213,7 @@ class World {
                         this.endbossHit = true;
                         setTimeout(() => {
                             this.endbossHit = false;
-                        }, 490);
+                        }, 590); // One hit / bottle
                     }
                     this.level.endboss.forEach((energy) => {
                         this.statusBarEndboss.setPercentage(energy.energyEndboss);
@@ -268,7 +266,7 @@ class World {
      * 
      */
     drawObjects() {
-        this.ctx.translate(this.camera_x, 0);
+        this.ctx.translate(this.camera_x, 0); // Is aligned with the character
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.bottles);
@@ -285,7 +283,7 @@ class World {
     }
 
     /**
-     * Is drawn if the endboss started
+     * Status-bar is drawn if the endboss started
      * 
      */
     ifEndbossStart() {
@@ -309,7 +307,7 @@ class World {
     }
 
     drawStatusBars() {
-        this.ctx.translate(-this.camera_x, 0);
+        this.ctx.translate(-this.camera_x, 0); // To fix on screen
         this.addToMap(this.statusBarLife);
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.statusBarCoin);

@@ -11,10 +11,6 @@ class StatusBarLife extends DrawableObject {
         'img/7.Marcadores/Barra/Marcador vida/verde/100_.png'
     ];
 
-    /**
-     * Load image and defines values for variables
-     * 
-     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);

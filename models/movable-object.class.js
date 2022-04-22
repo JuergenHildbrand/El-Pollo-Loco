@@ -8,14 +8,14 @@ class MovableObject extends DrawableObject {
     lastHit = 0; // Is needed to calculate the time since the last hit on the character
     addedCoins = 0;
     addedBottles = 0;
-    chickenSmallCount = 0; // Killed chicken(s)
-    chickenBigCount = 0; // Killed chicken(s)
-    otherDirection; // Is needet to flipp images from character and endboss, throw bottles to the right site
+    chickenSmallCount = 0; // Killed chicken(s),for endscreen
+    chickenBigCount = 0; // Killed chicken(s)),for endscreen
+    otherDirection; // Flipp images from character and endboss, throw bottles to the right / left site
     directionEndboss = true; // Endboss walk left or right
     attack = false; // Enboss attacks when the distance between character and enboss is < 250px
     endbossStart = false; // Endboss start when the distance between character and endboss is < 1000px
     gameOver = false; // If enboss or character is dead, is set true
-    stoppAnimations = false;
+    stoppAnimations = false; // Game over
 
     /**
      * Gravity is calculated

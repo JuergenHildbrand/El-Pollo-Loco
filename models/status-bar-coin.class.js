@@ -11,11 +11,6 @@ class StatusBarCoin extends DrawableObject {
         'img/7.Marcadores/Barra/Marcador_moneda/Naranja/100.png'
     ];
 
-
-    /**
-     * Load image and defines values for variables
-     * 
-     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);
