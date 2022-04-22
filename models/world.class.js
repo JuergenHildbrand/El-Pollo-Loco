@@ -110,8 +110,8 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
             this.character.addedBottles -= 5;
             this.throwableObject.push(bottle);
-            this.bottleThrown = true;
             this.statusBarBottle.setPercentage(this.character.addedBottles);
+            this.bottleThrown = true;
             setTimeout(() => {
                 this.bottleThrown = false; // 600 ms after the last throw, set true
             }, 600); // Time between the throws

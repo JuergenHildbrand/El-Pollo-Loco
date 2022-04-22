@@ -122,7 +122,7 @@ class Character extends MovableObject {
                 // this.hurt_sound.play();
             }
 
-            if (this.world.keyboard.D && this.addedBottles > 0 && this.world.bottleThrown) { // Throw
+            if (this.world.keyboard.D && this.addedBottles > 0 && !this.world.bottleThrown) { // Throw
                 this.throw_sound.play();
             }
 
