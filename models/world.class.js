@@ -14,7 +14,7 @@ class World {
     youLose = new YouLose();
     camera_x = 0; // Is neded to fix the camera to the character
     throwableObject = []; // Added bottles is pushing in this array
-    bottleThrown = false; // Is set to true after a throw, 500ms later it is set to false again (the value must be false to throw a bottle) 
+    bottleThrown = false; // Is set to true after a throw, xxx-ms later it is set to false again (the value must be false to throw a bottle) 
     endbossHit = false; // If the endboss is hit, true is set (one deduction / hit)
     lastJump = 0; // Is needed that you can kill chicken only from above
 
@@ -113,7 +113,7 @@ class World {
             this.bottleThrown = true;
             this.statusBarBottle.setPercentage(this.character.addedBottles);
             setTimeout(() => {
-                this.bottleThrown = false; // 500 ms after the last throw, set true
+                this.bottleThrown = false; // 600 ms after the last throw, set true
             }, 600); // Time between the throws
         }
     }

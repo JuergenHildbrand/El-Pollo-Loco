@@ -134,7 +134,7 @@ class Character extends MovableObject {
                     clearInterval(actions);
                 }, 1000);
             }
-
+            console.log(this.world.bottleThrown)
             this.world.camera_x = -this.x + 400;
         }, 1000 / 60);
     

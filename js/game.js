@@ -14,6 +14,7 @@ function startGame() {
     document.getElementById('start').classList.add('d-none');
     document.getElementById('gameOver').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
+    this.initLevel();
     canvas = document.getElementById('canvas'); 
     world = new World(canvas, keyboard);
 }
