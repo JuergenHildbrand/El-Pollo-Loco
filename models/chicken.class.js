@@ -5,6 +5,7 @@ class Chicken extends MovableObject {
     width = 140;
     setTime = 2; // Receive a random number
     gameIsRunning = true;
+    chickenDead_sound = new Audio('audio/chickenDead.mp3');
 
     IMAGES_WALKING = [
         'img/3.Secuencias_Enemy_basico/Versi¢n_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',
@@ -52,6 +53,7 @@ class Chicken extends MovableObject {
 
             if (this.chickenDead) {
                 clearInterval(actions)
+                this.chickenDead_sound.play();
             } else {
                 this.moveLeft();
             }
