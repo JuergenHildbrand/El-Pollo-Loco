@@ -105,7 +105,7 @@ class Character extends MovableObject {
                 clearInterval(actions);
             }
 
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) { // Walking right
+            if ((this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x)) { // Walking right
                 this.moveRight();
                 this.positionCharacter = this.x;
                 this.otherDirection = false;
@@ -114,7 +114,7 @@ class Character extends MovableObject {
                 }
             }
 
-            if (this.world.keyboard.LEFT && this.x > -1025) { // Walking left
+            if ((this.world.keyboard.LEFT && this.x > -1025)) { // Walking left
                 this.moveLeft();
                 this.positionCharacter = this.x;
                 this.otherDirection = true;

@@ -85,7 +85,7 @@ class World {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
-            if (this.character.isColliding(enemies) && this.character.isAboveGround() && !enemies.chickenDead && timeX > 500) { // Kill chicken from above
+            if (this.character.isColliding(enemies) && this.character.isAboveGround() && !enemies.chickenDead && timeX > 1200) { // Kill chicken from above
                 if (index < 10) { // Killed big chicken(s) 
                     this.character.chickenBigCount += 1;
                 }

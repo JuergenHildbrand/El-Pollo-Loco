@@ -20,7 +20,7 @@ class ChickenSmall extends MovableObject {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImage(this.IMAGES_DEAD);
-        this.x = 1000 + Math.random() * 5000; // Random positions
+        this.x = 1000 + Math.random() * 9000; // Random positions
         this.speed = 0.3 + Math.random() * 2; // Random speeds 
         this.setTime = 6 + Math.random() * 10; // Random jump-times
         this.applyGaravity();
@@ -42,14 +42,15 @@ class ChickenSmall extends MovableObject {
             }
 
             if (timer > 4000) { // Chicken jumps
-                this.otherDirection = true;
-                this.speed -= 10;
+                this.chickenJump();
+                this.speed += 10;
                 setTimeout(() => {
-                    this.chickenJump();
-                    this.speed += 20;
+                    this.otherDirection = true;
+                    this.speed -= 20;
                 }, 1000);
                 setTimeout(() => {
-                    this.speed -= 10;
+                    this.otherDirection = false;
+                    this.speed += 10;
                 }, 2000);
                 timer = 0;
             }
@@ -74,7 +75,6 @@ class ChickenSmall extends MovableObject {
     }
 
     chickenJump() {
-        this.otherDirection = false;
         this.speedY = 30;
     }
 }
