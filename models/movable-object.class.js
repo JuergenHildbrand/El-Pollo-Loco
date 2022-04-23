@@ -76,7 +76,7 @@ class MovableObject extends DrawableObject {
      * 
      */
     addLife() {
-        this.energy += 50;
+        this.energy += 25;
     }
 
     hitEndboss() {

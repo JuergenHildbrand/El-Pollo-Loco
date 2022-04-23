@@ -287,18 +287,10 @@ class World {
         }
     }
 
-    /**
-     * The canvas is always deleted / cleared again (always at the very beginning)
-     * 
-     */
     deleteCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    /**
-     * Draw all objects
-     * 
-     */
     drawObjects() {
         this.ctx.translate(this.camera_x, 0); // Is aligned with the character
         this.addObjectsToMap(this.level.backgroundObjects);
