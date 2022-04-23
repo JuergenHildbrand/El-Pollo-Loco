@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
     speed = 0; 
     speedY = 0; // Fall speed
     acceleration = 2.5;
-    energy = 1;
+    energy = 1000;
     energyEndboss = 100;
     lastHit = 0; // Is needed to calculate the time since the last hit on the character
     addedCoins = 0;
@@ -38,6 +38,8 @@ class MovableObject extends DrawableObject {
             return true;
         } else if (this instanceof ChickenSmall) {
             return this.y < 564;
+        } else if (this instanceof Chicken) {
+            return this.y < 500;
         } else {
             return this.y < 280;
         }

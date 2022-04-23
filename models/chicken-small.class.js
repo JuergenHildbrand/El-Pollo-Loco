@@ -41,12 +41,16 @@ class ChickenSmall extends MovableObject {
                 timer += this.setTime;
             }
 
-            if (timer > 4000 && !this.isAboveGround()) { // Chicken jumps
-                this.chickenJump();
-                this.speed += 5;
+            if (timer > 4000) { // Chicken jumps
+                this.otherDirection = true;
+                this.speed -= 10;
                 setTimeout(() => {
-                    this.speed -= 5;
+                    this.chickenJump();
+                    this.speed += 20;
                 }, 1000);
+                setTimeout(() => {
+                    this.speed -= 10;
+                }, 2000);
                 timer = 0;
             }
 
@@ -70,6 +74,7 @@ class ChickenSmall extends MovableObject {
     }
 
     chickenJump() {
+        this.otherDirection = false;
         this.speedY = 30;
     }
 }

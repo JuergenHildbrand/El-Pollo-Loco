@@ -1,6 +1,6 @@
 class Chicken extends MovableObject {
 
-    y = 500;
+    y = 300;
     height = 140;
     width = 140;
     setTime = 2; // Receive a random number
@@ -24,13 +24,13 @@ class Chicken extends MovableObject {
         this.x = 1600 + Math.random() * 5000; // Random positions, (between 1600 and 7600)
         this.speed = 0.4 + Math.random() * 2; // Random speeds
         this.setTime = 6 + Math.random() * 10; // Random jump-times 
+        this.applyGaravity();
         this.animate();
     }
 
     animate() {
 
         let timer = 0; // If the value > 4000, the chicken jumps
-        let runTime = 0;
 
         const actions = setInterval(() => { // Character actions
 
@@ -40,14 +40,18 @@ class Chicken extends MovableObject {
 
             if (timer < 4001) { // Increases the value of timer
                 timer += this.setTime;
-                runTime = 200 + Math.random() * 600
             }
 
             if (timer > 4000 && !this.isAboveGround()) { // Chicken jumps
-                this.speed += 6;
+                this.chickenJump();
+                this.speed -= 10;
                 setTimeout(() => {
-                    this.speed -= 6;
-                }, runTime);
+                    this.speed += 20;
+                    this.otherDirection = false;
+                }, 1300);
+                setTimeout(() => {
+                    this.speed -= 10;
+                }, 2400);
                 timer = 0;
             }
 
@@ -69,5 +73,14 @@ class Chicken extends MovableObject {
             }
         }, 200);
 
+    }
+
+    move() {
+        
+    }
+
+    chickenJump() {
+        this.otherDirection = true;
+        this.speedY = 35;
     }
 }
