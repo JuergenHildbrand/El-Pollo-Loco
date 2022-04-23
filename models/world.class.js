@@ -17,6 +17,10 @@ class World {
     bottleThrown = false; // Is set to true after a throw, xxx-ms later it is set to false again (the value must be false to throw a bottle) 
     endbossHit = false; // If the endboss is hit, true is set (one deduction / hit)
     lastJump = 0; // Is needed that you can kill chicken only from above
+    getCoin_sound = new Audio('audio/getCoin.mp3');
+    getBottle_sound = new Audio('audio/getBottle.mp3');
+    showEndscreen = false;
+    stoppAnimations = false;
 
     /**
      * 
@@ -45,7 +49,7 @@ class World {
      * 
      */
     run() {
-        setInterval(() => {
+        this.checkActions = setInterval(() => {
             this.throwableObjects();
             this.checkCollisions();
         }, 20);
@@ -170,12 +174,13 @@ class World {
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.character.addedCoins += 1;
+                this.getCoin_sound.play();
                 if (this.character.addedCoins == 20 && this.character.addedCoins < 21) {
                     this.character.addLife();
                 }
                 this.level.coin.splice(index, 1);
                 this.statusBarCoin.setPercentage(this.character.addedCoins * 5);
-            }            
+            }
         });
     }
 
@@ -189,6 +194,7 @@ class World {
                 this.character.addedBottles += 5;
                 this.statusBarBottle.setPercentage(this.character.addedBottles);
                 this.level.bottles.splice(index, 1);
+                this.getBottle_sound.play();
             }
         });
         this.level.bottlesEnd.forEach((bottle, index) => {
@@ -196,6 +202,7 @@ class World {
                 this.character.addedBottles += 5;
                 this.statusBarBottle.setPercentage(this.character.addedBottles);
                 this.level.bottlesEnd.splice(index, 1);
+                this.getBottle_sound.play();
             }
         });
     }
@@ -206,7 +213,7 @@ class World {
      */
     bottleEndboss() {
         this.level.endboss.forEach((endboss) => {
-            this.throwableObject.forEach((bottle) => { 
+            this.throwableObject.forEach((bottle) => {
                 if (endboss.isColliding(bottle)) { // If the end boss was hit with a bottle
                     if (!this.endbossHit) {
                         endboss.hitEndboss();
@@ -231,12 +238,7 @@ class World {
     checkEndgame() {
         this.level.endboss.forEach((endboss) => {
             if (this.character.gameOver || endboss.gameOver) {
-                setTimeout(() => {
-                    gameOver(this.character.chickenSmallCount, this.character.chickenBigCount, this.character.addedCoins)
-                }, 2000);
-                setTimeout(() => {
-                    this.character.stoppAnimations = true;
-                }, 4000);
+                this.stopIntervals();
             }
         });
     }
@@ -246,7 +248,7 @@ class World {
      * 
      */
     draw() {
-        if (this.character.stoppAnimations == false) {
+        if (!this.stoppAnimations) {
             this.deleteCanvas();
             this.drawObjects();
             this.rAF();
@@ -288,20 +290,28 @@ class World {
      */
     ifEndbossStart() {
         this.level.endboss.forEach((endboss) => {
+
             if (endboss.endbossStart) {
                 this.addToMap(this.statusBarEndboss);
                 this.addToMap(this.imgEndboss);
             }
+
         });
     }
 
     ifEndGame() {
         this.level.endboss.forEach((endboss) => {
-            if (endboss.gameOver) { // If you win
-                this.addToMap(this.gameOver);
-            }
-            if (this.character.gameOver) { // If you lose
-                this.addToMap(this.youLose);
+
+            if (this.showEndscreen) {
+
+                if (endboss.gameOver) { // If you win
+                    this.addToMap(this.gameOver);
+                }
+
+                if (this.character.gameOver) { // If you lose
+                    this.addToMap(this.youLose);
+                }
+
             }
         });
     }
@@ -373,4 +383,25 @@ class World {
             self.draw(); // "this" is not recognized in requestAnimatoinFrame(), therefore via a variable (self)
         });
     }
+
+    stopIntervals() {
+        clearInterval(this.checkActions);
+        this.level.endboss.forEach((endboss) => {
+            endboss.gameIsRunning = false;
+        });
+        this.level.enemies.forEach((enemies) => {
+            enemies.gameIsRunning = false;
+        });
+        this.character.gameIsRunning = false;
+        setTimeout(() => {
+            this.showEndscreen = true;
+        }, 2000);
+        setTimeout(() => {
+            gameOver(this.character.chickenSmallCount, this.character.chickenBigCount, this.character.addedCoins)
+        }, 3000);
+        setTimeout(() => {
+            this.stoppAnimations = true;
+        }, 6000);
+    }
+
 }

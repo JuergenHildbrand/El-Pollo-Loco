@@ -4,7 +4,8 @@ class Chicken extends MovableObject {
     height = 140;
     width = 140;
     setTime = 2; // Receive a random number
-   
+    gameIsRunning = true;
+
     IMAGES_WALKING = [
         'img/3.Secuencias_Enemy_basico/Versi¢n_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',
         'img/3.Secuencias_Enemy_basico/Versi¢n_Gallinita (estas salen por orden de la gallina gigantona)/2-Ga_centro.png',
@@ -15,7 +16,7 @@ class Chicken extends MovableObject {
         'img/3.Secuencias_Enemy_basico/Versi¢n_Gallinita (estas salen por orden de la gallina gigantona)/4.G_muerte.png'
     ];
 
-    constructor() { 
+    constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImage(this.IMAGES_DEAD);
@@ -24,19 +25,23 @@ class Chicken extends MovableObject {
         this.setTime = 6 + Math.random() * 10; // Random jump-times 
         this.animate();
     }
-    
+
     animate() {
-        
+
         let timer = 0; // If the value > 4000, the chicken jumps
         let runTime = 0;
 
-        const actions = setInterval(() => {
+        const actions = setInterval(() => { // Character actions
+
+            if (!this.gameIsRunning) {
+                clearInterval(actions);
+            }
 
             if (timer < 4001) { // Increases the value of timer
                 timer += this.setTime;
                 runTime = 200 + Math.random() * 600
-            } 
-            
+            }
+
             if (timer > 4000 && !this.isAboveGround()) { // Chicken jumps
                 this.speed += 6;
                 setTimeout(() => {

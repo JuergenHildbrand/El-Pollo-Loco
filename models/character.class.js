@@ -13,6 +13,7 @@ class Character extends MovableObject {
     hurt_sound = new Audio('audio/hurt.mp3');
     dead_sound = new Audio('audio/die.mp3');
     throw_sound = new Audio('audio/throw.mp3');
+    gameIsRunning = true;
 
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-correcciขn/2.Secuencia_caminata/W-21.png',
@@ -79,7 +80,7 @@ class Character extends MovableObject {
 
     ];
 
-    constructor() { 
+    constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
@@ -94,21 +95,30 @@ class Character extends MovableObject {
     animate() {
         const actions = setInterval(() => { // Character actions
 
+            if (!this.gameIsRunning) {
+                this.jump();
+                clearInterval(actions);
+            }
+
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) { // Walking right
                 this.moveRight();
                 this.positionCharacter = this.x;
                 this.otherDirection = false;
-                // this.walkin_sound.play();
+                if (!this.isAboveGround()) {
+                    this.walkin_sound.play();
+                }
             }
 
             if (this.world.keyboard.LEFT && this.x > -1025) { // Walking left
                 this.moveLeft();
                 this.positionCharacter = this.x;
                 this.otherDirection = true;
-                // this.walkin_sound.play();
+                if (!this.isAboveGround()) {
+                    this.walkin_sound.play();
+                }
             }
 
-            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && this.isAboveGround()) { // Walking-sound stopped
+            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT || this.isAboveGround() || !this.gameIsRunning) { // Walking-sound stopped
                 this.walkin_sound.pause();
             }
 
@@ -118,8 +128,8 @@ class Character extends MovableObject {
                 this.jump_sound.play();
             }
 
-            if (this.isHurt()) { 
-                // this.hurt_sound.play();
+            if (this.isHurt()) {
+                this.hurt_sound.play();
             }
 
             if (this.world.keyboard.D && this.addedBottles > 0 && !this.world.bottleThrown) { // Throw
@@ -129,15 +139,12 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.dead_sound.play();
                 this.isKilled();
-                this.speed = 0;
-                setTimeout(() => {
-                    clearInterval(actions);
-                }, 1000);
             }
-            console.log(this.world.bottleThrown)
+
             this.world.camera_x = -this.x + 400;
+
         }, 1000 / 60);
-    
+
 
         setInterval(() => { // Images animations
             if (this.isDead()) {
@@ -151,8 +158,6 @@ class Character extends MovableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.lastMove = new Date().getTime();
-            } else if (this.world.keyboard.D) {
-                this.sleepAnimation();
             } else {
                 this.sleepAnimation();
             }

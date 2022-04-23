@@ -7,6 +7,7 @@ class Endboss extends MovableObject {
     xOffset = 30;
     xLimitOffset = 30;
     yLimitOffset = 30;
+    gameIsRunning = true;
 
     IMAGES_WALKING = [
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/1.Caminata/G1.png',
@@ -58,7 +59,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 6800;
+        this.x = 1800;
         this.animate();
     }
 
@@ -71,6 +72,10 @@ class Endboss extends MovableObject {
         const actions = setInterval(() => { // Endboss actions
 
             if (this.endbossStart) { // If distance between character und endboss < 1000px
+
+                if (!this.gameIsRunning) {
+                    clearInterval(actions);
+                }
 
                 if (timer == 0) { // setTime gets a ramdom number
                     setTime = 2 + Math.random() * 10;
@@ -94,7 +99,7 @@ class Endboss extends MovableObject {
                 }
 
                 if (this.energyEndboss == 0) { // If endboss is dead
-                    clearInterval(actions);
+                    this.isKilled();
                 }
 
             }
@@ -103,7 +108,6 @@ class Endboss extends MovableObject {
         setInterval(() => { // Images animations
             if (this.isDeadEndboss()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                this.isKilled();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.stoped && !this.attack) {

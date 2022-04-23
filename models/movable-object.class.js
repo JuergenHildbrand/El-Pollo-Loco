@@ -4,7 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0; // Fall speed
     acceleration = 2.5;
     energy = 100;
-    energyEndboss = 100;
+    energyEndboss = 1;
     lastHit = 0; // Is needed to calculate the time since the last hit on the character
     addedCoins = 0;
     addedBottles = 0;
@@ -15,7 +15,6 @@ class MovableObject extends DrawableObject {
     attack = false; // Enboss attacks when the distance between character and enboss is < 250px
     endbossStart = false; // Endboss start when the distance between character and endboss is < 1000px
     gameOver = false; // If enboss or character is dead, is set true
-    stoppAnimations = false; // Game over
 
     /**
      * Gravity is calculated
@@ -144,8 +143,6 @@ class MovableObject extends DrawableObject {
      * 
      */
     isKilled() {
-        setTimeout(() => {
             this.gameOver = true;
-        }, 1000);
     }
 }

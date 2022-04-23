@@ -3,6 +3,7 @@ class ChickenSmall extends MovableObject {
     height = 70;
     width = 70;
     setTime = 2; // Receive a random number
+    gameIsRunning = true;
 
     IMAGES_WALKING = [
         'img/3.Secuencias_Enemy_basico/Versi¢n_pollito/1.Paso_derecho.png',
@@ -29,12 +30,16 @@ class ChickenSmall extends MovableObject {
 
         let timer = 0; // If the value > 4000, the chicken jumps
 
-        const actions = setInterval(() => {
+        const actions = setInterval(() => { // Character actions
+
+            if (!this.gameIsRunning) {
+                clearInterval(actions);
+            }
 
             if (timer < 4001) { // Increases the value of timer
                 timer += this.setTime;
-            } 
-            
+            }
+
             if (timer > 4000 && !this.isAboveGround()) { // Chicken jumps
                 this.chickenJump();
                 this.speed += 5;
@@ -50,6 +55,7 @@ class ChickenSmall extends MovableObject {
                 this.moveLeft();
             }
 
+
         }, 1000 / 60);
 
         setInterval(() => { // Images animations
@@ -62,6 +68,6 @@ class ChickenSmall extends MovableObject {
     }
 
     chickenJump() {
-        this.speedY = 30;   
+        this.speedY = 30;
     }
 }
