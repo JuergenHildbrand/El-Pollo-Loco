@@ -11,8 +11,9 @@ class Character extends MovableObject {
     walkin_sound = new Audio('audio/walking.mp3');
     jump_sound = new Audio('audio/jump.mp3');
     hurt_sound = new Audio('audio/hurt.mp3');
-    dead_sound = new Audio('audio/die.mp3');
+    dead_sound = new Audio('audio/dead.mp3');
     throw_sound = new Audio('audio/throw.mp3');
+    youLose_sound = new Audio('audio/youLose.mp3');
     gameIsRunning = true;
 
     IMAGES_WALKING = [
@@ -96,7 +97,11 @@ class Character extends MovableObject {
         const actions = setInterval(() => { // Character actions
 
             if (!this.gameIsRunning) {
-                this.jump();
+                if (this.energy > 0) {
+                    setTimeout(() => {
+                        this.jump();
+                    }, 1000);
+                }
                 clearInterval(actions);
             }
 
@@ -118,7 +123,7 @@ class Character extends MovableObject {
                 }
             }
 
-            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT || this.isAboveGround() || !this.gameIsRunning) { // Walking-sound stopped
+            if ((!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) || this.isAboveGround() || !this.gameIsRunning) { // Walking-sound stopped
                 this.walkin_sound.pause();
             }
 
@@ -138,6 +143,9 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 this.dead_sound.play();
+                setTimeout(() => {
+                    this.youLose_sound.play();
+                }, 1400);
                 this.isKilled();
             }
 
@@ -166,7 +174,7 @@ class Character extends MovableObject {
 
     sleepAnimation() {
         this.idleTime = new Date().getTime() - this.lastMove;
-        if (this.idleTime > 3000) {
+        if (this.idleTime > 4000) {
             this.playAnimation(this.IMAGES_SLEEP);
         } else {
             this.playAnimation(this.IMAGES_WAIT);

@@ -50,8 +50,8 @@ class World {
      */
     run() {
         this.checkActions = setInterval(() => {
-            this.throwableObjects();
             this.checkCollisions();
+            this.throwableObjects();
         }, 20);
         this.run2();
     }
@@ -62,65 +62,9 @@ class World {
         }, 200);
     }
 
-    /**
-     * Check the direction of the endboss
-     * 
-     */
-    checkDirection() {
-        this.level.endboss.forEach((endboss) => {
-            let pos = endboss.x + 130;
-            if (pos >= this.character.x) {
-                this.level.endboss.forEach((dir) => {
-                    dir.directionEndboss = true;
-                });
-            } else {
-                this.level.endboss.forEach((dir) => {
-                    dir.directionEndboss = false;
-                });
-            }
-            this.checkDistance(pos);
-        });
-    }
 
-    /**
-     * Check the distance between the character and endboss
-     * 
-     * @param {Number} pos - Position from the endboss
-     */
-    checkDistance(pos) {
-        let distance = pos - this.character.x;
-        if (distance < 1000) { // If < 1000px endboss starts
-            this.level.endboss.forEach((dir) => {
-                dir.endbossStart = true;
-            });
-        }
-        if (distance < 250 && distance > -250) { // If < 250px endboss attaks
-            this.level.endboss.forEach((dir) => {
-                dir.attack = true;
-            });
-        } else {
-            this.level.endboss.forEach((dir) => {
-                dir.attack = false;
-            });
-        }
-    }
 
-    /**
-     * Throw bottle
-     * 
-     */
-    throwableObjects() {
-        if (this.keyboard.D && this.character.addedBottles > 0 && !this.bottleThrown) { // if the key "d" is pressed, the character has bottle(s) and if the last throw was more than 500ms ago
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
-            this.character.addedBottles -= 5;
-            this.throwableObject.push(bottle);
-            this.statusBarBottle.setPercentage(this.character.addedBottles);
-            this.bottleThrown = true;
-            setTimeout(() => {
-                this.bottleThrown = false; // 600 ms after the last throw, set true
-            }, 600); // Time between the throws
-        }
-    }
+    /* ------- Check all collisions ------- */
 
     checkCollisions() {
         this.characterEnemies();
@@ -231,22 +175,110 @@ class World {
         });
     }
 
+
+
+    /* ------ Check throwable objects ------*/
+
+    throwableObjects() {
+        if (this.keyboard.D && this.character.addedBottles > 0 && !this.bottleThrown) { // if the key "d" is pressed, the character has bottle(s) and if the last throw was more than 500ms ago
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
+            this.character.addedBottles -= 5;
+            this.throwableObject.push(bottle);
+            this.statusBarBottle.setPercentage(this.character.addedBottles);
+            this.bottleThrown = true;
+            setTimeout(() => {
+                this.bottleThrown = false; // 600 ms after the last throw, set true
+            }, 600); // Time between the throws
+        }
+    }
+
+
+
+    /* ------- Endboss actions -------*/
+
     /**
-    * Checks if the game is finished
-    * 
-    */
-    checkEndgame() {
+     * Check the direction of the endboss
+     * 
+     */
+    checkDirection() {
         this.level.endboss.forEach((endboss) => {
-            if (this.character.gameOver || endboss.gameOver) {
-                this.stopIntervals();
+            let pos = endboss.x + 130;
+            if (pos >= this.character.x) {
+                this.level.endboss.forEach((dir) => {
+                    dir.directionEndboss = true;
+                });
+            } else {
+                this.level.endboss.forEach((dir) => {
+                    dir.directionEndboss = false;
+                });
             }
+            this.checkDistance(pos);
         });
     }
 
     /**
-     * All objects are drawn
+     * Check the distance between the character and endboss
      * 
+     * @param {Number} pos - Position from the endboss
      */
+    checkDistance(pos) {
+        let distance = pos - this.character.x;
+        if (distance < 1000) { // If < 1000px endboss starts
+            this.level.endboss.forEach((dir) => {
+                dir.endbossStart = true;
+            });
+        }
+        if (distance < 250 && distance > -250) { // If < 250px endboss attaks
+            this.level.endboss.forEach((dir) => {
+                dir.attack = true;
+            });
+        } else {
+            this.level.endboss.forEach((dir) => {
+                dir.attack = false;
+            });
+        }
+    }
+
+
+
+    /* -------- Game Over --------*/
+
+    checkEndgame() {
+        this.level.endboss.forEach((endboss) => {
+            if (this.character.gameOver || endboss.gameOver) {
+                this.stopIntervals();
+                this.finishGame();
+            }
+        });
+    }
+
+    stopIntervals() {
+        clearInterval(this.checkActions);
+        this.level.endboss.forEach((endboss) => {
+            endboss.gameIsRunning = false;
+        });
+        this.level.enemies.forEach((enemies) => {
+            enemies.gameIsRunning = false;
+        });
+        this.character.gameIsRunning = false;
+    }
+
+    finishGame() {
+        setTimeout(() => {
+            this.showEndscreen = true;
+        }, 2000);
+        setTimeout(() => {
+            gameOver(this.character.chickenSmallCount, this.character.chickenBigCount, this.character.addedCoins)
+        }, 3000);
+        setTimeout(() => {
+            this.stoppAnimations = true;
+        }, 6000);
+    }
+
+    
+
+    /* -------- All objects are drawn -------*/
+
     draw() {
         if (!this.stoppAnimations) {
             this.deleteCanvas();
@@ -285,9 +317,44 @@ class World {
     }
 
     /**
-     * Status-bar is drawn if the endboss started
+     * forEach-loop for all arrays
      * 
+     * @param {Array} objects - Contain all objects from the array
      */
+    addObjectsToMap(objects) {
+        objects.forEach(o => {
+            this.addToMap(o);
+        });
+    }
+
+    /**
+    * Passes an object to draw() in drawableObject and calls it. Checks the direction of the object
+    * 
+    * @param {Object} mo 
+    */
+    addToMap(mo) {
+        if (mo.otherDirection) {
+            this.flippImage(mo);
+        }
+        mo.draw(this.ctx);
+        // mo.drawFrame(this.ctx);
+        if (mo.otherDirection) {
+            this.flippImageBack(mo);
+        }
+    }
+
+    drawStatusBars() {
+        this.ctx.translate(-this.camera_x, 0); // To fix on screen
+        this.addToMap(this.statusBarLife);
+        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarCoin);
+        this.ctx.translate(this.camera_x, 0);
+    }
+
+    /**
+    * If the endboss started, status-bar is drawn
+    * 
+    */
     ifEndbossStart() {
         this.level.endboss.forEach((endboss) => {
 
@@ -299,6 +366,10 @@ class World {
         });
     }
 
+    /**
+     * Endsreen is drawn
+     * 
+     */
     ifEndGame() {
         this.level.endboss.forEach((endboss) => {
 
@@ -316,63 +387,6 @@ class World {
         });
     }
 
-    drawStatusBars() {
-        this.ctx.translate(-this.camera_x, 0); // To fix on screen
-        this.addToMap(this.statusBarLife);
-        this.addToMap(this.statusBarBottle);
-        this.addToMap(this.statusBarCoin);
-        this.ctx.translate(this.camera_x, 0);
-    }
-
-    /**
-     * forEach-loop for all arrays
-     * 
-     * @param {Array} objects - Contain all objects from the array
-     */
-    addObjectsToMap(objects) {
-        objects.forEach(o => {
-            this.addToMap(o);
-        });
-    }
-
-    /**
-     * Passes an object to draw() in drawableObject and calls it. Checks the direction of the object
-     * 
-     * @param {Object} mo 
-     */
-    addToMap(mo) {
-        if (mo.otherDirection) {
-            this.flippImage(mo);
-        }
-        mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx);
-        if (mo.otherDirection) {
-            this.flippImageBack(mo);
-        }
-    }
-
-    /**
-     * Mirrors an image
-     * 
-     * @param {Object} mo 
-     */
-    flippImage(mo) {
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0);
-        this.ctx.scale(-1, 1);
-        mo.x = mo.x * -1
-    }
-
-    /**
-     * Mirrors back an image
-     * 
-     * @param {Object} mo 
-     */
-    flippImageBack(mo) {
-        mo.x = mo.x * -1;
-        this.ctx.restore();
-    }
-
     /**
      * requestAnimationFrame() is executed as soon as everything above (in draw) is drawn. draw() is called again and again (as much as the graphics card can handle)
      * 
@@ -384,24 +398,28 @@ class World {
         });
     }
 
-    stopIntervals() {
-        clearInterval(this.checkActions);
-        this.level.endboss.forEach((endboss) => {
-            endboss.gameIsRunning = false;
-        });
-        this.level.enemies.forEach((enemies) => {
-            enemies.gameIsRunning = false;
-        });
-        this.character.gameIsRunning = false;
-        setTimeout(() => {
-            this.showEndscreen = true;
-        }, 2000);
-        setTimeout(() => {
-            gameOver(this.character.chickenSmallCount, this.character.chickenBigCount, this.character.addedCoins)
-        }, 3000);
-        setTimeout(() => {
-            this.stoppAnimations = true;
-        }, 6000);
+
+    /* ------ Mirror images ------*/
+
+    /**
+     * 
+     * @param {Object} mo 
+     */
+    flippImage(mo) {
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1
     }
+
+    /**
+     * 
+     * @param {Object} mo 
+     */
+    flippImageBack(mo) {
+        mo.x = mo.x * -1;
+        this.ctx.restore();
+    }
+
 
 }

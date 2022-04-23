@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let startGame_sound = new Audio('audio/startGame.mp3');
 
 /**
  * Start-screen
@@ -17,6 +18,9 @@ function startGame() {
     this.initLevel();
     canvas = document.getElementById('canvas'); 
     world = new World(canvas, keyboard);
+    setTimeout(() => {
+        startGame_sound.play()
+    }, 500);
 }
 
 /**
