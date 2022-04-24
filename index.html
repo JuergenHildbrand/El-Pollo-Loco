@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
+    <script src="models/action-Btns-1.class.js"></script>
     <script src="models/character.class.js"></script>
     <script src="models/chicken.class.js"></script>
     <script src="models/chicken-small.class.js"></script>
@@ -78,7 +79,23 @@
 
     <!-- Canvas -->
     <canvas class="d-none" id="canvas" width="1280" height="720"></canvas>
-    <!-- <button onclick="openFullscreen()">full</button> -->
+    <button class="fullscreenBtn d-none" id="fullscreen" onclick="fullscreen()">Full-Screen</button>
+    <div class="d-column distanceTB" id="actionBtn1">
+        <div class="d-flex d-center">
+            <div class="infoButtonsStart" onclick="left()"><img src="img/keyboard/arrowLeft.ico"></div>
+        </div>
+        <div class="d-flex d-center">
+            <div class="infoButtonsStart" onclick="right()"><img src="img/keyboard/arrowRight.ico"></div>
+        </div>
+    </div>
+    <div class="d-column distanceTB" id="actionBtn2">
+        <div class="d-flex  d-center">
+            <div class="infoButtonsTxt" onclick="tBottle()">Throw</div>
+        </div>
+        <div class="d-flex d-center">
+            <div class="infoButtonsTxt" onclick="jump()">Jump</div>
+        </div>
+    </div>
 
     <!-- Endscreen -->
     <div class="endscreen d-flex d-center d-none" id="endscreen">

@@ -31,6 +31,20 @@ canvas {
 
 /* Content */
 
+.fullscreenBtn {
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 1184px;
+    background-color: transparent;
+    border: 0px solid;
+    font-size: 16px;
+    font-family: 'Comic Neue';
+}
+
+.fullscreenBtn:hover {
+    cursor: pointer;
+}
+
 #startScreen {
     max-width: 1280px;
     max-height: 720px;
@@ -55,6 +69,7 @@ canvas {
     color: rgb(235, 235, 235);
     height: 72px;
     width: 240px;
+    z-index: 999;
 }
 
 .startGameBtn:hover {
@@ -110,7 +125,7 @@ canvas {
 }
 
 .endscreen {
-    margin-top: 8px;
+    margin-top: 16px;
     max-width: 1280px;
     width: 100%;
     justify-content: space-around;
@@ -177,4 +192,25 @@ canvas {
     .gameOver > div {
         margin-bottom: 8px;
     }
+}
+
+/* Mobile Devices */
+
+#actionBtn1,
+#actionBtn2  {
+    position: absolute;
+    max-height: 100vh;
+    height: 100%;
+    top: 0;
+    margin-top: 24vh;
+}
+
+#actionBtn1 > div {
+    margin-bottom: 196px;
+    margin-left: 90vw;
+}
+
+#actionBtn2 > div {
+    margin-bottom: 196px;
+    margin-right: 90vw;
 }

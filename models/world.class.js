@@ -246,6 +246,9 @@ class World {
     checkEndgame() {
         this.level.endboss.forEach((endboss) => {
             if (this.character.gameOver || endboss.gameOver) {
+                setTimeout(() => {
+                    closeFullscreen();
+                }, 2000);
                 this.stopIntervals();
                 this.finishGame();
             }
@@ -266,7 +269,7 @@ class World {
     finishGame() {
         setTimeout(() => {
             this.showEndscreen = true;
-        }, 2000);
+        }, 1000);
         setTimeout(() => {
             gameOver(this.character.chickenSmallCount, this.character.chickenBigCount, this.character.addedCoins)
         }, 3000);
