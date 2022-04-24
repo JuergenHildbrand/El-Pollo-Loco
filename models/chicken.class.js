@@ -65,18 +65,15 @@ class Chicken extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => { // Images animations
+
             if (this.chickenDead) {
                 this.loadImage(this.IMAGES_DEAD);
                 this.speed = 0;
             } else {
                 this.playAnimation(this.IMAGES_WALKING);
             }
+
         }, 200);
-
-    }
-
-    move() {
-        
     }
 
     chickenJump() {

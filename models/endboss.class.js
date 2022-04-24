@@ -12,7 +12,6 @@ class Endboss extends MovableObject {
     enbossStart_sound = new Audio('audio/enbossStart.mp3');
     youWin_sound = new Audio('audio/youWin.mp3');
     
-
     IMAGES_WALKING = [
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/1.Caminata/G1.png',
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/1.Caminata/G2.png',
@@ -53,8 +52,6 @@ class Endboss extends MovableObject {
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/4.Muerte/G25.png',
         'img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/4.Muerte/G26.png'
     ];
-
-    world;
 
     constructor() {
         super().loadImage('img/4.Secuencias_Enemy_gigantขn-Doคa_Gallinota-/2.Ateciขn-ataque/1.Alerta/G5.png');
@@ -118,6 +115,7 @@ class Endboss extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => { // Images animations
+
             if (this.isDeadEndboss()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
@@ -129,11 +127,12 @@ class Endboss extends MovableObject {
             } else {
                 this.playAnimation(this.IMAGES_WALKING);
             }
-        }, 1000 / 10);
 
+        }, 1000 / 10);
     }
 
     move() {
+
         if (this.directionEndboss) {
             this.x -= 11.2;
             this.otherDirection = false;
@@ -148,5 +147,4 @@ class Endboss extends MovableObject {
             this.x == this.speed;
         }, 1000 / 60);
     }
-
 }    

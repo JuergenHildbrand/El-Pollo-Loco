@@ -94,6 +94,7 @@ class Character extends MovableObject {
     }
 
     animate() {
+        
         const actions = setInterval(() => { // Character actions
 
             if (!this.gameIsRunning) {

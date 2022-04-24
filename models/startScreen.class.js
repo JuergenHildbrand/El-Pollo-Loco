@@ -8,6 +8,4 @@ class StartScreen extends MovableObject {
     constructor() {
         super().loadImage('img/9.Intro _ Outro Image/Start Screen/Opciขn 1.png');
     }
-
-
 }

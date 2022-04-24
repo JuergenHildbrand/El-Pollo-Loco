@@ -14,7 +14,7 @@ function init() {
 function startGame() {
     document.getElementById('start').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
-    this.initLevel();
+    this.initLevel(); // Start level1.js
     canvas = document.getElementById('canvas'); 
     world = new World(canvas, keyboard);
     setTimeout(() => {
@@ -23,7 +23,7 @@ function startGame() {
 }
 
 /**
- * Finish game, end-screen
+ * End-screen
  * 
  * @param {Number} chickenSmallCount - Killed small-chicken(s)
  * @param {Number} chickenBigCount - Killed big-chicken(s)
