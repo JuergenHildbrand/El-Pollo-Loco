@@ -13,7 +13,6 @@ function init() {
 
 function startGame() {
     document.getElementById('start').classList.add('d-none');
-    document.getElementById('gameOver').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     this.initLevel();
     canvas = document.getElementById('canvas'); 
@@ -34,7 +33,7 @@ function gameOver(chickenSmallCount, chickenBigCount, addedCoins) {
     document.getElementById('chickenSmallCount').innerHTML = chickenSmallCount;
     document.getElementById('chickenBigCount').innerHTML = chickenBigCount;
     document.getElementById('coinCount').innerHTML = addedCoins;
-    document.getElementById('gameOver').classList.remove('d-none');
+    document.getElementById('endscreen').classList.remove('d-none');
 }
 
 function reStartGame() {

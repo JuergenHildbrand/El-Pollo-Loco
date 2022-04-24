@@ -13,30 +13,36 @@ canvas {
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .d-flex {
     display: flex;
-    align-items: center;
+}
+
+.d-clumn {
+    flex-direction: column;
 }
 
 .d-center {
-    justify-content: center;
-}
-
-.distance {
-    width: 800px;
-    display: flex;
-    justify-content: space-around !important;
+    align-items: center;
 }
 
 
 /* Content */
 
 #startScreen {
-    width: 1280px;
-    height: 720px;
+    max-width: 1280px;
+    max-height: 720px;
+    width: 100%;
+    height: auto;
+}
+
+.content {
+    max-width: 1280px;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .startGameBtn {
@@ -47,8 +53,8 @@ canvas {
     font-size: 34px;
     font-family: 'Comic Neue';
     color: rgb(235, 235, 235);
-    margin-top: 12px;
-    margin-right: 96px !important;
+    height: 72px;
+    width: 240px;
 }
 
 .startGameBtn:hover {
@@ -64,11 +70,20 @@ canvas {
     padding-left: 12px;
     padding-bottom: 8px;
     padding-right: 12px;
-    margin-top: 16px;
 }
 
 .infoButtonsStart img {
     height: 16px;
+}
+
+.infoBtns > div {
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.distanceTB > div {
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
 .infoButtonsTxt {
@@ -79,20 +94,31 @@ canvas {
     padding-left: 12px;
     padding-bottom: 8px;
     padding-right: 12px;
-    margin-top: 16px;
     color: white;
     font-weight: bold;
     font-size: 20px;
 }
 
 .gameInfo {
-    margin-top: 8px;
     font-size: 20px;
     font-weight: bold;
 }
 
 .gameInfo > div {
-    margin-top: 6px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.endscreen {
+    margin-top: 8px;
+    max-width: 1280px;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.gameOver > div {
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 .infoButtonsEnd {
@@ -103,7 +129,6 @@ canvas {
     padding-left: 8px;
     padding-bottom: 8px;
     padding-right: 8px;
-    margin-top: 8px;
 }
 
 .infoButtonsEnd img {
@@ -111,7 +136,6 @@ canvas {
 }
 
 .txt {
-    margin-top: 16px;
     margin-left: 8px;
     font-size: 22px;
     font-weight: bold;
@@ -129,5 +153,28 @@ canvas {
 @media only screen and (max-height: 720px) {
     canvas {
         height: 100vh;
+    }
+}
+
+@media (max-width: 920px) {
+    .endscreen,
+    .content {
+        flex-direction: column;
+    }
+
+    .gameOver {
+        margin-top: 16px;
+    }
+}
+
+@media (max-width: 640px) {
+    .gameOver,
+    .infoBtns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gameOver > div {
+        margin-bottom: 8px;
     }
 }
