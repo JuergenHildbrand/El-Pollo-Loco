@@ -33,9 +33,7 @@ canvas {
 /* Content */
 
 .fullscreenBtn {
-    position: absolute;
     margin-top: 8px;
-    margin-left: 1184px;
     background-color: transparent;
     border: 0px solid;
     font-size: 16px;

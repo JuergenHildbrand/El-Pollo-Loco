@@ -43,7 +43,6 @@ function startGame() {
 }
 
 function fullscreen() {
-    document.getElementById('fullscreen').classList.add('d-none');
     if (canvas.RequestFullScreen) {
         canvas.RequestFullScreen();
     } else if (canvas.webkitRequestFullScreen) {
