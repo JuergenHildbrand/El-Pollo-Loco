@@ -11,7 +11,7 @@ class DrawableObject {
     xLimitOffset = 0; // Optimize collisions
     yLimitOffset = 0; // Optimize collisions
     currentImage = 0; // Is needed to iterate through an array
-    
+
     /**
      * 
      * @param {String} path - Path from images as a String
@@ -26,7 +26,12 @@ class DrawableObject {
      * @param {HTMLCanvasElement} ctx 
      */
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        try {
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        } catch (e) {
+            console.warn('errorloading image', e);
+            console.log('could not load image', this.img.src);
+        }
     }
 
     /**
@@ -34,10 +39,10 @@ class DrawableObject {
      * 
      * @param {String} array - Path from images as a String
      */
-    loadImages(array) { 
+    loadImages(array) {
         array.forEach((path) => {
-            let img = new Image(); 
-            img.src = path; 
+            let img = new Image();
+            img.src = path;
             this.imageCache[path] = img; // imageCache is updated and gets the read out images 
         });
     }

@@ -248,7 +248,7 @@ class World {
             if (this.character.gameOver || endboss.gameOver) {
                 setTimeout(() => {
                     closeFullscreen();
-                }, 2000);
+                }, 3000);
                 this.stopIntervals();
                 this.finishGame();
             }

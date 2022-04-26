@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="style.css">
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
-    <script src="models/action-Btns-1.class.js"></script>
     <script src="models/character.class.js"></script>
     <script src="models/chicken.class.js"></script>
     <script src="models/chicken-small.class.js"></script>
@@ -48,7 +47,7 @@
         <div class="content d-flex">
             <button class="startGameBtn" id="startGame" onclick="startGame()">Start Game</button>
             <div class="infoBtns d-flex d-center">
-                <div class="d-column distanceTB">
+                <div class="d-column distanceTB d-none" id="infoBtns1">
                     <div class="d-flex d-center">
                         <div class="infoButtonsStart"><img src="img/keyboard/arrowLeft.ico"></div>
                         <div class="txt">Left</div>
@@ -58,7 +57,7 @@
                         <div class="txt">Right</div>
                     </div>
                 </div>
-                <div class="d-column distanceTB">
+                <div class="d-column distanceTB d-none" id="infoBtns2">
                     <div class="d-flex  d-center">
                         <div class="infoButtonsTxt">D</div>
                         <div class="txt">Throw Bottle</div>
@@ -69,9 +68,15 @@
                     </div>
                 </div>
                 <div class="gameInfo">
-                    <div>- Kill chicken: Jump on it</div>
-                    <div>- Kill endboss: Throw bottles</div>
-                    <div>- If you have collected all coins, <br>&nbsp you gain 25% life energy</div>
+                    <div class="d-flex">
+                        <div>- Kill chicken: Jump on it</div>
+                        <div class="d-none" id="txtMob1">&nbsp(J)</div>
+                    </div>    
+                    <div class="d-flex">
+                        <div>- Kill endboss: Throw bottles</div>
+                        <div class="d-none" id="txtMob2">&nbsp(T)</div>
+                    </div>
+                    <div>- If you have collected all coins,<br>&nbsp you gain 25% life-energy</div> 
                 </div>
             </div>
         </div>
@@ -80,20 +85,22 @@
     <!-- Canvas -->
     <canvas class="d-none" id="canvas" width="1280" height="720"></canvas>
     <button class="fullscreenBtn d-none" id="fullscreen" onclick="fullscreen()">Full-Screen</button>
-    <div class="d-column distanceTB" id="actionBtn1">
+
+    <!-- Mobile Device Buttons -->
+    <div class="d-column distanceTB d-none" id="actionBtn1">
         <div class="d-flex d-center">
-            <div class="infoButtonsStart" onclick="left()"><img src="img/keyboard/arrowLeft.ico"></div>
+            <button id="goRight"><img src="img/keyboard/arrowRight.ico"></button>
         </div>
         <div class="d-flex d-center">
-            <div class="infoButtonsStart" onclick="right()"><img src="img/keyboard/arrowRight.ico"></div>
+            <button id="goLeft"><img src="img/keyboard/arrowLeft.ico"></button>
         </div>
     </div>
-    <div class="d-column distanceTB" id="actionBtn2">
+    <div class="d-column distanceTB d-none" id="actionBtn2">
         <div class="d-flex  d-center">
-            <div class="infoButtonsTxt" onclick="tBottle()">Throw</div>
+            <button id="tBottle1">T</button>
         </div>
         <div class="d-flex d-center">
-            <div class="infoButtonsTxt" onclick="jump()">Jump</div>
+            <button id="cJump1">J</button>
         </div>
     </div>
 

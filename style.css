@@ -5,6 +5,7 @@ body {
     flex-direction: column;
     align-items: center;
     font-family: 'Comic Neue';
+    margin: 0;
 }
 
 canvas {
@@ -49,7 +50,7 @@ canvas {
     max-width: 1280px;
     max-height: 720px;
     width: 100%;
-    height: auto;
+    max-height: 100vh;
 }
 
 .content {
@@ -85,6 +86,7 @@ canvas {
     padding-left: 12px;
     padding-bottom: 8px;
     padding-right: 12px;
+    z-index: 999;
 }
 
 .infoButtonsStart img {
@@ -131,6 +133,10 @@ canvas {
     justify-content: space-around;
 }
 
+.gameOver {
+    margin-bottom: 12px;
+}
+
 .gameOver > div {
     margin-left: 12px;
     margin-right: 12px;
@@ -157,24 +163,25 @@ canvas {
 }
 
 
-/* Smartphones */
-@media only screen and (max-width: 1280px) {
-    canvas {
-        width: 100%;
-    }
-}
-
-/* Smartphones */
-@media only screen and (max-height: 720px) {
-    canvas {
-        height: 100vh;
-    }
-}
+/* Responsive */
 
 @media (max-width: 920px) {
     .endscreen,
     .content {
         flex-direction: column;
+    }
+
+    .startGameBtn {
+        margin-top: 16px;
+    }
+
+    .infoBtns{
+        margin-top: 32px;
+        justify-content: left;
+    }
+
+    .gameInfo {
+        margin-top: 16px;
     }
 
     .gameOver {
@@ -194,7 +201,24 @@ canvas {
     }
 }
 
-/* Mobile Devices */
+
+/* Mobile Device canvas */
+@media only screen and (max-width: 1280px) {
+    canvas {
+        max-width: 100%;
+    }
+}
+
+/* Mobile Device canvas */
+@media only screen and (max-height: 720px) {
+    canvas {
+        height: 100vh;
+
+    }
+}
+
+
+/* Mobile Device Buttons */
 
 #actionBtn1,
 #actionBtn2  {
@@ -202,15 +226,51 @@ canvas {
     max-height: 100vh;
     height: 100%;
     top: 0;
-    margin-top: 24vh;
+    margin-top: 30vh;
+
 }
 
 #actionBtn1 > div {
-    margin-bottom: 196px;
-    margin-left: 90vw;
+    margin-bottom: 48px;
+    margin-right: 90vw;
 }
 
 #actionBtn2 > div {
-    margin-bottom: 196px;
-    margin-right: 90vw;
+    margin-bottom: 48px;
+    margin-left: 90vw;
+}
+
+#goLeft,
+#goRight,
+#tBottle1,
+#cJump1 {
+    width: 64px;
+    height: 64px;
+    background-color:  rgb(253, 130, 9);
+    filter: opacity(40%);
+    z-index: 999;
+    font-size: 24px;
+    border: 0px solid;
+    border-radius: 8px;
+}
+
+#goLeft:hover,
+#goRight:hover,
+#tBottle1:hover,
+#cJump1:hover {
+    filter: opacity(80%);
+}
+
+#goLeft img,
+#goRight img {
+    height: 24px;
+    margin-top: 5px;
+}
+
+#goLeft img {
+    margin-right: 4px;
+}
+
+#goRight img {
+    margin-left: 4px;
 }
