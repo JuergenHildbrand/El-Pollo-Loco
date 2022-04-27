@@ -2,6 +2,7 @@ class World {
 
     canvas;
     keyboard;
+    sounds;
     ctx;
     level = level1;
     character = new Character();
@@ -17,10 +18,9 @@ class World {
     bottleThrown = false; // Is set to true after a throw, xxx-ms later it is set to false again (the value must be false to throw a bottle) 
     endbossHit = false; // If the endboss is hit, true is set (one deduction / hit)
     lastJump = 0; // Is needed that you can kill chicken only from above
-    getCoin_sound = new Audio('audio/getCoin.mp3');
-    getBottle_sound = new Audio('audio/getBottle.mp3');
     showEndscreen = false;
     stoppAnimations = false;
+    soundStop = false;
 
     /**
      * 
@@ -52,16 +52,10 @@ class World {
         this.checkActions = setInterval(() => {
             this.checkCollisions();
             this.throwableObjects();
-        }, 20);
-        this.run2();
-    }
-    run2() {
-        setInterval(() => {
             this.checkDirection();
             this.checkEndgame();
-        }, 200);
+        }, 20);
     }
-
 
 
     /* ------- Check all collisions ------- */
@@ -81,7 +75,7 @@ class World {
     characterEnemies() {
         let timeX = new Date().getTime() - this.lastJump;
         this.level.enemies.forEach((enemies, index) => {
-            if (this.character.isColliding(enemies) && !enemies.chickenDead && !this.character.isAboveGround() && timeX > 200) { // Hit character
+            if (this.character.isColliding(enemies) && !enemies.chickenDead && (timeX < 1200 || timeX > 1400)) { // Hit character
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
@@ -118,7 +112,7 @@ class World {
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.character.addedCoins += 1;
-                this.getCoin_sound.play();
+                sounds.getCoin_sound.play();
                 if (this.character.addedCoins == 20 && this.character.addedCoins < 21) {
                     this.character.addLife();
                 }
@@ -138,7 +132,7 @@ class World {
                 this.character.addedBottles += 5;
                 this.statusBarBottle.setPercentage(this.character.addedBottles);
                 this.level.bottles.splice(index, 1);
-                this.getBottle_sound.play();
+                sounds.getBottle_sound.play();
             }
         });
         this.level.bottlesEnd.forEach((bottle, index) => {
@@ -146,7 +140,7 @@ class World {
                 this.character.addedBottles += 5;
                 this.statusBarBottle.setPercentage(this.character.addedBottles);
                 this.level.bottlesEnd.splice(index, 1);
-                this.getBottle_sound.play();
+                sounds.getBottle_sound.play();
             }
         });
     }
@@ -224,8 +218,18 @@ class World {
     checkDistance(pos) {
         let distance = pos - this.character.x;
         if (distance < 1000) { // If < 1000px endboss starts
-            this.level.endboss.forEach((dir) => {
-                dir.endbossStart = true;
+            this.level.endboss.forEach((endboss) => {
+                endboss.endbossStart = true;
+                sounds.backgroundMelody_sound.pause();
+                if (endboss.gameOver || this.character.gameOver) {
+                    this.soundStop = true;
+                }
+                setTimeout(() => {
+                    if (!this.soundStop) {
+                        sounds.melodyEndboss_sound.volume = 0.2;
+                        sounds.melodyEndboss_sound.play();
+                    }
+                }, 1000);
             });
         }
         if (distance < 250 && distance > -250) { // If < 250px endboss attaks
@@ -246,11 +250,13 @@ class World {
     checkEndgame() {
         this.level.endboss.forEach((endboss) => {
             if (this.character.gameOver || endboss.gameOver) {
+                this.stopIntervals();
+                sounds.backgroundMelody_sound.pause();
+                sounds.melodyEndboss_sound.pause();
+                this.finishGame();
                 setTimeout(() => {
                     closeFullscreen();
                 }, 3000);
-                this.stopIntervals();
-                this.finishGame();
             }
         });
     }
@@ -278,7 +284,7 @@ class World {
         }, 6000);
     }
 
-    
+
 
     /* -------- All objects are drawn -------*/
 
@@ -352,12 +358,10 @@ class World {
     */
     ifEndbossStart() {
         this.level.endboss.forEach((endboss) => {
-
             if (endboss.endbossStart) {
                 this.addToMap(this.statusBarEndboss);
                 this.addToMap(this.imgEndboss);
             }
-
         });
     }
 

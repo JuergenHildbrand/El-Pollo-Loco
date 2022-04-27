@@ -8,12 +8,6 @@ class Character extends MovableObject {
     yOffset = 33;
     xLimitOffset = 65;
     yLimitOffset = 163;
-    walkin_sound = new Audio('audio/walking.mp3');
-    jump_sound = new Audio('audio/jump.mp3');
-    hurt_sound = new Audio('audio/hurt.mp3');
-    dead_sound = new Audio('audio/dead.mp3');
-    throw_sound = new Audio('audio/throw.mp3');
-    youLose_sound = new Audio('audio/youLose.mp3');
     gameIsRunning = true;
 
     IMAGES_WALKING = [
@@ -110,7 +104,7 @@ class Character extends MovableObject {
                 this.positionCharacter = this.x;
                 this.otherDirection = false;
                 if (!this.isAboveGround()) {
-                    this.walkin_sound.play();
+                    sounds.walkin_sound.play();
                 }
             }
 
@@ -119,32 +113,32 @@ class Character extends MovableObject {
                 this.positionCharacter = this.x;
                 this.otherDirection = true;
                 if (!this.isAboveGround()) {
-                    this.walkin_sound.play();
+                    sounds.walkin_sound.play();
                 }
             }
 
             if ((!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) || this.isAboveGround() || !this.gameIsRunning) { // Walking-sound stopped
-                this.walkin_sound.pause();
+                sounds.walkin_sound.pause();
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) { // Jump
                 this.jump();
                 this.world.lastJump = new Date().getTime();
-                this.jump_sound.play();
+                sounds.jump_sound.play();
             }
 
             if (this.isHurt()) {
-                this.hurt_sound.play();
+                sounds.hurt_sound.play();
             }
 
             if (this.world.keyboard.D && this.addedBottles > 0 && !this.world.bottleThrown) { // Throw
-                this.throw_sound.play();
+                sounds.throw_sound.play();
             }
 
             if (this.isDead()) {
-                this.dead_sound.play();
+                sounds.dead_sound.play();
                 setTimeout(() => {
-                    this.youLose_sound.play();
+                    sounds.youLose_sound.play();
                 }, 1400);
                 this.isKilled();
             }

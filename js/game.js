@@ -1,6 +1,6 @@
 let world;
 let keyboard = new Keyboard();
-let startGame_sound = new Audio('audio/startGame.mp3');
+let sounds = new Sounds();
 let canvas = document.getElementById('canvas');
 let isInFullScreen =
     (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
@@ -36,10 +36,14 @@ function startGame() {
     }
     this.initLevel(); // Start level1.js
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
+    world = new World(canvas, keyboard, sounds);
     setTimeout(() => {
-        startGame_sound.play()
+        sounds.startGame_sound.play()
     }, 500);
+    setTimeout(() => {
+        sounds.backgroundMelody_sound.volume = 0.2;
+        sounds.backgroundMelody_sound.play();
+    }, 1500);
 }
 
 function fullscreen() {

@@ -9,8 +9,6 @@ class Endboss extends MovableObject {
     yLimitOffset = 30;
     gameIsRunning = true;
     introSound = false;
-    enbossStart_sound = new Audio('audio/enbossStart.mp3');
-    youWin_sound = new Audio('audio/youWin.mp3');
     
     IMAGES_WALKING = [
         'img/4.Secuencias_Enemy_giganton-Dona_Gallinota/1.Caminata/G1.png',
@@ -72,15 +70,15 @@ class Endboss extends MovableObject {
 
         const actions = setInterval(() => { // Endboss actions
 
+            if (!this.gameIsRunning) {
+                clearInterval(actions);
+            }
+
             if (this.endbossStart) { // If distance between character und endboss < 1000px
 
                 if (!this.introSound) {
-                    this.enbossStart_sound.play();
+                    sounds.enbossStart_sound.play();
                     this.introSound = true;
-                }
-
-                if (!this.gameIsRunning) {
-                    clearInterval(actions);
                 }
 
                 if (timer == 0) { // setTime gets a ramdom number
@@ -106,7 +104,7 @@ class Endboss extends MovableObject {
 
                 if (this.energyEndboss == 0) { // If endboss is dead
                     setTimeout(() => {
-                        this.youWin_sound.play();
+                        sounds.youWin_sound.play();
                     }, 500);
                     this.isKilled();
                 }

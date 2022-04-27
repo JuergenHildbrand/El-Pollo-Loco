@@ -4,7 +4,6 @@ class ChickenSmall extends MovableObject {
     width = 70;
     setTime = 2; // Receive a random number
     gameIsRunning = true;
-    chickenDead_sound = new Audio('audio/chickenDead.mp3');
 
     IMAGES_WALKING = [
         'img/3.Secuencias_Enemy_basico/Versi¢n_pollito/1.Paso_derecho.png',
@@ -57,7 +56,7 @@ class ChickenSmall extends MovableObject {
 
             if (this.chickenDead) {
                 clearInterval(actions)
-                this.chickenDead_sound.play();
+                sounds.chickenDead_sound.play();
             } else {
                 this.moveLeft();
             }
