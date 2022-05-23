@@ -4,7 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0; // Fall speed
     acceleration = 2.5;
     energy = 100;
-    energyEndboss = 1;
+    energyEndboss = 100;
     lastHit = 0; // Is needed to calculate the time since the last hit on the character
     addedCoins = 0;
     addedBottles = 0;

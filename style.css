@@ -8,6 +8,10 @@ body {
     margin: 0;
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+}
+
 canvas {
     background-color: black;
     display: block;
