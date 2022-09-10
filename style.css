@@ -12,11 +12,6 @@ body {
     width: 0px;
 }
 
-canvas {
-    background-color: black;
-    display: block;
-}
-
 .d-none {
     display: none !important;
 }
@@ -25,7 +20,7 @@ canvas {
     display: flex;
 }
 
-.d-clumn {
+.d-column {
     flex-direction: column;
 }
 
@@ -69,15 +64,17 @@ canvas {
 }
 
 .startGameBtn {
-    margin-left: 2vw !important;
-    border-radius: 0.8vw;
+    position: absolute;
+    width: 14vw;
+    height: 4vw;
+    top: 2.5vw;
+    left: calc((100vw - 1280px) / 2 + 96px);
+    border-radius: 0.2vw;
     border: 0.3vw solid rgb(253, 130, 9);
     background-color: green;
-    font-size: 3vw !important;
+    font-size: 2vw;
     font-family: 'Comic Neue';
     color: rgb(235, 235, 235);
-    width: 21vw;
-    height: 6vw;
     z-index: 999;
 }
 
@@ -86,47 +83,111 @@ canvas {
     cursor: pointer;
 }
 
-.infoBtns {
-    margin-left: 10vw !important;
+.txt {
+    position: absolute;
+    margin-left: 8px;
+    font-size: 1.9vw;
+    font-weight: bold;
 }
 
 .infoButtonsStart {
-    border-radius: 0.9vw;
+    position: absolute;
+    height: 2.2vw;
+    width: 2.2vw;
+    border-radius: 0.2vw;
     background-color: rgb(253, 130, 9);
-    height: 3.8vw;
-    width: 3.8vw;
     z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.infoButtonsStart img {
-    width: 1.5vw;
-}
-
-.infoBtns > div {
-    margin-left: 1vw;
-    margin-right: 1vw;
-}
-
-.distanceTB > div {
-    margin-top: 0.7vw;
-    margin-bottom: 0.7vw;
-}
-
-.infoButtonsTxt {
-    border-radius: 0.8vw;
+.infoButtonsTxtD {
+    position: absolute;
+    height: 2.2vw;
+    width: 2.2vw;
+    border-radius: 0.2vw;
     background-color: rgb(253, 130, 9);
-    height: 3.8vw;
-    padding-left: 1vw;
-    padding-right: 1vw;
     color: white;
     font-weight: bolder;
     font-size: 1.8vw;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.infoButtonsTxtJ {
+    position: absolute;
+    height: 2.2vw;
+    width: 6vw;
+    border-radius: 0.2vw;
+    background-color: rgb(253, 130, 9);
+    color: white;
+    font-weight: bolder;
+    font-size: 1.8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnLeft {
+    top: 1vw;
+    left: calc((100vw - 1280px) / 2 + 360px);
+}
+
+.txtLeft {
+    top: 1vw;
+    left: calc((100vw - 1280px) / 2 + 400px);
+}
+
+.btnRight {
+    top: 5vw;
+    left: calc((100vw - 1280px) / 2 + 360px);
+}
+
+.txtRight {
+    top: 5vw;
+    left: calc((100vw - 1280px) / 2 + 400px);
+}
+
+.btnTB {
+    top: 1vw;
+    left: calc((100vw - 1280px) / 2 + 500px);
+}
+
+.txtTB {
+    top: 1vw;
+    left: calc((100vw - 1280px) / 2 + 540px);
+}
+
+.btnJ {
+    top: 5vw;
+    left: calc((100vw - 1280px) / 2 + 500px);
+}
+
+.txtJ {
+    top: 5vw;
+    left: calc((100vw - 1280px) / 2 + 588px);
+}
+
+.liKillC {
+    top: 1vw;
+    left: calc((100vw - 1280px) / 2 + 760px);
+}
+
+.liKillE {
+    top: 5vw;
+    left: calc((100vw - 1280px) / 2 + 760px);
+}
+
+.liLeft {
+    top: 9vw;
+    left: calc((100vw - 1280px) / 2 + 360px);
+}
+
+
+.infoButtonsStart img {
+    width: 1vw;
 }
 
 .gameInfo {
@@ -139,6 +200,15 @@ canvas {
     margin-top: 4px;
     margin-bottom: 4px;
 }
+
+
+
+canvas {
+    background-color: black;
+    display: block;
+}
+
+
 
 .endscreen {
     margin-top: 16px;
@@ -163,40 +233,56 @@ canvas {
     height: 7vw;
 }
 
-.txt {
-    margin-left: 8px;
-    font-size: 1.9vw;
-    font-weight: bold;
-}
-
 
 /* Responsive */
 
-@media (max-width: 501px) {
+@media (max-width: 1253px) {
     .startGameBtn {
-        margin-left: 2vw !important;
-        border-radius: 0.8vw;
-        border: 0.3vw solid rgb(253, 130, 9);
-        background-color: green;
-        font-size: 14px;
-        font-family: 'Comic Neue';
-        color: rgb(235, 235, 235);
-        width: 110px;
-        height: 32px;
-        z-index: 999;
+        left: 6vw;
     }
 
-    .infoBtns {
-        margin-left: 1vw !important;
+    .btnLeft {
+        left: 27vw;
     }
-
-    .gameInfo {
-        margin-left: 8vw !important;
-        display: flex;
+    
+    .txtLeft {
+        left: 30vw;
     }
-
-    .left {
-        margin-left: 12px;
+    
+    .btnRight {
+        left: 27vw;
+    }
+    
+    .txtRight {
+        left: 30vw;
+    }
+    
+    .btnTB {
+        left: 38vw;
+    }
+    
+    .txtTB {
+        left: 41vw
+    }
+    
+    .btnJ {
+        left: 38vw
+    }
+    
+    .txtJ {
+        left: 45vw
+    }
+    
+    .liKillC {
+        left: 60vw;
+    }
+    
+    .liKillE {
+        left: 60vw;
+    }
+    
+    .liLeft {
+        left: 27vw;
     }
 }
 

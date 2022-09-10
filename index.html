@@ -51,38 +51,24 @@
             <button class="startGameBtn" id="startGame" onclick="startGame()">Start Game</button>
             <div class="infoBtns d-flex d-center">
                 <div class="d-column distanceTB d-none" id="infoBtns1">
-                    <div class="d-flex d-center">
-                        <div class="infoButtonsStart"><img src="img/keyboard/arrowLeft.ico"></div>
-                        <div class="txt">Left</div>
-                    </div>
-                    <div class="d-flex d-center">
-                        <div class="infoButtonsStart"><img src="img/keyboard/arrowRight.ico"></div>
-                        <div class="txt">Right</div>
-                    </div>
+                    <div class="infoButtonsStart btnLeft"><img src="img/keyboard/arrowLeft.ico"></div>
+                    <div class="txt txtLeft">Left</div>
+                    <div class="infoButtonsStart btnRight"><img src="img/keyboard/arrowRight.ico"></div>
+                    <div class="txt txtRight">Right</div>
                 </div>
                 <div class="d-column distanceTB d-none" id="infoBtns2">
-                    <div class="d-flex  d-center">
-                        <div class="infoButtonsTxt">D</div>
-                        <div class="txt">Throw Bottle</div>
-                    </div>
-                    <div class="d-flex d-center">
-                        <div class="infoButtonsTxt">Space</div>
-                        <div class="txt">Jump</div>
-                    </div>
+                    <div class="infoButtonsTxtD btnTB">D</div>
+                    <div class="txt txtTB">Throw Bottle</div>
+                    <div class="infoButtonsTxtJ btnJ">Space</div>
+                    <div class="txt txtJ">Jump</div>
                 </div>
-                <div class="gameInfo">
-                    <div class="d-clumn">
-                        <div class="d-flex">
-                            <div>- Kill chicken: Jump on it</div>
-                            <div class="d-none" id="txtMob1">&nbsp(J)</div>
-                        </div>
-                        <div class="d-flex">
-                            <div>- Kill endboss: Throw bottles</div>
-                            <div class="d-none" id="txtMob2">&nbsp(T)</div>
-                        </div>
-                    </div>
-                    <div class="left">- If you have collected all coins,<br>&nbsp you gain 25% life-energy</div>
-                </div>
+
+                <li class="txt liKillC">Kill chicken: Jump on it</li>
+                <div class="d-none" id="txtMob1">&nbsp(J)</div>
+                <li class="txt liKillE">Kill endboss: Throw bottles</li>
+                <div class="d-none" id="txtMob2">&nbsp(T)</div>
+                <li class="txt liLeft">If you have collected all coins, you gain 25% life-energy</li>
+
             </div>
         </div>
     </div>
