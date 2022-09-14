@@ -17,14 +17,46 @@ function init() {
         document.getElementById('infoBtns1').classList.remove('d-none');
         document.getElementById('infoBtns2').classList.remove('d-none');
     } else {
-        document.getElementById('txtMob1').classList.remove('d-none');
-        document.getElementById('txtMob2').classList.remove('d-none');
+        document.getElementById('infoBtns1').classList.add('d-none');
+        document.getElementById('infoBtns2').classList.add('d-none');
+        if (document.body.clientWidth > document.body.clientHeight) {
+            document.getElementById('startGame').classList.add('rightStartBtn');
+            document.getElementById('killC').classList.add('killC');
+            document.getElementById('killE').classList.add('killE');
+            document.getElementById('ifY').classList.add('ifY');
+            document.getElementById('startScreen').classList.add('objectP');
+        }
     }
+
 }
 
 function isMobile() {
     return navigator.userAgent.match(/(iPhone|iPod|iPad|blackberry|android|Kindle|htc|lg|midp|mmp|mobile|nokia|opera mini|palm|pocket|psp|sgh|smartphone|symbian|treo mini|Playstation Portable|SonyEricsson|Samsung|MobileExplorer|PalmSource|Benq|Windows Phone|Windows Mobile|IEMobile|Windows CE|Nintendo Wii)/i);
 }
+
+window.addEventListener("resize", function (event) {
+    if (!isMobile()) {
+        document.getElementById('infoBtns1').classList.remove('d-none');
+        document.getElementById('infoBtns2').classList.remove('d-none');
+        document.getElementById('startGame').classList.remove('rightStartBtn');
+        document.getElementById('killC').classList.remove('killC');
+        document.getElementById('killE').classList.remove('killE');
+        document.getElementById('ifY').classList.remove('ifY');
+        document.getElementById('startScreen').classList.remove('objectP');
+    } else {
+        document.getElementById('infoBtns1').classList.add('d-none');
+        document.getElementById('infoBtns2').classList.add('d-none');
+        if (document.body.clientWidth > document.body.clientHeight) {
+            document.getElementById('startGame').classList.add('rightStartBtn');
+            document.getElementById('killC').classList.add('killC');
+            document.getElementById('killE').classList.add('killE');
+            document.getElementById('ifY').classList.add('ifY');
+            document.getElementById('startScreen').classList.add('objectP');
+        } 
+    }
+
+    // console.log(document.body.clientWidth + ' wide by ' + document.body.clientHeight + ' high');
+})
 
 function startGame() {
     document.getElementById('start').classList.add('d-none');

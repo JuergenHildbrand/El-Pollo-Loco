@@ -65,7 +65,7 @@ class Endboss extends MovableObject {
     animate() {
 
         let timer = 0; // If the value is < 300, endboss walk
-        let interval = 250; // If the value is < 250, enboss stops
+        let interval = 300; // If the value is < 250, enboss stops
         let setTime = 2; // To calculate diffrent times
 
         const actions = setInterval(() => { // Endboss actions
@@ -93,11 +93,11 @@ class Endboss extends MovableObject {
                         interval = 0; // interval is set to zero
                         setTime = 2 + Math.random() * 10;
                     }
-                } else if (interval < 250) { // Endboss stops
+                } else if (interval < 300) { // Endboss stops
                     this.stoped = true; // The alerta or attack animations starts
                     this.stop();
                     interval += setTime; // The interval gets a random number added at each interval
-                    if (interval >= 250) { // The timer is set to zero and the endboss starts walking again
+                    if (interval >= 300) { // The timer is set to zero and the endboss starts walking again
                         timer = 0; 
                     }
                 }

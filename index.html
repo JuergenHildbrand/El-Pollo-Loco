@@ -47,30 +47,27 @@
     <!-- Startscreen -->
     <div id="start">
         <img id="startScreen">
-        <div class="content d-flex">
-            <button class="startGameBtn" id="startGame" onclick="startGame()">Start Game</button>
-            <div class="infoBtns d-flex d-center">
-                <div class="d-column distanceTB d-none" id="infoBtns1">
-                    <div class="infoButtonsStart btnLeft"><img src="img/keyboard/arrowLeft.ico"></div>
-                    <div class="txt txtLeft">Left</div>
-                    <div class="infoButtonsStart btnRight"><img src="img/keyboard/arrowRight.ico"></div>
-                    <div class="txt txtRight">Right</div>
-                </div>
-                <div class="d-column distanceTB d-none" id="infoBtns2">
-                    <div class="infoButtonsTxtD btnTB">D</div>
-                    <div class="txt txtTB">Throw Bottle</div>
-                    <div class="infoButtonsTxtJ btnJ">Space</div>
-                    <div class="txt txtJ">Jump</div>
-                </div>
-
-                <li class="txt liKillC">Kill chicken: Jump on it</li>
-                <div class="d-none" id="txtMob1">&nbsp(J)</div>
-                <li class="txt liKillE">Kill endboss: Throw bottles</li>
-                <div class="d-none" id="txtMob2">&nbsp(T)</div>
-                <li class="txt liLeft">If you have collected all coins, you gain 25% life-energy</li>
-
+        <button class="startGameBtn" id="startGame" onclick="startGame()">Start Game</button>
+        <div class="infoBtns">
+            <div class="d-column d-none" id="infoBtns1">
+                <div class="infoButtonsStart btnLeft"><img src="img/keyboard/arrowLeft.ico"></div>
+                <div class="txt txtLeft">Left</div>
+                <div class="infoButtonsStart btnRight"><img src="img/keyboard/arrowRight.ico"></div>
+                <div class="txt txtRight">Right</div>
             </div>
+            <div class="d-column d-none" id="infoBtns2">
+                <div class="infoButtonsTxtD btnTB">D</div>
+                <div class="txt txtTB">Throw Bottle</div>
+                <div class="infoButtonsTxtJ btnJ">Space</div>
+                <div class="txt txtJ">Jump</div>
+            </div>
+
+            <li class="txt liKillC" id="killC">Kill chicken: Jump on it</li>
+            <li class="txt liKillE" id="killE">Kill endboss: Throw bottles</li>
+            <li class="txt liLeft" id="ifY">If you have collected all coins, you gain 25% life-energy</li>
+
         </div>
+
     </div>
 
     <!-- Canvas -->
