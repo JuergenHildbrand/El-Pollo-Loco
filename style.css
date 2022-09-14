@@ -31,10 +31,6 @@ body {
 
 /* Content */
 
-.canvas {
-    max-height: 100vh !important;
-}
-
 #start {
     height: 100vh !important;
 }
@@ -68,21 +64,29 @@ body {
     width: 100%;
 }
 
-.startGameBtn {
+.srgbs {
     position: absolute;
-    width: 14vw;
-    max-width: 179px;
+    width: 14.5vw;
+    max-width: 185px;
     height: 4vw;
-    max-height: 51px;
-    top: 2.5vw;
-    left: calc((100vw - 1280px) / 2 + 77px);
+    max-height: 51px; 
     border-radius: 0.2vw;
     border: 0.3vw solid rgb(253, 130, 9);
     background-color: green;
-    font-size: 2vw;
+    font-size: 1.9vw;
     font-family: 'Comic Neue';
     color: rgb(235, 235, 235);
     z-index: 999;
+}
+
+.startGameBtn {
+    top: 2.5vw;
+    left: calc((100vw - 1280px) / 2 + 77px);
+}
+
+.endGameBtn {
+    top: 3.6vw;
+    left: calc((100vw - 1280px) / 2 + 280px);
 }
 
 .startGameBtn:hover {
@@ -92,6 +96,12 @@ body {
 
 .txt {
     position: absolute;
+    margin-left: 8px;
+    font-size: 1.9vw;
+    font-weight: bold;
+}
+
+.txt2 {
     margin-left: 8px;
     font-size: 1.9vw;
     font-weight: bold;
@@ -214,6 +224,11 @@ body {
     margin-bottom: 4px;
 }
 
+.canvas {
+    max-height: 100vh !important;
+    text-align: center;
+}
+
 canvas {
     background-color: black;
     display: block;
@@ -222,13 +237,18 @@ canvas {
 .endscreen {
     margin-top: 16px;
     max-width: 1280px;
-    width: 100%;
     justify-content: space-around;
 }
 
+.gameOver {
+    left: calc((100vw - 1280px) / 2 + 500px);
+    position: absolute;
+    top: 2vw;
+}
+
 .gameOver > div {
-    margin-left: 12px;
-    margin-right: 12px;
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 
 .infoButtonsEnd {
@@ -238,14 +258,15 @@ canvas {
 }
 
 .infoButtonsEnd img {
-    height: 7vw;
+    height: 7vw !important;
+    max-height: 80px;
 }
 
 .rightStartBtn {
     left: 10vw !important;
 }
 
-.killE {
+/* .killE {
     top: 2vw !important;
     left: 27vw !important;
 }
@@ -257,7 +278,7 @@ canvas {
 
 .ifY {
     top: 4.6vw !important;
-}
+} */
 /* 
 .objectP {
     object-position: center !important;
@@ -270,6 +291,14 @@ canvas {
 
     .startGameBtn {
         left: 6vw;
+    }
+
+    .endGameBtn {
+        left: 21.6vw;
+    }
+
+    .gameOver {
+        left: 39vw;
     }
 
     .btnLeft {
@@ -317,6 +346,13 @@ canvas {
     }
 }
 
+@media (max-width: 1280px) {
+
+    .srgbs {
+        font-size: 1.8vw;
+    }
+}
+
 @media (min-width: 1281px) {
 
     .txt {
@@ -326,6 +362,20 @@ canvas {
     .startGameBtn {
         top: 32px;
         font-size: 25px;
+    }
+
+    .endGameBtn {
+        top: 46px;
+        font-size: 24px;
+    }
+
+    .gameOver {
+        top: 26px;
+    }
+
+    .gameOver > div {
+        margin-left: 12px;
+        margin-right: 12px;
     }
 
     .btnLeft {
