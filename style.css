@@ -2,10 +2,10 @@
 
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     font-family: 'Comic Neue';
     margin: 0;
-    height: 100vh;
 }
 
 ::-webkit-scrollbar {
@@ -32,11 +32,11 @@ body {
 /* Content */
 
 .canvas {
-    max-height: fit-content;
+    max-height: 100vh !important;
 }
 
 #start {
-    /* position: relative; */
+    height: 100vh !important;
 }
 
 .fullscreenBtn {
@@ -52,6 +52,7 @@ body {
 }
 
 #startScreen {
+    display: block;
     width: 100vw;
     height: 100vh;
     max-width: 1280px;
@@ -213,14 +214,10 @@ body {
     margin-bottom: 4px;
 }
 
-
-
 canvas {
     background-color: black;
     display: block;
 }
-
-
 
 .endscreen {
     margin-top: 16px;
