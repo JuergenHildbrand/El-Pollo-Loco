@@ -9,7 +9,7 @@ class Endboss extends MovableObject {
     yLimitOffset = 30;
     gameIsRunning = true;
     introSound = false;
-    
+
     IMAGES_WALKING = [
         'img/4.Secuencias_Enemy_giganton-Dona_Gallinota/1.Caminata/G1.png',
         'img/4.Secuencias_Enemy_giganton-Dona_Gallinota/1.Caminata/G2.png',
@@ -73,19 +73,19 @@ class Endboss extends MovableObject {
             if (!this.gameIsRunning) {
                 clearInterval(actions);
             }
-
-            if (this.endbossStart) { // If distance between character und endboss < 1000px
+            // If distance between character und endboss < 1000px
+            if (this.endbossStart) {
 
                 if (!this.introSound) {
                     sounds.enbossStart_sound.play();
                     this.introSound = true;
                 }
-
-                if (timer == 0) { // setTime gets a ramdom number
+                // setTime gets a ramdom number
+                if (timer == 0) {
                     setTime = 2 + Math.random() * 10;
                 }
-
-                if (timer < 300) { // Endboss walk
+                // Endboss walk
+                if (timer < 300) {
                     this.stoped = false;
                     this.move(); // The end boss moves left or right (always in the direction of the character)
                     timer += setTime; // The timer gets a random number added at each interval
@@ -98,33 +98,21 @@ class Endboss extends MovableObject {
                     this.stop();
                     interval += setTime; // The interval gets a random number added at each interval
                     if (interval >= 300) { // The timer is set to zero and the endboss starts walking again
-                        timer = 0; 
+                        timer = 0;
                     }
                 }
-
                 if (this.energyEndboss == 0) { // If endboss is dead
                     setTimeout(() => {
                         sounds.youWin_sound.play();
                     }, 500);
                     this.isKilled();
                 }
-
             }
         }, 1000 / 60);
 
-        setInterval(() => { // Images animations
-            if (this.isDeadEndboss()) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.stoped && !this.attack) {
-                this.playAnimation(this.IMAGES_ALERTA);
-            } else if (this.attack) { // If the distance between character und endboss is < 250px
-                this.playAnimation(this.IMAGES_ATTACK);
-            } else {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-        }, 1000 / 10);
+        this.imagesAnimations();
+
+
     }
 
     move() {
@@ -141,5 +129,21 @@ class Endboss extends MovableObject {
         setInterval(() => {
             this.x == this.speed;
         }, 1000 / 60);
+    }
+
+    imagesAnimations() {
+        setInterval(() => { // Images animations
+            if (this.isDeadEndboss()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.stoped && !this.attack) {
+                this.playAnimation(this.IMAGES_ALERTA);
+            } else if (this.attack) { // If the distance between character und endboss is < 250px
+                this.playAnimation(this.IMAGES_ATTACK);
+            } else {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+        }, 1000 / 10);
     }
 }    

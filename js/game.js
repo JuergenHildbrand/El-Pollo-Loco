@@ -6,74 +6,66 @@ let isInFullScreen =
     (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
     (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
     (document.msFullscreenElement && document.msFullscreenElement !== null);
+let gameIsRunning = false;
 
-/**
- * Start-screen
- * 
- */
 function init() {
     document.getElementById('startScreen').src = 'img/9.Intro _ Outro Image/Start Screen/Opciขn 1.png';
     if (!isMobile()) {
-        document.getElementById('infoBtns1').classList.remove('d-none');
-        document.getElementById('infoBtns2').classList.remove('d-none');
-        document.getElementById('infoBtns2').classList.remove('d-none');
+        removeBtns();
     } else {
-        document.getElementById('infoBtns1').classList.add('d-none');
-        document.getElementById('infoBtns2').classList.add('d-none');
-        if (document.body.clientWidth > document.body.clientHeight) {
-            document.getElementById('startGame').classList.add('rightStartBtn');
-            document.getElementById('endGameBtn').classList.add('rightEndBtn');
-            document.getElementById('killC').classList.add('killC');
-            document.getElementById('killE').classList.add('killE');
-            document.getElementById('ifY').classList.add('ifY');
-            document.getElementById('startScreen').classList.add('objectP');
-            document.getElementById('infoButtonsEnd1').classList.add('ibem');
-            document.getElementById('infoButtonsEnd2').classList.add('ibem');
-            document.getElementById('infoButtonsEnd3').classList.add('ibem');
-            document.getElementById('infoImgEnd1').classList.add('iiem');
-            document.getElementById('infoImgEnd2').classList.add('iiem');
-            document.getElementById('infoImgEnd3').classList.add('iiem');
-            document.getElementById('gameOver').classList.add('gol');
-        }
+        addBtns();
     }
-
 }
+
+function removeBtns() {
+    document.getElementById('infoBtns1').classList.remove('d-none');
+    document.getElementById('infoBtns2').classList.remove('d-none');
+    document.getElementById('infoBtns2').classList.remove('d-none');
+}
+
+function addBtns() {
+    document.getElementById('infoBtns1').classList.add('d-none');
+    document.getElementById('infoBtns2').classList.add('d-none');
+    if (document.body.clientWidth > document.body.clientHeight) {
+        changeStyleIfLandscape();
+    }
+}
+
+function changeStyleIfLandscape() {
+    document.getElementById('startGame').classList.add('rightStartBtn');
+    document.getElementById('endGameBtn').classList.add('rightEndBtn');
+    document.getElementById('killC').classList.add('killC');
+    document.getElementById('killE').classList.add('killE');
+    document.getElementById('ifY').classList.add('ifY');
+    document.getElementById('startScreen').classList.add('objectP');
+    document.getElementById('infoButtonsEnd1').classList.add('ibem');
+    document.getElementById('infoButtonsEnd2').classList.add('ibem');
+    document.getElementById('infoButtonsEnd3').classList.add('ibem');
+    document.getElementById('infoImgEnd1').classList.add('iiem');
+    document.getElementById('infoImgEnd2').classList.add('iiem');
+    document.getElementById('infoImgEnd3').classList.add('iiem');
+    document.getElementById('gameOver').classList.add('gol');
+}
+
 
 function isMobile() {
     return navigator.userAgent.match(/(iPhone|iPod|iPad|blackberry|android|Kindle|htc|lg|midp|mmp|mobile|nokia|opera mini|palm|pocket|psp|sgh|smartphone|symbian|treo mini|Playstation Portable|SonyEricsson|Samsung|MobileExplorer|PalmSource|Benq|Windows Phone|Windows Mobile|IEMobile|Windows CE|Nintendo Wii)/i);
 }
 
 window.addEventListener("resize", function (event) {
-    if (!isMobile()) {
-        document.getElementById('infoBtns1').classList.remove('d-none');
-        document.getElementById('infoBtns2').classList.remove('d-none');
-        document.getElementById('startGame').classList.remove('rightStartBtn');
-        document.getElementById('killC').classList.remove('killC');
-        document.getElementById('killE').classList.remove('killE');
-        document.getElementById('ifY').classList.remove('ifY');
-        document.getElementById('startScreen').classList.remove('objectP');
-    } else {
-        document.getElementById('infoBtns1').classList.add('d-none');
-        document.getElementById('infoBtns2').classList.add('d-none');
-        if (document.body.clientWidth > document.body.clientHeight) {
-            document.getElementById('startGame').classList.add('rightStartBtn');
-            document.getElementById('killC').classList.add('killC');
-            document.getElementById('killE').classList.add('killE');
-            document.getElementById('ifY').classList.add('ifY');
-            document.getElementById('startScreen').classList.add('objectP');
-        } 
+    if (!gameIsRunning) {
+        window.location.reload();
     }
-
-    // console.log(document.body.clientWidth + ' wide by ' + document.body.clientHeight + ' high');
-})
+});
 
 function startGame() {
+    gameIsRunning = true;
     document.getElementById('start').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     if (!isMobile()) {
         document.getElementById('fullscreen').classList.remove('d-none');
     } else {
-        mobileDevice();
+        setMobileTouchEvents();
     }
     this.initLevel(); // Start level1.js
     canvas = document.getElementById('canvas');
@@ -134,38 +126,7 @@ function reStartGame() {
     window.location.href = window.location.href;
 }
 
-window.addEventListener("keydown", (e) => {
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = true; // Outputs a JSON
-    }
-    if (e.keyCode == 37) {
-        keyboard.LEFT = true;
-    }
-    if (e.keyCode == 32 && e.target === document.body) {
-        keyboard.SPACE = true;
-        e.preventDefault(); void 0;
-    }
-    if (e.keyCode == 68) {
-        keyboard.D = true;
-    }
-});
-
-window.addEventListener("keyup", (e) => {
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = false;
-    }
-    if (e.keyCode == 37) {
-        keyboard.LEFT = false;
-    }
-    if (e.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
-    if (e.keyCode == 68) {
-        keyboard.D = false;
-    }
-});
-
-function mobileDevice() {
+function setMobileTouchEvents() {
     document.getElementById('actionBtn1').classList.remove('d-none');
     document.getElementById('actionBtn2').classList.remove('d-none');
 
@@ -202,4 +163,38 @@ function mobileDevice() {
         e.preventDefault();
     }
 }
+
+
+// Set keyboard events
+
+window.addEventListener("keydown", (e) => {
+    if (e.keyCode == 39) {
+        keyboard.RIGHT = true; // Outputs a JSON
+    }
+    if (e.keyCode == 37) {
+        keyboard.LEFT = true;
+    }
+    if (e.keyCode == 32 && e.target === document.body) {
+        keyboard.SPACE = true;
+        e.preventDefault(); void 0;
+    }
+    if (e.keyCode == 68) {
+        keyboard.D = true;
+    }
+});
+
+window.addEventListener("keyup", (e) => {
+    if (e.keyCode == 39) {
+        keyboard.RIGHT = false;
+    }
+    if (e.keyCode == 37) {
+        keyboard.LEFT = false;
+    }
+    if (e.keyCode == 32) {
+        keyboard.SPACE = false;
+    }
+    if (e.keyCode == 68) {
+        keyboard.D = false;
+    }
+});
 

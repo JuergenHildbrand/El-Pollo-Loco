@@ -30,18 +30,17 @@ class Chicken extends MovableObject {
     animate() {
 
         let timer = 0; // If the value > 4000, the chicken jumps
-
-        const actions = setInterval(() => { // Character actions
-
+        // Character actions
+        const actions = setInterval(() => { 
             if (!this.gameIsRunning) {
                 clearInterval(actions);
             }
-
-            if (timer < 4001) { // Increases the value of timer
+            // Increases the value of timer
+            if (timer < 4001) { 
                 timer += this.setTime;
             }
-
-            if (timer > 4000 && !this.isAboveGround()) { // Chicken jumps
+            // Chicken jumps
+            if (timer > 4000 && !this.isAboveGround()) { 
                 this.chickenJump();
                 this.speed -= 10;
                 setTimeout(() => {
@@ -62,16 +61,17 @@ class Chicken extends MovableObject {
             }
 
         }, 1000 / 60);
+        this.imagesAnimations();
+    }
 
+    imagesAnimations() {
         setInterval(() => { // Images animations
-
             if (this.chickenDead) {
                 this.loadImage(this.IMAGES_DEAD);
                 this.speed = 0;
             } else {
                 this.playAnimation(this.IMAGES_WALKING);
             }
-
         }, 200);
     }
 
