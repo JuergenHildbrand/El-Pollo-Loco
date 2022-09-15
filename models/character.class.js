@@ -88,86 +88,90 @@ class Character extends MovableObject {
     // Character actions
     animate() {
         const actions = setInterval(() => {
-            this.moveCharacter();
+            this.moveCharacter(actions);
             this.world.camera_x = -this.x + 400;
         }, 1000 / 60);
         this.imagesAnimations();
     }
 
-    moveCharacter() {
-        // Jumping by start game
-        if (!this.gameIsRunning) {
-            this.jumpByGameStart();
-        }
-        // Walking right
-        if ((this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x)) {
-            this.walkRight();
-        }
-        // Walking left
-        if ((this.world.keyboard.LEFT && this.x > -1025)) {
-            this.walkLeft();
-        }
-        // Walking-sound stopped
-        if ((!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) || this.isAboveGround() || !this.gameIsRunning) {
-            sounds.walkin_sound.pause();
-        }
-        // Jumping
-        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-            this.jumping();
-        }
-        // Hurting
-        if (this.isHurt()) {
-            sounds.hurt_sound.play();
-        }
-        // Throwing
-        if (this.world.keyboard.D && this.addedBottles > 0 && !this.world.bottleThrown) {
-            sounds.throw_sound.play();
-        }
-        // Dieing
-        if (this.isDead()) {
-            this.dieing();
-            clearInterval(actions);
-        }
+    moveCharacter(actions) {
+        this.jumpByGameStart();
+        this.walkRight();
+        this.walkLeft();
+        this.jumping();
+        this.hurting();
+        this.throwing();
+        this.dieing(actions);
+        this.walkingSoundStop();
     }
 
     jumpByGameStart() {
-        if (this.energy > 0) {
-            setTimeout(() => {
-                this.jump();
-            }, 1000);
+        if (!this.gameIsRunning) {
+            if (this.energy > 0) {
+                setTimeout(() => {
+                    this.jump();
+                }, 1000);
+            }
         }
     }
 
     walkRight() {
-        this.moveRight();
-        this.positionCharacter = this.x;
-        this.otherDirection = false;
-        if (!this.isAboveGround()) {
-            sounds.walkin_sound.play();
+        if ((this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x)) {
+            this.moveRight();
+            this.positionCharacter = this.x;
+            this.otherDirection = false;
+            if (!this.isAboveGround()) {
+                sounds.walkin_sound.play();
+            }
         }
     }
 
     walkLeft() {
-        this.moveLeft();
-        this.positionCharacter = this.x;
-        this.otherDirection = true;
-        if (!this.isAboveGround()) {
-            sounds.walkin_sound.play();
+        if ((this.world.keyboard.LEFT && this.x > -1025)) {
+            this.moveLeft();
+            this.positionCharacter = this.x;
+            this.otherDirection = true;
+            if (!this.isAboveGround()) {
+                sounds.walkin_sound.play();
+            }
+        }
+    }
+
+    walkingSoundStop() {
+        if ((!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) || this.isAboveGround() || !this.gameIsRunning) {
+            return sounds.walkin_sound.pause();
         }
     }
 
     jumping() {
-        this.jump();
-        this.world.lastJump = new Date().getTime();
-        sounds.jump_sound.play();
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+            this.world.lastJump = new Date().getTime();
+            sounds.jump_sound.play();
+        }
     }
 
-    dieing() {
-        sounds.dead_sound.play();
-        setTimeout(() => {
-            sounds.youLose_sound.play();
-        }, 1400);
-        this.isKilled();
+    hurting() {
+        if (this.isHurt()) {
+            sounds.hurt_sound.play();
+        }
+    }
+
+    throwing() {
+        if (this.world.keyboard.D && this.addedBottles > 0 && !this.world.bottleThrown) {
+            sounds.throw_sound.play();
+        }
+    }
+
+    dieing(actions) {
+        if (this.isDead()) {
+            sounds.dead_sound.play();
+            setTimeout(() => {
+                sounds.youLose_sound.play();
+            }, 1400);
+            this.isKilled();
+            return clearInterval(actions);
+        }
     }
 
     imagesAnimations() {
