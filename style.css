@@ -258,32 +258,51 @@ canvas {
 }
 
 .infoButtonsEnd img {
-    height: 7vw !important;
+    height: 7vw;
     max-height: 80px;
 }
 
 .rightStartBtn {
-    left: 10vw !important;
+    top: 3vw;
+    left: 16vw !important;
 }
 
-/* .killE {
-    top: 2vw !important;
-    left: 27vw !important;
+.rightEndBtn {
+    top: 3vw;
+    left: 28vw !important;
+}
+
+.killE {
+    top: 2.6vw !important;
+    left: 32vw !important;
 }
 
 .killC {
-    top: 2vw !important;
-    left: 54vw !important;
+    top: 2.6vw !important;
+    left: 60vw !important;
 }
 
 .ifY {
-    top: 4.6vw !important;
-} */
-/* 
+    top: 5vw !important;
+    left: 38vw;
+} 
+ 
 .objectP {
     object-position: center !important;
-} */
+}
 
+.ibem {
+    max-height: 44px;
+    max-width: 44px;
+}
+
+.iiem {
+    height: 30px !important;
+}
+
+.gol {
+    left: 44vw !important;
+}
 
 /* Responsive */
 
@@ -342,7 +361,7 @@ canvas {
     }
     
     .liLeft {
-        left: 27vw;
+        left: 32vw;
     }
 }
 
@@ -401,7 +420,6 @@ canvas {
     .infoButtonsTxtD {     
         font-size: 24px;  
     }
-    
     
     .txtTB {
         top: 20px;

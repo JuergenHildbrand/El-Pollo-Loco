@@ -16,15 +16,24 @@ function init() {
     if (!isMobile()) {
         document.getElementById('infoBtns1').classList.remove('d-none');
         document.getElementById('infoBtns2').classList.remove('d-none');
+        document.getElementById('infoBtns2').classList.remove('d-none');
     } else {
         document.getElementById('infoBtns1').classList.add('d-none');
         document.getElementById('infoBtns2').classList.add('d-none');
         if (document.body.clientWidth > document.body.clientHeight) {
             document.getElementById('startGame').classList.add('rightStartBtn');
+            document.getElementById('endGameBtn').classList.add('rightEndBtn');
             document.getElementById('killC').classList.add('killC');
             document.getElementById('killE').classList.add('killE');
             document.getElementById('ifY').classList.add('ifY');
             document.getElementById('startScreen').classList.add('objectP');
+            document.getElementById('infoButtonsEnd1').classList.add('ibem');
+            document.getElementById('infoButtonsEnd2').classList.add('ibem');
+            document.getElementById('infoButtonsEnd3').classList.add('ibem');
+            document.getElementById('infoImgEnd1').classList.add('iiem');
+            document.getElementById('infoImgEnd2').classList.add('iiem');
+            document.getElementById('infoImgEnd3').classList.add('iiem');
+            document.getElementById('gameOver').classList.add('gol');
         }
     }
 
